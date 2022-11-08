@@ -5,9 +5,9 @@
 
 - PrimeFaces Initial version: **6.0**
 
-- Current version: **10.0**
+- Current version: **12.0**
 
-- Expected version: **12.0**
+- - Queue Management
 
 - 💬 Support **GLDC DEV TEAM**
 
