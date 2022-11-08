@@ -10,38 +10,41 @@
         <style type="text/css">
 
             body
-            {           
-                    background-image: url(http://TD134927LDG3861:8080/GLDC_SYSTEM/resources/images/gldc_principal2.png);
-                    background-color: #000000;
-                    background-size: 100% 100%;
-                    background-attachment: fixed;
-                    background-repeat: no-repeat;    
-                    background-position: center;
-            };
+            {
+                background-image: url(resources/images/gldc_principal2.png);
+                background-color: #000000;
+                background-size: 100% 100%;
+                background-attachment: fixed;
+                background-repeat: no-repeat;
+                background-position: center;
+            }
+            ;
 
             estatusdiag .ui-widget-content{
                 background: transparent !important;
-                border:none !important; 
-                box-shadow:none !important; 
-            };
-            
-            
-            
-        conteiner{
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 50%;  
-        font-size: 80%;
-        
-        .ui-dialog-titlebar{
-                display:none;
-                }
-        
-};
+                border:none !important;
+                box-shadow:none !important;
+            }
+            ;
 
-.iu-state-default .icon-login{
-    background-image: url(http://TD134927LDG3861:8080/GLDC_SYSTEM/resources/images/gldc_principal2.png);
-}
+
+
+            conteiner{
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 50%;
+                font-size: 80%;
+
+                .ui-dialog-titlebar{
+                    display:none;
+                }
+
+            }
+            ;
+
+            .iu-state-default .icon-login{
+                background-image: url(resources/images/gldc_principal2.png);
+            }
 
         </style>
 
@@ -52,27 +55,26 @@
             function handleLoginRequest(xhr, status, args) {
                 if (args.validationFailed || !args.loggedIn) {
                     jQuery('#loginForm');
-                }
-                else {
+                } else {
                     location.href = args.ruta;
 
                 }
             }
         </script>
 
-      
-        
+
+
 
         <title>Login</title>
-        
-  
-        
-        
+
+
+
+
 
     </h:head>
-    
+
     <h:body>
-      
+
         <div class="conteiner">
             <p:growl id="growl" showDetail="true" life= "3000"  />
             <h:form id ="loginForm"   >
@@ -81,47 +83,47 @@
                 </h:outputLink>
 
                 <p:panel   
-                    style=" border: none; 
-                    box-shadow: none;  
+                    style=" border: none;
+                    box-shadow: none;
                     background: transparent; margin-left: 44%;
                     width: 60%;    margin-top: 15% "  
                     >
 
-            
 
 
-                    <h:panelGrid columns="3" cellpadding="5" style=" 
+
+                    <h:panelGrid columns="3" cellpadding="5" style="
                                  border: none; box-shadow: none;  background: transparent;">  
 
-         
 
 
-                       
 
-                        <h:panelGrid columns="1"   style=" 
+
+
+                        <h:panelGrid columns="1"   style="
                                      background: transparent;  border-color:  #AFAFAF ;">  
 
                             <h:outputText   value="Login"  style="font-size: 50px; font-family:  Corbel Light;   margin-left: 20% "   />
 
-                             <p:separator  style="height:1px;  background-color:  #000000 " />    
+                            <p:separator  style="height:1px;  background-color:  #000000 " />    
 
                             <h:outputLabel for="username" value="   Usuario:" 
-                                            style="font-size: 25px; font-family:  Corbel Light;" />  
-                            
+                                           style="font-size: 25px; font-family:  Corbel Light;" />  
+
                             <p:inputText value="#{loginBean.username}" id="username" required="true" label="username"
                                          style="font-size: 20px !important ; width: 200px;  font-family:  Corbel Light; margin:  auto"
                                          /> 
 
-                              <h:outputLabel for="password" value="   Contraseña:" 
-                                            style="font-size: 25px; font-family:  Corbel Light;" />  
-                              
+                            <h:outputLabel for="password" value="   Contraseña:" 
+                                           style="font-size: 25px; font-family:  Corbel Light;" />  
+
                             <p:password value="#{loginBean.password}" id="password" required="true" label="password" 
                                         style="font-size: 20px !important ;font-family:  sans-serif; width: 200px "
                                         />
-                            
-                            
-                            
-                          
+
+
+
+
 
                             <f:facet name="footer">  
                                 <p:commandButton id="loginButton" value="Entrar" update=":growl"    
@@ -129,29 +131,29 @@
                                                  oncomplete="handleLoginRequest(xhr, status, args)"
                                                  style=" background-color:  transparent; font-size:  20px !important; width: 220px;"
                                                  />
-                                   
-                            </f:facet>    
-                            
-                           
-                           <p:separator  style="height:1px; color:#000000;" />    
-                            
-                                
-                              
-                        </h:panelGrid>  
-                        
-                        
 
-                              
-                          
+                            </f:facet>    
+
+
+                            <p:separator  style="height:1px; color:#000000;" />    
+
+
+
+                        </h:panelGrid>  
+
+
+
+
+
 
                     </h:panelGrid>    
 
-                    
-            <p:commandLink   value="¿Olvidaste tu contraseña?"  style="color:#000000 ;font-size:  15px !important; margin-left: 10%  "
-                                   onclick="PF('DialogoPassword').show()" 
-                                   />
-             
-                      
+
+                    <p:commandLink   value="¿Olvidaste tu contraseña?"  style="color:#000000 ;font-size:  15px !important; margin-left: 10%  "
+                                     onclick="PF('DialogoPassword').show()" 
+                                     />
+
+
                 </p:panel>                
             </h:form>            
         </div> 
@@ -202,20 +204,20 @@
 
     </h:body>
 
-   <p:dialog modal="true" widgetVar="statusDialog"   
-                      closable="false"  
-                      resizable="false"
-                      showEffect="drop"
-                      hideEffect="drop"
-                      showHeader="false"
-                      position="center"
-                      style="border: none; box-shadow: none;  background: transparent; "  
-                      styleClass="estatusdiag"
-                      >  
-               <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+    <p:dialog modal="true" widgetVar="statusDialog"   
+              closable="false"  
+              resizable="false"
+              showEffect="drop"
+              hideEffect="drop"
+              showHeader="false"
+              position="center"
+              style="border: none; box-shadow: none;  background: transparent; "  
+              styleClass="estatusdiag"
+              >  
+        <p:graphicImage value="../resources/images/ajax_att.gif"  />   
     </p:dialog> 
 
-        
+
 </html>
 
 
