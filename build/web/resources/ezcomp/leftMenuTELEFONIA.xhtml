@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="leftMenuTELEFONIA"/>
+    </cc:interface>
+    
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            <p:accordionPanel style="" activeIndex="-1">         
+                <p:tab title="CALENDARIO">
+                    <p:calendar  mode="inline" style="font-size: smaller;width: 20px; height: 20px" />
+                </p:tab>
+                <p:tab title="BITÁCORA">
+                    <h:link value="‌• AGREGAR EVENTOS" outcome="bitacoraInsertTELEFONIA_tc" />
+                    <br/>
+                    <br/>
+                    <h:link value="‌• CONSULTAR BITÁCORA" outcome="bitacoraConsultaTELEFONIA_tc" />
+                    <br/>
+                    <br/>
+                    <h:link value="‌• MODIFICAR BITÁCORA" outcome="bitacoraUpdateTELEFONIA_tc" />
+                </p:tab>
+                <p:tab title="JOBS" >          
+                    <h:link value="‌• STATUS JOBS" outcome="jobStatusTELEFONIA_tc" />
+                    <br/>
+                    <br/>
+                    <h:link value="‌• CONSULTAR PROGRAMACIÓN" outcome="programacionJobsTELEFONIA_tc" />
+               </p:tab>
+               <p:tab title="GESTOR DE DESCARGAS" >          
+                    <h:link value="‌• DESCARGAR" outcome="DescargasTEL_tc" />
+               </p:tab>
+               <p:tab title="INFORMACIÓN GAT" >          
+                    <h:link value="‌• DIRECTORIO" outcome="informacionDirectorioTEL_tc" />
+                    <p:separator></p:separator>
+                    <h:link value="‌• NETWORK ELEMENTS" outcome="informacionEnTEL_tc" />
+               </p:tab>
+            </p:accordionPanel>
+         </h:form>    
+    </cc:implementation>
+</html>

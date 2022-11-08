@@ -1,0 +1,329 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+     
+    <h:head> 
+
+        <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+    
+    
+     <style type="text/css">       
+            
+       .hide
+        {
+        display:none;
+        visibility:hidden;
+        }
+
+        </style>
+        
+        <script type="text/javascript">
+PrimeFaces.locales["es"] = {
+closeText: "Cerrar",
+prevText: "Anterior",
+nextText: "Siguiente",
+monthNames: ["Enero","Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+weekHeader: "Semana",
+firstDay: 0,
+isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: "",
+                timeOnlyTitle: "Solo hora",
+                timeText: "Tiempo",
+                hourText: "Hora",
+                minuteText: "Minuto",
+                secondText: "Segundo",
+                currentText: "Fecha actual",
+                ampm: false,
+                month: "Mes",
+                week: "Semana",
+                day: "Día",
+                allDayText: "Todo el día"
+            };
+        </script>
+
+</h:head>
+    
+    <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+                 <h:form id="form"> 
+                     
+                     <p:growl id="growl"  life="4000"  showDetail="true" />
+                     
+                    <p:panel header="HISTÓRICO DE FOLIOS DE EMERGENCIAS MÉDICAS" style="font-size: 20px; " >
+                       
+                        <p:panelGrid columns="4"  style=" margin:  auto; border: transparent; align-content:  center" >
+
+
+                            <p:outputLabel for="fechainicio" value="Fecha inicial:" />
+                               <p:calendar id="fechainicio"
+                                           value="#{gldcemtabla.fechainicial}" 
+                                            pages="1" 
+                                            timeZone="America/Mexico_City"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa la Fecha inicio, regresa dando click sobre el calendario"
+                                            style="font-size: 25px; font-family:  sans-serif; width: 500px"
+                                            navigator="true"   
+                                            />  
+                               
+                               <p:outputLabel for="fechainicio" value="Fecha Final:" />
+                               <p:calendar id="fechafinal"
+                                           value="#{gldcemtabla.fechafinal}" 
+                                            pages="1" 
+                                            timeZone="America/Mexico_City"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa la Fecha final, regresa dando click sobre el calendario"
+                                            style="font-size: 25px; font-family:  sans-serif; width: 500px"
+                                            navigator="true"   
+                                            />  
+
+
+
+
+
+                        </p:panelGrid>    
+                        
+                          <p:separator style="width:800px;height:5px" />
+        
+                                 
+                           
+                          <p:panelGrid columns="1"  style="margin: auto; border: transparent; align-content:  center">
+
+                              <p:commandButton  
+                                  value="Generar reporte"
+                                  actionListener="#{gldcemtabla.consultaquery()}"
+                                  update="paneltabla, growl"  > 
+                              </p:commandButton>
+
+
+                          </p:panelGrid>      
+                          
+                          <p:panel id="paneltabla" style="font-size: 20px; size:  auto;"  visible="#{gldcemtabla.vpanel}">  
+
+                         <p:dataTable   id="bitacoraTabla"  
+                                       paginator="true" 
+                                       rows="10"
+                                       value="#{gldcemtabla.eventoBitacora}" 
+                                       var="eventoBitacora" 
+                                       widgetVar="vargeneral"
+                                       emptyMessage="No hay registros" filteredValue="#{gldcemtabla.filterEventoBitacora}"
+                                       selection="#{gldcemtabla.selectedEventoBitacora}"
+                                       style="width:  auto; font-size: 12px !important" 
+                                       resizableColumns="true"
+                                       liveResize="false"
+                                       resizeMode="expand"                                        
+                                       >
+                            <f:facet name="header"  >  
+                                <p:outputPanel >  
+                                    <h:outputText value="Buscar en todos los campos " />  
+                                    <p:inputText id="globalFilter"  onkeyup="PF('vargeneral').filter()" style="width:150px" />  
+                                </p:outputPanel>  
+                            </f:facet>  
+
+                             
+                             <p:column id="ID_REGISTRO" headerText="ID_REGISTRO" filterStyleClass="hide" filterBy="#{eventoBitacora.ID_REGISTRO}"  filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ID_REGISTRO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ID_REGISTRO}" />  
+                            </p:column>  
+                             
+                             <p:column id="NO_EMPLEADO" headerText="NO_EMPLEADO" filterStyleClass="hide" filterBy="#{eventoBitacora.NO_EMPLEADO}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="NO_EMPLEADO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.NO_EMPLEADO}" />  
+                            </p:column>  
+
+                             <p:column id="NOMBRE" headerText="NOMBRE" filterStyleClass="hide" filterBy="#{eventoBitacora.NOMBRE}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="NOMBRE" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.NOMBRE}" />  
+                            </p:column>  
+                            
+                             <p:column id="APELLIDOP" headerText="APELLIDOP" filterStyleClass="hide" filterBy="#{eventoBitacora.APELLIDOP}" filterMatchMode="contains"  >  
+                                <f:facet name="header">
+                                    <h:outputText value="APELLIDOP" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.APELLIDOP}" />  
+                            </p:column>  
+                            
+                             <p:column id="APELLIDOM" headerText="APELLIDOM" filterStyleClass="hide"  filterBy="#{eventoBitacora.APELLIDOM}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="APELLIDOM" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.APELLIDOM}" />  
+                            </p:column>  
+                            
+                             <p:column id="ATTID" headerText="ATTID" filterStyleClass="hide" filterBy="#{eventoBitacora.ATTID}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ATTID" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ATTID}" />  
+                            </p:column>
+                            
+                             <p:column id="TELEFONO" headerText="TELEFONO" filterStyleClass="hide" filterBy="#{eventoBitacora.TELEFONO}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="TELEFONO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.TELEFONO}" />  
+                            </p:column>
+                            
+                            <p:column id="PUESTO" headerText="PUESTO" filterStyleClass="hide" filterBy="#{eventoBitacora.PUESTO}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="PUESTO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.PUESTO}" />  
+                            </p:column>
+
+                            
+                            
+                             <p:column id="LOCALIDAD" headerText="LOCALIDAD" filterStyleClass="hide" filterBy="#{eventoBitacora.LOCALIDAD}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="LOCALIDAD" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.LOCALIDAD}" />  
+                            </p:column>
+                            
+                             <p:column id="VP" headerText="VP" filterStyleClass="hide" filterBy="#{eventoBitacora.VP}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="VP" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.VP}" />  
+                            </p:column>
+                            
+                             <p:column id="AREA" headerText="AREA" filterStyleClass="hide" filterBy="#{eventoBitacora.AREA}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="AREA" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.AREA}" />  
+                            </p:column>
+                            
+                             <p:column id="JEFE_INMEDIATO" headerText="JEFE_INMEDIATO" filterStyleClass="hide" filterBy="#{eventoBitacora.JEFE_INMEDIATO}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="JEFE_INMEDIATO" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.JEFE_INMEDIATO}" />  
+                            </p:column>
+                            
+                             <p:column id="ACCIDENTE_TRABAJO"
+                                       headerText="ACCIDENTE_TRABAJO" 
+                                       filterStyleClass="hide" 
+                                       filterBy="#{eventoBitacora.ACCIDENTE_TRABAJO}"
+                                       filterMatchMode="contains" >
+                                      
+                                <f:facet name="header">
+                                    <h:outputText value="ACCIDENTE_TRABAJO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ACCIDENTE_TRABAJO}"   />  
+                            </p:column>                                                     
+                             
+                             <p:column id="ACCIDENTE_TRAYECTO" 
+                                       headerText="ACCIDENTE_TRAYECTO" 
+                                       filterStyleClass="hide" 
+                                       filterBy="#{eventoBitacora.ACCIDENTE_TRAYECTO}" 
+                                       filterMatchMode="contains"
+                                    
+                                         >  
+                                <f:facet name="header">
+                                    <h:outputText value="ACCIDENTE_TRAYECTO" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.ACCIDENTE_TRAYECTO}"  />  
+                            </p:column>                                                     
+                             
+                             <p:column id="ENFERMEDAD_PROFESIONAL" 
+                                       headerText="ENFERMEDAD_PROFESIONAL"
+                                       filterStyleClass="hide" 
+                                       filterBy="#{eventoBitacora.ENFERMEDAD_PROFESIONAL}" 
+                                       filterMatchMode="contains" >
+                                     
+                                <f:facet name="header">
+                                    <h:outputText value="ENFERMEDAD_PROFESIONAL" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.ENFERMEDAD_PROFESIONAL}"  />  
+                            </p:column>        
+                             
+                             <p:column id="PREPORTA" headerText="REPORTO" filterStyleClass="hide" filterBy="#{eventoBitacora.PREPORTA}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="REPORTO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.PREPORTA}" />  
+                            </p:column>
+                             
+                             <p:column id="EJECUTIVO" 
+                                       headerText="EJECUTIVO" filterStyleClass="hide" 
+                                       filterBy="#{eventoBitacora.EJECUTIVO}" 
+                                       filterMatchMode="contains" >
+                                <f:facet name="header">
+                                    <h:outputText value="EJECUTIVO" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.EJECUTIVO}" />  
+                            </p:column>    
+
+                              <p:column id="FECHA_REPORTE" headerText="FECHA_REPORTE" filterStyleClass="hide" filterBy="#{eventoBitacora.FECHA_REPORTE}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_REPORTE" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.FECHA_REPORTE}" />  
+                            </p:column>
+
+
+                        </p:dataTable>
+                     
+                     <p:separator style="width:800px;height:5px" />                             
+               
+                 
+                     <p:panelGrid  columns="2" style=" width:  auto; margin: auto">
+                       <h:commandLink>  
+                                        <p:graphicImage value="Bitacora/images/excel.png" height="40px"/>  
+                                        <p:dataExporter type="xls"  target="bitacoraTabla" fileName="#{gldcemtabla.nombrearchivo}" postProcessor="#{gldcemtabla.postProcessXLS}" />  
+                                    </h:commandLink>  
+                       <h:outputText value="Descarga Reporte" style="font-style: italic ; font-size: 20px"/>
+                    
+                    </p:panelGrid>   
+                              
+                   </p:panel>               
+                   </p:panel>     
+                       
+                       
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+        
+           <p:dialog modal="true" widgetVar="statusDialog"  
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent"
+                      styleClass="estatusdiag"
+                      >  
+                <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+            </p:dialog> 
+
+    </body>
+</html>

@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="#{loginBean.template}">
+
+            <ui:define name="content">                                
+                <p:layout style="min-width:400px;min-height:200px;">
+      
+                    <p:layoutUnit position="center">
+                        <h:form id="forma1"  enctype="multipart/form-data">
+                        <p:outputLabel value="Ver información básica sobre tu cuenta" 
+                                       style="font-weight: lighter ; 
+                                              font-size: 20px ; font-family: Segoe UI Light, Segoe UI ; line-height: normal; margin-left: 20px" ></p:outputLabel>                         
+                          <p:separator></p:separator>
+                        <p:outputLabel value="Nombre para mostrar:" 
+                                       style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI Negrita, Segoe UI Semidold  ; line-height: normal;margin-left: 20px" ></p:outputLabel>  
+                         <br></br> 
+                         <p:outputLabel value="#{loginBean.nombre}" 
+                                       style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 20px" ></p:outputLabel>                         
+                         <br></br>
+                         <img  id="fotoUsuario" src="../views/FOTOS/#{loginBean.fotos}.jpg" width="102" height="150" style="margin-left: 20px; margin-top: 10px ; border-style: groove"/>
+                          <br></br>
+                          <p:fileUpload fileUploadListener="#{loginBean.upload}" fileLimit="1" style="font-size: 11px ; width: 400px; margin-left: 10px" 
+                                        allowTypes="/(\.|\/)(gif|jpe?g|png)$/" sizeLimit="100000"  /> 
+                           <p:messages id="msgFoto" showDetail="true" autoUpdate="true"  globalOnly="false"  />
+                          </h:form>
+                         <p:separator></p:separator>                      
+                         <p:outputLabel value="Información personal:" 
+                                       style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI Negrita, Segoe UI Semidold  ; line-height: normal;margin-left: 20px" ></p:outputLabel>  
+       
+                         <h:panelGrid columns="2" columnClasses="column" cellpadding="5">  
+
+                            <h:outputText value="Usuario:" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px"/>  
+                            <h:outputText value="#{loginBean.username}" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px" />  
+    
+                            <h:outputText value="Email:" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px"/>  
+                            <h:outputText value="#{loginBean.email}" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px" />  
+
+                            <h:outputText value="Puesto:" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px"/>  
+                            <h:outputText value="#{loginBean.puesto}" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px" />  
+
+                            <h:outputText value="Número de Empleado:" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px"/>  
+                            <h:outputText value="#{loginBean.noEmpleado}" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px" />  
+                            
+                            <h:outputText value="Fecha de Cumpleaños:" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px"/>  
+                            <h:outputText value="#{loginBean.cumpleanios}" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI ; line-height: normal;margin-left: 13px" /> 
+
+                         </h:panelGrid>  
+                         <p:separator></p:separator>   
+                 
+                         <p:outputLabel value="Seguridad:" 
+                                       style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI Negrita, Segoe UI Semidold  ; line-height: normal;margin-left: 20px" ></p:outputLabel>  
+                         <br></br>                     
+                         <p:commandLink value="Cambiar tu contraseña?"  actionListener="#{loginBean.MostrarCampos(actionEvent)}" update=":loginForm1:pwdactual, :loginForm1:pwd1, :loginForm1:pwd2, :loginForm1:boton "
+                                        style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI, Segoe UI ; line-height: normal;margin-left: 20px 
+                                              ; color: black" />      
+                         
+                          <h:form id ="loginForm1" >     
+                              
+                <p:panel id="panelPass" style="background-color: transparent ;background: transparent ; border-color: transparent">
+                        <h:panelGrid columns="2" id="matchGrid" cellpadding="5">                   
+                        <h:outputLabel value="Contraseña actual" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI, Segoe UI ; line-height: normal;margin-left: 20px 
+                                              ; color:  black" />
+                        
+                        <p:password id="pwdactual" value="#{loginBean.passwordActual}" disabled="#{loginBean.passActual}"
+                                    style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI, Segoe UI ; line-height: normal;margin-left: 20px 
+                                              ; color: blue" />
+                         <h:outputLabel for="pwd1" value="Nueva contraseña:*" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI, Segoe UI ; line-height: normal;margin-left: 20px 
+                                              ; color: black" />
+                        
+                         <p:password id="pwd1" value="#{loginBean.lostPasss}" match="pwd2" label="Nueva contraseña" required="true" feedback="true" disabled="#{loginBean.pass1Desac}"
+                                    style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI, Segoe UI ; line-height: normal;margin-left: 20px 
+                                              ; color: blue"  />
+
+                        <h:outputLabel for="pwd2" value="Confirmar contraseña:*" style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI, Segoe UI ; line-height: normal;margin-left: 20px 
+                                              ; color: black" />
+                        <p:password id="pwd2" value="#{loginBean.lostPasss}" label="Confirmar contraseña" required="true" disabled="#{loginBean.pass2Desac}"
+                                    style="font-weight: lighter ; 
+                                              font-size: 12px ; font-family: Segoe UI, Segoe UI ; line-height: normal;margin-left: 20px 
+                                              ; color: blue" />
+                    </h:panelGrid>
+
+                    <p:commandButton id="boton" update="matchGrid, boton" value="Save" actionListener="#{loginBean.RecuperaPass(actionEvent)}" 
+                                     disabled="#{loginBean.botonDesactivado}" style="font-size: 11px">                 
+                      
+                    </p:commandButton>
+                     
+                </p:panel>     
+            
+            </h:form>     
+                    </p:layoutUnit>
+                    
+                </p:layout>
+
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

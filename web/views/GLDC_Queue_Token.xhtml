@@ -1,0 +1,503 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <h:head> 
+        
+         <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+   
+        
+    <style type="text/css">
+
+        .hide
+        {
+            display:none;
+            visibility:hidden;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        PrimeFaces.locales["es"] = {
+            closeText: "Cerrar",
+            prevText: "Anterior",
+            nextText: "Siguiente",
+            monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+            dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+            dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+            weekHeader: "Semana",
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: "",
+            timeOnlyTitle: "Solo hora",
+            timeText: "Tiempo",
+            hourText: "Hora",
+            minuteText: "Minuto",
+            secondText: "Segundo",
+            currentText: "Fecha actual",
+            ampm: false,
+            month: "Mes",
+            week: "Semana",
+            day: "Día",
+            allDayText: "Todo el día"
+        };
+    </script>
+
+</h:head>
+    <body>
+        <link rel="shortcut icon" href="favicon.ico" />
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+                <h:form id="form"> 
+
+                    <p:growl id="growl"  life="4000"  showDetail="true" />
+
+                    <p:panel  id="hola">
+                        <h8 style="font-family: Corbel Light; font-size: 30px; margin-top:   auto " > Queue Management. </h8>
+                        <h7 style="float: right; font-family: Corbel Light; font-size: 30px; margin-top:   auto " > Generación de Token </h7>
+                        <br/>
+                        <br/>
+
+
+
+
+                        <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto " > Usuario: </h8>
+
+
+                        <h8 style="font-family: Corbel Light; font-size: 23px; margin-top:   auto;  font-weight:bold " > #{loginBean.username} </h8>
+                        &nbsp;&nbsp;
+                        <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto; " > Estatus: </h8>
+
+                        <h:outputText  id="conec1" value="&nbsp;&nbsp;&nbsp;&nbsp;Conectado&nbsp;&nbsp;&nbsp;&nbsp;" style="font-family: Corbel Light; font-size: 23px; margin-top:   auto ; font-weight:bold ;background-color:  green;  border-radius: 15px; color: #fff;  "
+                                       />
+
+
+
+                    </p:panel>
+                    <p:separator style="width:1200px;height:1px" />
+
+                    <br></br>   
+
+                    <p:panelGrid  id="TokenId" columns="3"  style=" margin:  auto; border: transparent;"  >
+
+                        <p:panelGrid  columns="2"  style="width: 600px;  border: transparent; align-content:  center" >                      
+                            <p:column  >
+                                <h5 style="color: #045491; font-weight:  bolder; font-size: 20px; "> Datos de la solicitud </h5>
+
+                                <p:selectOneMenu id="in_indicador"  value="#{GLDCToken.TIPO_IDENTIFICADOR}" style="width: 80px;" rendered="#{GLDCToken.v_indicardor}" > 
+                                    <f:selectItem itemLabel="Indicador" /> 
+                                    <f:selectItem itemLabel="Número de Oficio" itemValue="Número de Oficio" />
+                                    <f:selectItem itemLabel="Número de Expediente" itemValue="Número de Expediente" />
+                                    <f:selectItem itemLabel="Averiguación Previa" itemValue="Averiguación Previa" />
+                                    <f:selectItem itemLabel="Carp Admin" itemValue="Carp Admin" />
+                                    <f:selectItem itemLabel="Carpeta de Investigación" itemValue="Carpeta de Investigación" />
+                                    <f:selectItem itemLabel="Caso" itemValue="Caso" />
+                                    <f:selectItem itemLabel="Causa de Control" itemValue="Causa de Control" />
+                                    <f:selectItem itemLabel="Causa de Juicio" itemValue="Causa de Juicio" />
+                                    <f:selectItem itemLabel="Causa Penal" itemValue="Causa Penal" />
+                                    <f:selectItem itemLabel="Cuaderno" itemValue="Cuaderno" />
+                                    <f:selectItem itemLabel="ECO" itemValue="ECO" />
+                                    <f:selectItem itemLabel="Folio" itemValue="Folio" />
+                                    <f:selectItem itemLabel="Juicio de Amparo" itemValue="Juicio de Amparo" />
+                                    <f:selectItem itemLabel="Juicio Oral Mercantil" itemValue="Juicio Oral Mercantil" />
+                                    <f:selectItem itemLabel="Juicio Penal" itemValue="Juicio Penal" />
+                                    <f:selectItem itemLabel="NUC" itemValue="NUC" />
+                                    <f:selectItem itemLabel="Número de Intervención" itemValue="Número de Intervención" />
+                                    <f:selectItem itemLabel="Número de Investigación" itemValue="Número de Investigación" />
+                                    <f:selectItem itemLabel="Oficio Juzgado" itemValue="Oficio Juzgado" />
+                                    <f:selectItem itemLabel="TOCA" itemValue="TOCA" />
+                                    <f:selectItem itemLabel="Carpeta Judicial" itemValue="Carpeta Judicial" />
+                                    <f:selectItem itemLabel="Causa de Tribunal" itemValue="Causa de Tribunal" />
+                                    <f:selectItem itemLabel="Indagatoria" itemValue="Indagatoria" />
+                                    <f:selectItem itemLabel="Juicio Oral" itemValue="Juicio Oral" />
+                                    <f:selectItem itemLabel="Noticia Criminal" itemValue="Noticia Criminal" />
+                                    <f:selectItem itemLabel="NIC" itemValue="NIC" />
+
+                                </p:selectOneMenu>
+
+
+                                <p:inputTextarea  value="#{GLDCToken.NO_OFICIO}"  rows="1"  cols="22" rendered="#{GLDCToken.v_no_oficio}"/> 
+
+                                <br></br>
+                                <br></br>
+
+
+                                <p:column >
+                                    <p:outputLabel value="Solicitud:&nbsp;&nbsp; "  style=" font-weight:  bolder"/>
+                                    <p:selectOneMenu id="in_solicitud"   value="#{GLDCToken.TIPO_SOLICITUD}"  style="width: 400px; " >  
+                                        <f:selectItem itemLabel="Seleccionar: " />  
+                                        <f:selectItems id="selectMenu4" 
+                                                       value="#{GLDCToken.tiposol}"
+                                                       var="c" itemLabel="#{c.tipos}" 
+                                                       itemValue="#{c.tipos}"/>       
+                                        <p:ajax update="catprioridades,  TokenId" 
+                                                listener="#{GLDCToken.catalogosPrioridades()}" />    
+
+                                    </p:selectOneMenu>
+                                </p:column>    
+                                <br></br>
+                                <br></br>
+
+                                <p:column rendered="#{GLDCToken.v_ticket}"> 
+                                    <p:outputLabel value="Ticket: &nbsp;&nbsp;"  style=" font-weight:  bolder " />
+                                    <p:inputTextarea  value="#{GLDCToken.NTICKET}" style="width: 450px;" rows="1"  maxlength="14"   /> 
+                                    <p:outputLabel  />
+                                    <br></br>
+                                    <br></br>
+                                </p:column>
+
+                                <p:column rendered="#{GLDCToken.v_caso}"> 
+                                    <p:outputLabel value="Caso:&nbsp;&nbsp;"  style=" font-weight:  bolder " />
+                                    <p:inputTextarea  value="#{GLDCToken.caso}" style="width: 470px;" rows="1"   maxlength="6"   /> 
+                                    <p:outputLabel  />
+                                    <br></br>
+                                    <br></br>    
+                                </p:column>
+
+                                <p:column width="200" rendered="#{GLDCToken.v_procede}">                             
+                                    <p:outputLabel value="Procede:&nbsp;&nbsp;"  style=" font-weight:  bolder "/>
+                                    <p:selectOneMenu  value="#{GLDCToken.PROCEDE}" style="width: 405px;" >  
+                                        <f:selectItem itemLabel="Seleccionar: "   />  
+                                        <f:selectItem itemLabel="SI" itemValue="SI" />
+                                        <f:selectItem itemLabel="NO" itemValue="NO" />                                         
+                                    </p:selectOneMenu>
+                                    <br></br>
+                                    <br></br>
+                                </p:column>
+
+                                <p:column rendered="#{GLDCToken.v_prioridad}">  
+                                    <p:outputLabel value="Prioridad:&nbsp;&nbsp; "  style=" font-weight:  bolder"/>
+                                    <p:selectOneMenu id="catprioridades"
+                                                     value="#{GLDCToken.ID_PRIORIDAD}" style="width: 395px; ">     
+                                        <f:selectItem itemLabel="Selecciona: " itemValue="" />
+                                        <f:selectItems value="#{GLDCToken.listaPrioridad}"
+                                                       var="p" itemLabel="#{p.NOMBRE_PRIORIDAD}" 
+                                                       itemValue="#{p.NOMBRE_PRIORIDAD}"
+                                                       />                                                    
+                                    </p:selectOneMenu>
+                                    <br></br>
+                                    <br></br>
+                                </p:column>
+
+                                <p:column rendered="#{GLDCToken.v_fundamento}" >                             
+                                    <p:outputLabel value="Fundamento Legal:&nbsp;&nbsp;"  style=" font-weight:  bolder "/>
+                                    <p:selectOneMenu  value="#{GLDCToken.FUNDAMENTO}" style="width: 305px;" >  
+                                        <f:selectItem itemLabel="Seleccionar: " />  
+                                        <f:selectItem itemLabel="Con Fundamento" itemValue="FUNDAMENTO EN LOS ARTICULOS 189 Y 190 DE LA LEY FEDERAL DE TELECOMUNICACIONES Y RADIODIFUSION Y ARTICULO 303 DEL CODIGO NACIONAL DE PROCEDIMIENTOS PENALES" />
+                                        <f:selectItem itemLabel="Sin Fundamento" itemValue="SIN FUNDAMENTO EN LOS ARTICULOS 189 Y 190 DE LA LEY FEDERAL DE TELECOMUNICACIONES Y RADIODIFUSION Y ARTICULO 303 DEL CODIGO NACIONAL DE PROCEDIMIENTOS PENALES" /> 
+                                    </p:selectOneMenu>
+                                    <br></br>       
+                                    <br></br>
+                                </p:column>
+
+                                <p:column rendered="#{GLDCToken.v_firma}">                             
+                                    <p:outputLabel value="Firma de R.L.:&nbsp;&nbsp;"  style=" font-weight:  bolder "/>
+                                    <p:selectOneMenu  value="#{GLDCToken.FIRMA}" style="width: 360px;"  >  
+                                        <f:selectItem itemLabel="Seleccionar: "   />  
+                                        <f:selectItem itemLabel="SI" itemValue="SI" />
+                                        <f:selectItem itemLabel="NO" itemValue="NO" />                                         
+                                    </p:selectOneMenu>
+                                    <br></br>                 
+                                    <br></br>
+                                </p:column>
+
+                                <p:column rendered="#{GLDCToken.v_termino}">                             
+                                    <p:outputLabel value="Término:&nbsp;&nbsp; "  style=" font-weight:  bolder;  "/>
+                                    <p:selectOneMenu id="id_termino" value="#{GLDCToken.TERMINO}" style="width: 405px;"  >  
+                                        <f:selectItem itemLabel="Seleccionar: "   />  
+                                        <f:selectItem itemLabel="1 hr" itemValue="1 hr" />
+                                        <f:selectItem itemLabel="12 hrs" itemValue="12 hrs" />
+                                        <f:selectItem itemLabel="24 hrs" itemValue="24 hrs" />
+                                        <f:selectItem itemLabel="48 hrs" itemValue="48 hrs" />
+                                        <f:selectItem itemLabel="72 hrs" itemValue="72 hrs" />
+                                    </p:selectOneMenu>
+                                    <br></br>  
+                                    <br></br>
+                                </p:column>
+
+
+                                <p:column id="id_vista" rendered="#{GLDCToken.v_tipo_envio}" > 
+                                    <p:outputLabel value="Tipo de Envio:&nbsp;&nbsp;"  style=" font-weight:  bolder"/>
+                                    <p:selectOneMenu value="#{GLDCToken.MEDIO_RECEPCION}" style="width: 360px; font-weight:  bolder" >                               
+                                        <f:selectItem itemLabel="Seleccionar:" /> 
+                                        <f:selectItem itemLabel="Fisico" itemValue="Fisico" />
+                                        <f:selectItem itemLabel="Email" itemValue="Email" />
+                                        <f:selectItem itemLabel="LEA" itemValue="LEA" />
+                                    </p:selectOneMenu>
+                                    <br></br>
+                                    <br></br>
+                                </p:column>
+
+
+                                <p:column rendered="#{GLDCToken.v_comentarios}"> 
+                                    <p:outputLabel value="Observaciones:&nbsp;&nbsp;"  style=" font-weight:  bolder " />
+                                    <p:inputTextarea  value="#{GLDCToken.OBERVACION}" style="width: 370px;" rows="1" cols="30" counter="display" maxlength="250"  autoResize="false" /> 
+                                    <p:outputLabel id="display" />
+
+                                </p:column>
+                                <br></br>
+                                <br></br>
+
+                            </p:column>                   
+                        </p:panelGrid>   
+                        <p:column >                        
+                            <h8 style="color: #045491; font-weight:  bolder; font-size: 20px ;  "> Generacion  Token </h8>  
+                            <br></br>
+                            <br></br>
+
+                            <p:commandLink actionListener="#{GLDCToken.GenerarTk(loginBean.username)}" update="growl, TokenId, panelg1" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();">
+
+                                <p:graphicImage value="/resources/images/Espacio.PNG" style=" margin:  auto; width: 100px;"  />
+                                <p:graphicImage value="/resources/images/Token1.png" style=" margin:  auto; width: 250px;  "  />
+                                <p:graphicImage value="/resources/images/Espacio.PNG" style=" margin:  auto; width: 100px;"  />
+                            </p:commandLink> 
+                            <br></br>
+                            <br></br>
+
+                            <p:panelGrid columns="1"  style="width: 450px;  border: transparent; align-content:  center" >
+                                <h:outputText value="Numero de Token: #{GLDCToken.TOKEN}" style=" font-weight: bold; " rendered="#{GLDCToken.rendered}" />
+                                 <br></br>
+                              
+                            </p:panelGrid> 
+
+                            <br></br> 
+                            
+                            
+                        </p:column>
+
+                        <p:column    rendered="#{GLDCToken.rendered}">    
+                            <h8 style="color: #045491; font-weight:  bolder; font-size: 20px ;  "> Resumen de la solicitud </h8>  
+                            <br></br>
+                            <br></br>
+                            <br></br>
+                            <p:outputLabel value="Procede: #{GLDCToken.PROCEDE}"/> <br></br>
+                            <p:outputLabel value="Tipo de Solicitud: #{GLDCToken.TIPO_SOLICITUD}"/> <br></br>
+                            <p:outputLabel rendered="#{GLDCToken.v_ticket}" value="TICKET #{GLDCToken.NTICKET}"> <br/> </p:outputLabel> 
+                            <p:outputLabel rendered="#{GLDCToken.v_caso}" value="CASO: #{GLDCToken.caso}" > <br/> </p:outputLabel>
+                            <p:outputLabel value="Prioridad: #{GLDCToken.ID_PRIORIDAD}"/> <br></br>
+                            <p:outputLabel value="Fundamento: #{GLDCToken.FUNDAMENTO}"/><br></br>
+                            <p:outputLabel value="Firma: #{GLDCToken.FIRMA}"/><br></br>
+                            <p:outputLabel value="Término: #{GLDCToken.TERMINO}"/><br></br>
+                            <p:outputLabel value="Tipo de Envio: #{GLDCToken.MEDIO_RECEPCION}"/><br></br>
+                            <p:outputLabel value="Abogado: #{loginBean.nombre}"/><br></br>
+                            <p:outputLabel value="Observaciones: #{GLDCToken.OBERVACION}"/><br></br>
+                        </p:column>       
+
+                    </p:panelGrid>  
+
+                    <br></br>
+                    <p:panelGrid columns="5"  style=" margin:  auto; border: transparent; align-content:  center"  >
+
+                        <p:inputTextarea  value="#{GLDCToken.eliTOKEN}"  rows="1"  cols="20" /> 
+                        
+                         <p:commandButton  
+                            value="Recuperar dictamen"
+                            actionListener="#{GLDCToken.onRowSelect()}"
+                            update="growl,check "  style=" animation:  ease-in;  width: 300px  "
+                             onstart="PF('statusDialog').show();" 
+                             onsuccess="PF('statusDialog').hide();PF('reasigna').show();  "
+                             icon="bars"   
+                            > 
+                        </p:commandButton>
+                        
+                        
+                        <p:commandButton  
+                            value="Eliminar Token"
+                            actionListener="#{GLDCToken.borrar()}"
+                            update="growl, TokenId, panelg1"  
+                            onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"
+                            style=" animation:  ease-in;  width: 300px  "
+                            > 
+                            <p:confirm header="Confirmation" message="Are you sure you want to proceed?" />
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                        </p:confirmDialog>  
+                        
+                       
+
+                        <p:commandButton  
+                            value="Nuevo Token"
+                            actionListener="#{GLDCToken.reload()}"
+                            update="growl"  style=" animation:  ease-in;  width: 300px  "
+                            > 
+                        </p:commandButton>
+
+                         
+                        
+                        
+                    </p:panelGrid> 
+
+
+                    <p:separator style="width:800px;height:5px" />    
+
+                    <br></br>              
+                    <p:panelGrid id="panelg1" columns="1"  style="width: 1500px; margin:  auto; border: transparent; " >
+                        <h8 style="color: #045491; font-weight:  bolder; font-size:  medium; margin:  auto "> Ultimos Registros Guardados </h8>
+
+                        <p:dataTable id="dataTable"   
+                                     var="mostrarProcesados"  
+                                     value="#{GLDCToken.mostrarProcesados}" 
+                                     rows="10"
+                                     editable="true"
+                                     paginator="true" 
+                                     
+                                     paginatorTemplate="{PageLinks}"  
+                                     paginatorPosition="bottom"   
+
+                                     >  
+                            
+                            
+                            <p:ajax event="rowEdit" listener="#{GLDCToken.onRowEdit}" update=":form:growl, :form:dataTable,  " onstart="PF('reasigna').hide();" oncomplete="PF('reasigna').hide();"/>
+                            <p:ajax event="rowEditCancel" listener="#{GLDCToken.onRowCancel}" update=":form:growl"/>
+                           
+
+                            <p:column headerText="ID TOKEN" style=" font-size: 15px; width: 200px  " filterMatchMode="contains" filterStyle="width: 190px" filterBy="#{mostrarProcesados.ID_TOKEN}" 
+                                      >
+                                <h:outputText value="#{mostrarProcesados.ID_TOKEN}" style=" font-size: 15px; width:100% " />  
+
+                            </p:column>
+
+                            <p:column headerText="TIPO IDENTIFICADOR" style=" font-size: 15px">
+                                <h:outputText value="#{mostrarProcesados.TIPO_IDENTIFICADOR}" style=" font-size: 14px; " />  
+                            </p:column>      
+
+                            <p:column headerText="IDENTIFICADOR" style=" font-size: 15px" filterMatchMode="contains" filterStyle="width: 100px" filterBy="#{mostrarProcesados.NO_OFICIO}">
+                                <h:outputText value="#{mostrarProcesados.NO_OFICIO}" style=" font-size: 14px"  />  
+                            </p:column>
+
+                            <p:column headerText="USUARIO" style=" font-size: 15px" >
+                                <h:outputText value="#{mostrarProcesados.ID_USUARIO}" style=" font-size: 14px"/>  
+                            </p:column>
+
+                            <p:column headerText="SOLICITUD" style=" font-size: 15px; width: 250px "  filterMatchMode="contains" filterStyle="width: 190px" filterBy="#{mostrarProcesados.TIPO_SOLICITUD}">
+
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{mostrarProcesados.TIPO_SOLICITUD}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu id="option17" value="#{mostrarProcesados.TIPO_SOLICITUD}" panelStyle="width:150px font-size:12px" style=" font-size:  small; width: 150px " effect="fade" >
+                                            <f:selectItem itemLabel="Seleccionar: " />  
+                                            <f:selectItems id="selectMenu4" 
+                                                           value="#{GLDCToken.tiposol}"
+                                                           var="c" itemLabel="#{c.tipos}" 
+                                                           itemValue="#{c.tipos}"/>       
+
+                                            />
+                                        </p:selectOneMenu> 
+                                    </f:facet>
+                                </p:cellEditor>
+
+                            </p:column>
+
+                            <p:column headerText="PRIORIDAD" style=" font-size: 15px; width: 180px">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText style="color: #{mostrarProcesados.COLOR}; display: block;" value="#{mostrarProcesados.ID_PRIORIDAD}" />
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:selectOneMenu 
+                                            value="#{mostrarProcesados.ID_PRIORIDAD}" panelStyle="width:150px font-size:12px" style=" font-size:  small; width: 150px " effect="fade" >     
+
+                                            <f:selectItem itemLabel="Exigente" itemValue="Exigente" />
+                                            <f:selectItem itemLabel="Urgente" itemValue="Urgente" />
+                                            <f:selectItem itemLabel="Normal" itemValue="Normal" />
+                                            <f:selectItem itemLabel="Baja" itemValue="Baja" />
+
+                                        </p:selectOneMenu>
+
+                                    </f:facet>
+                                </p:cellEditor>
+                            </p:column>
+
+                            <p:column headerText="ENVIO" style=" font-size: 15px">
+                                <h:outputText value="#{mostrarProcesados.MEDIO_RECEPCION}" style=" font-size: 14px"/>  
+                            </p:column>
+
+                            <p:column headerText="FECHA REGISTRO" style=" font-size: 15px">
+                                <h:outputText value="#{mostrarProcesados.FECHA_REGISTRO}" style=" font-size: 14px"/>  
+                            </p:column>
+
+                            <p:column headerText="Edit" style="width:2rem" >
+                                <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row" style="width:200%  "   />
+                            </p:column>
+
+                             
+                        </p:dataTable> 
+
+                    </p:panelGrid>
+                    
+<p:dialog id="idreasigna" 
+          widgetVar="reasigna" 
+          header="Check List #{GLDCToken.CKToken}" 
+          showEffect="Explode" 
+          hideEffect="Explode" 
+          height="500px" 
+          width="750px"
+         modal="false"
+                  >
+                                 <p:panel visible="#{GLDCToken.rea_dialogo}">
+                                 <h:panelGrid id="check" columns="1" cellpadding="7">
+
+                                      <p:outputLabel value="Token: #{GLDCToken.CKToken}"/> <br/> 
+            
+                                        <p:outputLabel value="Procede: #{GLDCToken.ckprocede}"/> 
+                                        <p:outputLabel value="Tipo de Solicitud: #{GLDCToken.ckTipoSol}"/> 
+                                        <p:outputLabel rendered="#{GLDCToken.v_ticket}" value="TICKET #{GLDCToken.CKNTICKET}">  </p:outputLabel> 
+                                        <p:outputLabel rendered="#{GLDCToken.v_caso}" value="CASO: #{GLDCToken.CKID_CASO}" >  </p:outputLabel>
+                                        <p:outputLabel value="Prioridad: #{GLDCToken.CKPriori}"/> 
+                                        <p:outputLabel value="Fundamento: #{GLDCToken.CKFundam}"/>
+                                        <p:outputLabel value="Firma: #{GLDCToken.CKfirma}"/>
+                                        <p:outputLabel value="Término: #{GLDCToken.CKTermino}"/>
+                                        <p:outputLabel value="Tipo de Envio: #{GLDCToken.CKRescep}"/>
+                                        <p:outputLabel value="Abogado: #{loginBean.nombre}"/>
+                                        <p:outputLabel value="Observaciones: #{GLDCToken.CKObserva}"/>
+                                  
+                                 </h:panelGrid>   
+
+                                   
+                                  </p:panel>
+
+                                   
+                                  
+                              </p:dialog>            
+                    
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+        <p:dialog modal="true" widgetVar="statusDialog"    
+                  closable="false"  
+                  resizable="false"
+                  showEffect="drop"
+                  hideEffect="drop"
+                  showHeader="false"
+                  position="center"
+                  style="border: none; box-shadow: none;  background: transparent; "  
+                  styleClass="estatusdiag"
+                  >  
+            <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+        </p:dialog> 
+        
+        
+     
+       
+ 
+        
+ 
+    </body>
+</html>
+

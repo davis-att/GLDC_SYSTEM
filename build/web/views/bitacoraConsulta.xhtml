@@ -1,0 +1,264 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="#{loginBean.template}">
+
+            <ui:define name="content">
+   <h:form id="form">   
+
+                    <p:growl id="msgs" showDetail="true" />  
+
+                    <p:dataTable id="dataTable"   var="mostrarBitacora"  value="#{ bitacoraBean.mostrarBitacora }" widgetVar="bitacoraTable"  scrollRows="20"  
+                                 scrollable="true" liveScroll="true" scrollHeight="800"   
+                                 emptyMessage="No hay de esos chavo" filteredValue="#{bitacoraBean.filteredBitacora}"   >  
+
+                        <p:ajax event="rowToggle" listener="#{bitacoraBean.onRowToggle}" update=":form:msgs"  />    
+
+
+                        <f:facet name="header" >
+                            <p:outputPanel style="text-align: left">
+                                <h:outputText value="Buscar en todos los campos: "  />
+                                <h:inputText id="globalFilter" onkeyup="bitacoraTable.filter()" />
+                            </p:outputPanel>
+                        </f:facet>  
+
+                        <p:column  style="text-align:center ;  font-size:    small;  "
+                                   id="IdColumn" filterBy="id"   
+                                   headerText="Id_evento"   
+                                   filterMatchMode="contains" filterStyle="width: 65px;"
+                                   footerText="Id_evento">    
+                            <h:outputText value="#{mostrarBitacora.id}" />  
+                        </p:column>
+
+                        <p:column headerText="Detalle"
+                                  style="text-align:center ;  font-size:    small;  width:5%" 
+                                  >  
+                            <p:rowToggler />  
+                            <h:outputText value="#{mostrarBitacora.items}" />  
+                        </p:column>  
+
+                        <p:column style="text-align:center ;  font-size:    small;  "
+                                  id="InsertDetalle"    
+                                  headerText="Comentar"
+                                  footerText="Comentar">                        
+                            <p:commandButton id="buttomdetalle" update=":form2:dialog_2"  onclick="PF('bitacoraDetalleDialog').show()" icon="ui-icon-pencil" title="Agregar Detalle"
+                                             action="#{bitacoraBean.mostrarvalor(actionEvent)}">  
+                                <f:setPropertyActionListener value="#{mostrarBitacora}" target="#{bitacoraBean.selectedBitacora}" />  
+                                <f:param name="idbita" value="#{mostrarBitacora.id}" />
+                            </p:commandButton>  
+                        </p:column>   
+
+                        <p:column style="text-align:center ;  font-size:    small;  " 
+                                  id="BitacoraColumn" filterBy="bitacora"   
+                                  headerText="Id_Bitacora"   
+                                  filterMatchMode="contains" filterStyle="width: 65px;"
+                                  footerText="Id_Bitacora">    
+                            <h:outputText value="#{mostrarBitacora.bitacora}" />  
+                        </p:column>
+
+                        <p:column style="text-align:center ;  font-size:    small;  "
+                                  id="IncidenteColumn" filterBy="incidente"   
+                                  headerText="Incidente"   
+                                  filterMatchMode="contains" filterStyle="width: 65px;"
+                                  footerText="Incidente">
+                            <h:outputText value="#{mostrarBitacora.incidente}" />  
+                        </p:column>
+
+                        <p:column style="text-align:center ;  font-size:    small;  "
+                                  id="FechaColumn" filterBy="fecha_Evento"   
+                                  headerText="Fecha_Ini"   
+                                  filterMatchMode="contains" filterStyle="width: 65px;"
+                                  footerText="Fecha_Ini">
+                            <h:outputText value="#{mostrarBitacora.fecha_Evento}" />  
+                        </p:column>
+
+                        <p:column style="text-align:center ;  font-size:    small;  "
+                                  id="FechaFinColumn" filterBy="fecha_Evento_Fin"   
+                                  headerText="Fecha_Fin"   
+                                  filterMatchMode="contains" filterStyle="width: 65px;"
+                                  footerText="Fecha_Fin">
+                            <h:outputText value="#{mostrarBitacora.fecha_Evento_Fin}" />  
+                        </p:column>
+
+                        <p:column style="text-align:center ;  font-size:    small;  "
+                                  id="ResponsableColumn" filterBy="responsable"   
+                                  headerText="Responsable"   
+                                  filterMatchMode="contains" filterStyle="width: 65px;"
+                                  footerText="Responsable">
+                            <h:outputText value="#{mostrarBitacora.responsable}" />  
+                        </p:column>
+
+                        <p:column style="text-align:center ;  font-size:    small;  "
+                                  id="AreaColumn" filterBy="area"   
+                                  headerText="Seguimiento"   
+                                  filterMatchMode="contains" filterStyle="width: 65px;"
+                                  footerText="Seguimiento">
+                            <h:outputText value="#{mostrarBitacora.area}" />  
+                        </p:column>
+
+                        <p:column style="text-align:center ;  font-size:    small;  "
+                                  id="TicketColumn" filterBy="ticket"   
+                                  headerText="Ticket"   
+                                  filterMatchMode="contains" filterStyle="width: 65px;"
+                                  footerText="Ticket">
+                            <h:outputText value="#{mostrarBitacora.ticket}" />  
+                        </p:column>
+
+                        <p:column  style="text-align:center ;  font-size:    small;  "
+                                   id="DuracionColumn" filterBy="dur_Afect"   
+                                   headerText="Duracion_(H)"   
+                                   filterMatchMode="contains" filterStyle="width: 65px;"
+                                   footerText="Duracion_(H)">
+                            <h:outputText value="#{mostrarBitacora.dur_Afect}" />  
+                        </p:column>
+
+                        <p:column  style="text-align:center ;  font-size:    small;  "
+                                   id="MedidaColumn" filterBy="MImpacto"   
+                                   headerText="Estimación"   
+                                   filterMatchMode="contains" filterStyle="width: 65px;"
+                                   footerText="Estimación">
+                            <h:outputText value="#{mostrarBitacora.MImpacto}" />  
+                        </p:column> 
+
+                        <p:column  style="text-align:center ;  font-size:    small;  "
+                                   id="StatusColumn" filterBy="estatus"   
+                                   headerText="Estatus"   
+                                   filterMatchMode="contains" filterStyle="width: 65px;"
+                                   footerText="Estatus">
+                            <h:outputText value="#{mostrarBitacora.estatus}" />  
+                        </p:column>  
+
+
+                        <p:column style="text-align:center ;  font-size:    small;  "
+                                  id="JustificacionColumn" 
+                                  headerText="Retro"
+                                  footerText="Retro">                        
+                            <p:commandButton id="selectButton" update=":form:display" oncomplete="PF('bitacoraDialog').show()" icon="ui-icon-comment" title="Comentarios">  
+                                <f:setPropertyActionListener value="#{mostrarBitacora}" target="#{bitacoraBean.selectedBitacora}" />  
+                            </p:commandButton>  
+                        </p:column>   
+
+
+                        <p:column style="text-align:center ;  font-size:    small;  "
+                                  id="DocumentacionColumn" 
+                                  headerText="Evidencia"   
+                                  footerText="Evidencia">
+                            <h:outputLink value="#{mostrarBitacora.documentacion}" title="Ver"  disabled="#{mostrarBitacora.estEvidencia}">
+                                <p:commandButton type="button" icon="ui-icon-circle-triangle-s" disabled="#{mostrarBitacora.estEvidencia}"/>    
+                            </h:outputLink>   
+                        </p:column>   
+
+
+                        <p:rowExpansion>  
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="width:700px;"  
+                                         styleClass=" ui-widget-content grid">  
+
+                                <p:dataTable var="subtable" value="#{mostrarBitacora.myList}"
+                                             style="text-align:center ;  font-size:    small;  "
+                                             >  
+                                    <p:column headerText="Evento" >  
+                                        <h:outputText value="#{subtable.dt_idevent}" />  
+                                    </p:column>  
+                                    
+                                    <p:column headerText="Usuario">  
+                                        <h:outputText value="#{subtable.dt_iduser}" />  
+                                    </p:column>  
+
+                                    <p:column headerText="Comentarios">  
+                                        <h:outputText value="#{subtable.dt_comment}" />  
+                                    </p:column>  
+
+                                    <p:column headerText="Fecha actualización">  
+                                        <h:outputText value="#{subtable.dt_date}" />  
+                                    </p:column>  
+                                    
+                                    <p:column headerText="Evidencia">
+                                        <h:outputLink value="#{subtable.dt_document}" title="Ver" disabled="#{subtable.dt_estatus}">
+                                            <p:commandButton type="button" icon="ui-icon-circle-triangle-s" disabled="#{subtable.dt_estatus}" />    
+                                        </h:outputLink>   
+                                    </p:column>  
+
+
+                                </p:dataTable>  
+
+                            </h:panelGrid>  
+
+                        </p:rowExpansion>  
+
+
+
+                    </p:dataTable> 
+
+
+
+                    <p:dialog header="Detalle Justificacion" widgetVar="bitacoraDialog" resizable="false" id="bitacoraDlg"  
+                              showEffect="fade" hideEffect="explode" modal="false" >  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                            <f:facet name="header">  
+                                <p:graphicImage value="../resources/images/nextel_2.png"/>  
+                            </f:facet>  
+
+                            <h:outputText value="Comentarios:" />   
+                            <h:outputText value="#{bitacoraBean.selectedBitacora.justificacion}" style="font-weight:bold" />  
+
+
+                        </h:panelGrid>  
+
+                    </p:dialog>  
+
+                </h:form>   
+
+                <h:form  id="form2" enctype="multipart/form-data">   
+                    <p:dialog header="Insertar otro Detalle" widgetVar="bitacoraDetalleDialog" resizable="false" id="bitacoraDetalleDlg"  
+                              showEffect="fade" hideEffect="explode" modal="false" >  
+
+                        <h:panelGrid id="dialog_2" columns="1" cellpadding="4" style="margin:0 auto;">  
+
+                            <f:facet name="header">  
+                                <p:graphicImage value="../resources/images/nextel_2.png"/>  
+                            </f:facet>  
+
+                            <h:outputText value="Id ha modificar: #{bitacoraBean.selectedBitacora.id}" style="font-weight:bold" />  
+
+                            <h:outputText  value="Responsable:"  />
+                            <p:selectOneMenu id="instr_responsable" value="#{bitacoraBean.usuario}" >                               
+                                <f:selectItem itemLabel="Escoger Usuario" />  
+                                <f:selectItems id="selectMenu" 
+                                               value="#{catalogoUsuarios.listaUsuarios}"
+                                               var="c" itemLabel="#{c.usuarios}" 
+                                               itemValue="#{c.usuarios}"/>                                                   
+                            </p:selectOneMenu>
+
+                            
+                            <h:outputText  value="Comentario:"  />
+                            <p:inputText id="instr_incidente" value="#{bitacoraBean.comentario}" required="true" label="instr_incidente"/>      
+
+                            <h:outputText value="Evidencia:" />   
+
+                            <p:fileUpload   fileUploadListener="#{bitacoraBean.upload}" label="Buscar" 
+                                            uploadLabel="Carga" cancelLabel="Cancel" auto="FALSE" />
+
+                        </h:panelGrid>  
+
+                        <p:separator />             
+
+                        <p:commandButton ajax="false" value="Insertar"  action="#{bitacoraBean.IngresarBitacoraPV(actionEvent)}" update=":form" /> 
+
+
+                    </p:dialog>  
+                </h:form>   
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

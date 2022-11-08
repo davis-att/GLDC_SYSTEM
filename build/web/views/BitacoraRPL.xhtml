@@ -1,0 +1,511 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+
+        <title>Sistema de incidentes GLDC</title>
+        <link rel="shortcut icon" href="../resources/images/ajax-loader.gif"/>
+
+
+
+        <style type="text/css">                           
+
+            .jqplot-title {
+                top: 0px;
+                left: 0px;
+                padding-bottom: 0.5em;
+                font-size: 1.2em;
+            }
+
+            .centered {
+                text-align: center;
+                margin-left: 50%;
+            }
+
+            .first-row {
+                background-color: #FF626C !important;
+                background-image: none !important;
+                color: #000000 !important;
+            }
+
+            .second-row {
+                background-color: #FFFB9C !important;
+                background-image: none !important;
+                color: #000000 !important;
+            }
+
+            .ui-growl {
+                font-style: normal;
+                font-size: 80%!important;
+                width: 28em!important;
+
+            }
+
+        </style>
+
+
+
+
+        <style type="text/css">
+            .value {
+                width: 1100px;
+
+            }
+        </style>
+
+        <style type="text/css">
+            .chart1 {
+                width: 60%;
+            }
+            .chart3 {
+                width: 10%;
+            }
+            .chart2 {
+                width: 50%;
+            }
+
+        </style>        
+
+
+        <style type="text/css">
+            body .ui-steps .ui-steps-item {
+                width: 20%;
+            }
+
+            body .ui-state-highlight {
+                text-shadow: none !important;
+            }
+
+            body .ui-steps.custom {
+                margin-bottom: 30px;
+            }
+
+            body .ui-steps.custom .ui-steps-item .ui-menuitem-link {
+                height: 10px;
+                padding: 0 1em;
+                overflow: visible;
+                border: 1px solid #c8c8c8;
+                display: block;
+                background-color: #FFFFFF;
+            }
+
+            body .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-number {
+                background-color: #0081c2;
+                color: #FFFFFF;
+                display: inline-block;
+                width: 30px;
+                border-radius: 10px;
+                margin-top: -10px;
+                margin-bottom: 10px;
+                position: relative;
+                top: -3px;
+            }
+
+            body .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-title {
+                margin-top: -6px;
+            }
+
+            body .ui-steps.custom .ui-steps-item.ui-state-highlight .ui-menuitem-link .ui-steps-title {
+                color: #555;
+            }
+        </style>
+
+
+
+
+        <script type="text/javascript">
+            PrimeFaces.locales["es"] = {
+                closeText: "Cerrar",
+                prevText: "Anterior",
+                nextText: "Siguiente",
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+                dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                weekHeader: "Semana",
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: "",
+                timeOnlyTitle: "Solo hora",
+                timeText: "Tiempo",
+                hourText: "Hora",
+                minuteText: "Minuto",
+                secondText: "Segundo",
+                currentText: "Fecha actual",
+                ampm: false,
+                month: "Mes",
+                week: "Semana",
+                day: "Día",
+                allDayText: "Todo el día"
+            };
+        </script>
+
+
+
+
+
+
+        <script>
+            function closeDialog() {
+                widgetWarDialog.hide();
+            }
+        </script>
+
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
+
+
+
+
+    </h:head>
+
+
+    <body>
+        <ui:include src="/templates/sessionTimeOut.xhtml" />
+        <ui:composition template="./templateGatWebTool.xhtml">
+
+            <ui:define name="content">
+
+                <h:form id="formss">
+                    <p:growl id="msg" showDetail="true" sticky="true"  />
+
+                </h:form>             
+
+
+
+
+                <!--Apartado para Generar un nuevo Incidente -->
+
+                <h:form id="Gen_Act">
+
+                    <p:panel  style="width: auto; text-align:  center; font-size: 24px" header="REGISTRO DE TICKETS RPL">  
+                        <p:accordionPanel id="tabsCarousel" multiple="true" onTabShow="1">
+                            <p:tab title="GENERA TU TICKET" id="genact" titleStyle=" font-size: 18px">
+                                <!--     <p:panel  style="width: auto; text-align:  center; font-size: 24px" header="GENERACION DE INCIDENTE">   -->
+                                <center>  <p:tabView>
+                                        <p:tab  title="Crear Ticket" titleStyle=" font-size: 15px">
+                                            <p:separator/>
+                                            <p:graphicImage value="../resources/images/rpl.png" style=" align-content: flex-end"/>  
+
+                                            <br/>
+                                            <p:commandButton style="background-color: transparent !important;  
+                                                             border: 4px solid #F6FC7C !important; ;
+                                                             color: white !important; ;
+                                                             padding: 15px 32px !important; ;
+                                                             text-align: center !important; ;
+                                                             text-decoration: none !important; ;
+                                                             display: inline-block !important; ;
+                                                             font-size: 14px !important; ;
+                                                             border-radius: 20px !important; ; " value="Generar Ticket" type="button"   onclick="PF('dlg1').show()"/>
+                                            <p:separator/>
+                                        </p:tab>
+                                        <!--Apartado para Actualizar un Incidente -->
+                                        <!-- <p:tab title="Actualizacion de Incidente" titleStyle="font-size: 15px">
+                                             <p:separator/>
+                                             <p:graphicImage value="../resources/images/Edit.png" style=" align-content: flex-end"/> 
+                                             <br/>     
+                                             <br/>
+             
+                                             <p:commandButton style="background-color: transparent !important;  
+                                                              border: 4px solid #F6FC7C !important; ;
+                                                              color: white !important; ;
+                                                              padding: 15px 32px !important; ;
+                                                              text-align: center !important; ;
+                                                              text-decoration: none !important; ;
+                                                              display: inline-block !important; ;
+                                                              font-size: 14px !important; ;
+                                                              border-radius: 20px !important; ;" value="Actualizar Incidente" onclick="PF('dlg3').show()"/>
+                                             <p:separator/>
+                                         </p:tab>-->
+                                    </p:tabView></center>
+                                <!--Dialogo que abre el formulario para generar un Incidente -->
+                                <p:dialog header="Genera un nuevo Ticket RPL" widgetVar="dlg1"  showEffect="fade" hideEffect="fade"   height="350px" 
+                                          width="600px"  resizable="true" >
+
+                                    <p:panel header="Captura de datos:" 
+                                             style="font-size:  small" 
+                                             id="insrpanelrpl"
+                                             >                                 
+
+                                        <p:panelGrid   id="panel2" columns="2" style="  border: 3px; margin-left:20px; margin: auto; width: 500px;  align-items:  flex-end; text-align:  center ">
+
+                                            <h:outputLabel for="asunto" value="ASUNTO" /> 
+                                            <p:inputText id="asunto"  value="#{instrrpl.instr_asunto}"/> 
+                                            <h:outputLabel for="usrgldc" value="USUARIO GLDC" />  
+                                            <h:selectOneMenu id="usrgldc" required="true" label="Usuario GLDC" style=" background-color: #036fab" value="#{instrrpl.instr_usr_gldc}" >
+                                                <f:selectItem itemLabel="Escoger Usuario" itemValue="" noSelectionOption="true"/>
+                                                <f:selectItem itemLabel="ab776e" itemValue="ab776e"/>
+                                                <f:selectItem itemLabel="af797v" itemValue="af797v"/>
+                                                <f:selectItem itemLabel="dg3861" itemValue="dg3861"/>
+                                                <f:selectItem itemLabel="gg997b" itemValue="gg997b"/>
+                                                <f:selectItem itemLabel="jc889v" itemValue="jc889v"/>
+                                                <f:selectItem itemLabel="jd228u" itemValue="jd228u"/>
+                                                <f:selectItem itemLabel="jp413h" itemValue="jp413h"/>
+                                                <f:selectItem itemLabel="jt101r" itemValue="jt101r"/>
+                                                <f:selectItem itemLabel="lg339p" itemValue="lg339p"/>
+                                                <f:selectItem itemLabel="mc023m" itemValue="mc023m"/>
+                                                <f:selectItem itemLabel="mf1220" itemValue="mf1220"/>
+                                                <f:selectItem itemLabel="mh1893" itemValue="mh1893"/>
+                                                <f:selectItem itemLabel="mr010y" itemValue="mr010y"/>
+                                                <f:selectItem itemLabel="rr789j" itemValue="rr789j"/>
+                                                <f:selectItem itemLabel="vp789j" itemValue="vp789j"/>
+                                                <f:selectItem itemLabel="vu750v" itemValue="vu750v"/>
+                                                <f:selectItem itemLabel="pp6994" itemValue="pp6994"/>
+                                            </h:selectOneMenu>
+                                            <p:outputLabel   value="FECHA RECEPCION CORREO:" />
+                                            <p:calendar id="fechainicio"
+                                                        value="#{instrrpl.instr_fco}" 
+                                                        pages="1" 
+                                                        timeZone="America/Mexico_City"
+                                                        pattern="yyyy/MM/dd HH:mm:ss"  
+                                                        selectOtherMonths="true"
+                                                        showOtherMonths="true"
+                                                        showWeek="true"
+                                                        locale="es"
+                                                        required="true"
+                                                        requiredMessage="Por favor ingresa la Fecha de Recepción de Correo, regresa dando click sobre el calendario"
+                                                        style="font-size:  x-small; font-family:  sans-serif;"
+                                                        navigator="true"
+
+                                                        />  
+                                            <h:outputLabel for="parbus" value="PARAMETROS BUSQUEDA" /> 
+                                            <p:inputText id="parbus"  value="#{instrrpl.instr_parbus}"/>
+                                            <h:outputLabel for="usrrpl" value="USUARIO RPL" />  
+                                            <h:selectOneMenu id="usrrpl" required="true" label="Usuario RPL" style=" background-color: #036fab; border-bottom-style:  ridge" value="#{instrrpl.instr_usrrpl}" >
+                                                <f:selectItem itemLabel="Escoger Usuario" itemValue="" noSelectionOption="true"/>
+                                                <f:selectItem itemLabel="EDUARDO MOLERO CHAVEZ" itemValue="EDUARDO MOLERO CHAVEZ"/>
+                                                <f:selectItem itemLabel="KAREN ANALI LAMEGOS MENDOZA" itemValue="KAREN ANALI LAMEGOS MENDOZA"/>
+                                                <f:selectItem itemLabel="RICARDO OLMOS GUZMAN" itemValue="RICARDO OLMOS GUZMAN"/>
+                                            </h:selectOneMenu>
+                                            <h:outputLabel for="actreal" value="ACTIVIDAD REALIZADA " >
+                                                <h:outputLink id="AR" value="" disabled="true">
+                                                    <p:graphicImage value="/resources/images/info.png" />
+                                                </h:outputLink> 
+                                                <p:tooltip id="toolTipAR" for="AR" position="left">
+                                                    <p:graphicImage value="../resources/images/actrea.PNG" />
+                                                </p:tooltip>
+
+                                            </h:outputLabel> 
+                                            <p:inputText id="actreal"  value="#{instrrpl.instr_actreal}"/>
+                                            <h:outputLabel for="mdn" value="MDN" />  
+                                            <p:inputText id="mdn"  value="#{instrrpl.instr_mdn}"/>
+
+
+
+                                        </p:panelGrid>
+                                        <p:separator />             
+
+                                        <p:commandButton 
+                                            value="Guardar"  action="#{instrrpl.guardarinc()}" onclick="PF(dlg1).hide()" 
+                                            style=" background-color:  greenyellow !important;  
+                                            border: 2px solid greenyellow !important; ;
+                                            color: white !important; ;
+                                            padding: 1px 3px !important; ;
+                                            text-align: center !important; ;
+                                            text-decoration: none !important; ;
+                                            display: inline-block !important; ;
+                                            font-size: 14px !important; ;
+                                            border-radius: 40px !important; ; "  
+                                            > 
+
+                                        </p:commandButton> 
+
+                                    </p:panel>
+                                </p:dialog>
+                                <!--Dialogo que abre el formulario para Actualizar un Incidente -->
+
+
+
+
+                                <!--</p:panel>-->
+                            </p:tab>
+
+                            <p:tab  id="inc" 
+                                    title="CONSULTA TU TICKET" titleStyle=" font-size: 18px" > 
+                                <p:panelGrid columns="1" style=" width:100%"  >
+
+                                    <p:dataTable id="dataTable"   
+                                                 var="mostrarProcesados"  
+                                                 value="#{ bitrpl.mostrarProcesados }" 
+                                                 widgetVar="procesadosTable"  
+                                                 scrollRows="25"  
+                                                 scrollable="true" 
+                                                 liveScroll="true" 
+                                                 emptyMessage="No se tiene registro" 
+                                                 paginator="true"
+                                                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                 rowsPerPageTemplate="25,50,75"
+                                                 style=" font-size:10px; font-family:  Segoe UI; width: auto; margin:  auto; "
+                                                 rowStyleClass=""
+                                                 filteredValue="#{bitrpl.filteredProcesados}" 
+                                                 >  
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_event" 
+                                                  filterBy="#{mostrarProcesados.ID_EVENT }"   
+                                                  headerText="INCIDENTE" 
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="INCIDENTE">    
+                                            <h:outputText value="#{mostrarProcesados.ID_EVENT}" />  
+                                        </p:column>
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_asunto" 
+                                                  filterBy="#{mostrarProcesados.ASUNTO }"   
+                                                  headerText="ASUNTO"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="ASUNTO">    
+                                            <h:outputText value="#{mostrarProcesados.ASUNTO}" />  
+                                        </p:column>
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_usuario_gldc" 
+                                                  filterBy="#{mostrarProcesados.USUARIO_GLDC}"   
+                                                  headerText="USUARIO_GLDC"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="USUARIO_GLDC">    
+                                            <h:outputText value="#{mostrarProcesados.USUARIO_GLDC}" />  
+                                        </p:column>
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_fecha_recepcion_correo" 
+                                                  filterBy="#{mostrarProcesados.FECHA_RECEPCIÓN_CORREO }"   
+                                                  headerText="FECHA_RECEPCION_CORREO"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="FECHA_RECEPCION_CORREO">    
+                                            <h:outputText value="#{mostrarProcesados.FECHA_RECEPCIÓN_CORREO}" />  
+                                        </p:column>
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_parametros_busqueda" 
+                                                  filterBy="#{mostrarProcesados.PARAMETROS_BUSQUEDA }"   
+                                                  headerText="PARAMETROS_BUSQUEDA"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="PARAMETROS_BUSQUEDA">    
+                                            <h:outputText value="#{mostrarProcesados.PARAMETROS_BUSQUEDA}" />  
+                                        </p:column>
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_usuario_rpl" 
+                                                  filterBy="#{mostrarProcesados.USUARIO_RPL }"   
+                                                  headerText="USUARIO_RPL"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="USUARIO_RPL">    
+                                            <h:outputText value="#{mostrarProcesados.USUARIO_RPL}" />  
+                                        </p:column>
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_actividad_realizada" 
+                                                  filterBy="#{mostrarProcesados.ACTIVIDAD_REALIZADA }"   
+                                                  headerText="ACTIVIDAD_REALIZADA"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="ACTIVIDAD_REALIZADA">    
+                                            <h:outputText value="#{mostrarProcesados.ACTIVIDAD_REALIZADA}" />  
+                                        </p:column>
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_mdn" 
+                                                  filterBy="#{mostrarProcesados.MDN }"   
+                                                  headerText="MDN"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="MDN">    
+                                            <h:outputText value="#{mostrarProcesados.MDN}" />  
+                                        </p:column>
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_fecha_apertura" 
+                                                  filterBy="#{mostrarProcesados.FECHA_APERTURA }"   
+                                                  headerText="FECHA_APERTURA"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="FECHA_APERTURA">    
+                                            <h:outputText value="#{mostrarProcesados.FECHA_APERTURA}" />  
+                                        </p:column>
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="comentario" 
+                                                  filterBy="#{mostrarProcesados.COMENTARIO}"   
+                                                  headerText="COMENTARIO"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="COMENTARIO">    
+                                            <h:outputText value="#{mostrarProcesados.COMENTARIO}" />  
+                                        </p:column>
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="fcierre" 
+                                                  filterBy="#{mostrarProcesados.FECHA_CIERRE}"   
+                                                  headerText="FECHA_CIERRE"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="FECHA_CIERRE">    
+                                            <h:outputText value="#{mostrarProcesados.FECHA_CIERRE}" />  
+                                        </p:column>
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_estatus" 
+                                                  filterBy="#{mostrarProcesados.ESTATUS }"   
+                                                  headerText="ESTATUS"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="ESTATUS">    
+                                            <h:outputText value="#{mostrarProcesados.ESTATUS}" />  
+                                        </p:column>
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="id_envio_correo" 
+                                                  filterBy="#{mostrarProcesados.FECHA_ENVIO_COREO}"   
+                                                  headerText="FECHA_ENVIO_CORREO"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="FECHA_ENVIO_CORREO">    
+                                            <h:outputText value="#{mostrarProcesados.FECHA_ENVIO_COREO}" />  
+                                        </p:column>
+                                        <p:column style="text-align:center; font-size: medium; font-size: 10px" 
+                                                  id="usr_cierre" 
+                                                  filterBy="#{mostrarProcesados.UP_USR_GLDC_C}"   
+                                                  headerText="USUARIO_CIERRA"   
+                                                  filterMatchMode="contains" 
+                                                  filterStyle="width: 100px;"
+                                                  footerText="USUARIO_CIERRA">    
+                                            <h:outputText value="#{mostrarProcesados.UP_USR_GLDC_C}" />  
+                                        </p:column>
+
+
+                                    </p:dataTable> 
+                                </p:panelGrid>    
+
+                            </p:tab>                   
+
+                        </p:accordionPanel>
+
+                    </p:panel>
+
+
+
+                </h:form>
+
+
+
+
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+
+
+
+
+</html>

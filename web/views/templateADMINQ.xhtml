@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css"></link>
+
+
+    <h:head>
+        
+        <title>GDLC System</title>
+
+            
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <h:outputStylesheet library="css" name="font-awesome.min.css"/>
+        <h:outputScript library="js" name="fontawesome.min.js"/>
+        <link rel="stylesheet" type="text/css" href="../resources/css/template_css.css"></link>
+
+
+     
+        
+            
+    </h:head>
+
+  
+
+    <h:body>
+       
+   
+
+        <div class="container-fluid">
+            
+            <div class="row"  style=" ">   
+                <div class="col" style=" "  >
+                       
+                  
+                  
+                  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="" href="#">
+        <img src="../resources/images/att_hz_lg_lkp_mx_rgb_rev.png" class="img-fluid" alt="..." height="36" width="20%"></img>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Queue Manangement
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="/GLDC_SYSTEM/faces/views/GLDC_Queue_Token.xhtml">Generación Token</a></li>
+            <li><a class="dropdown-item" href="/GLDC_SYSTEM/faces/views/GLDC_Queue_Programacion.xhtml">Programación</a></li>
+              <li><a class="dropdown-item" href="/GLDC_SYSTEM/faces/views/GLDC_Queue_Bancotrabajo.xhtml">Banco de trabajo</a></li>
+            <li><a class="dropdown-item" href="/GLDC_SYSTEM/faces/views/GLDC_Queue_BancotrabajoAdmin.xhtml">Banco Administrador</a></li>
+           
+            <li>
+                <hr class="dropdown-divider"></hr>
+            </li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+                  
+                  
+                  
+            </div>
+                 
+            </div>
+            
+            
+            <div class="row">
+                
+                <div class="col-lg-12" style="">
+                     <ui:insert name="content"> </ui:insert>
+                </div>
+               
+            </div>
+            
+                    
+           
+    
+            
+            
+
+    
+            
+              <div id="separator-ribbon" >
+                  <div class="content bg-transparent"></div> 
+                      
+              </div>   
+    
+            
+            
+            
+            
+          <div class="row"  >   
+                <div class="col"   >
+                   
+                    
+                    
+                    
+                    
+                    <p:fieldset  style="  margin:  auto; font-family: Corbel Light;  font-size: 10px !important;" >
+                        <h:panelGrid columns="2" cellpadding="5"  >
+                            <p:graphicImage value="/resources/images/iconxt.PNG" />
+                            <h:outputText style="   margin-right:  auto; font-size: 12px"
+                                          value="Cualquier comentario relacionado a esta pagina enviar correo a: dg3861@att.com
+                                          .Pagina creada para GLDC, 2019." />
+
+                        </h:panelGrid>
+                    </p:fieldset>
+
+                    <p:graphicImage  value="/resources/images/galeria/grass4.png" styleClass="content"  style="margin:auto;align-content:  center; width: 100%; height: 50%    " /> 
+
+                    
+                            <div id="ribbon" class="container-fluid " >   
+
+                <div id="birthday"  class="container w-50 pl-4 rounded-3"  >   
+
+                    <div class="row aling-items-center">
+
+                        <div class="col-sm p-2">
+                            <img src="../resources/images/nuevagldc.png"  width="100px" class=" mx-auto  d-block " alt=""  ></img>
+
+                        </div>
+
+                     
+
+                    </div> 
+
+                </div> 
+
+
+            </div>   
+
+                                 
+            </div>
+                 
+          </div>
+            
+        </div>    
+                   
+                      
+                         
+        
+             
+    </h:body>
+
+</html>

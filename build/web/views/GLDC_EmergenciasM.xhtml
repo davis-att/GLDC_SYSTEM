@@ -1,0 +1,457 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+
+        <title>Emergencias Médicas</title>
+        <link rel="shortcut icon" href="../resources/images/ajax-loader.gif"/>
+
+        
+<style type="text/css">
+    .label {
+        width:20%;
+        padding:6px;
+    }
+ 
+    .value {
+        width:80%;
+        padding:4px;
+    }
+ 
+    .grid {
+        width:100%;
+    }
+ 
+    .error {
+        color: red;
+    }
+ 
+    .outputLabel {
+        font-weight: bold !important;
+        font-family:  sans-serif !important;
+        font-size:  larger;
+        
+        
+    }
+ 
+    .grid {
+        width:33%;
+        padding:4px;
+    }
+    
+    .panelGridCenter{
+        margin:0 auto;
+    }
+    
+    .column1{
+        background-color:  #036fab;
+        font-size:  30px;
+    }
+    
+    .info {
+    background-color: blue !important;
+    }
+    .error {
+    background-color: red !important;
+}
+
+    .ui-growl {   
+        width: 360px;
+        height: 110px;
+
+    }
+    
+</style>   
+        
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
+        <script name="jquery/jquery.js" library="primefaces"></script>
+
+
+
+
+    </h:head>
+
+
+    <body>
+         <ui:include src="/templates/sessionTimeOut.xhtml" />
+        <ui:composition template="#{loginBean.template}">
+
+            <ui:define name="content">
+                  <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+
+                <h:form id="formb"> 
+         
+   
+    <p:panel     id="panelp" header="Emergencia Médica"  style="width: auto;  border: transparent;  text-align:  center">
+        <p:panelGrid columns="4"  style="margin: auto; border: transparent; align-content:  center" >
+       
+            
+        <p:outputLabel for="tipobusqueda" value="Criterio de busqueda:" />
+        <p:selectOneMenu    id="tipobusqueda" value="#{emergenciasmed.tipobusqueda}" style="width:125px" required="true" requiredMessage="Selecciona el criterio de busqueda" >
+            <f:selectItem itemLabel="Selecciona" itemValue=""  />
+            <f:selectItem itemLabel="Número Empleado" itemValue="1" />
+            <f:selectItem itemLabel="Att_id" itemValue="2" />
+            <f:selectItem itemLabel="Nombre Empleado" itemValue="3" />            
+        </p:selectOneMenu>
+          
+            
+           <h:outputLabel for="idusuario" value="Dato:" />
+                 <p:inputText  id="idusuario" value="#{emergenciasmed.IDEMPLEADO}" required="true" label="Ingresa el dato a buscar" />
+            
+          
+                 
+            </p:panelGrid>         
+        
+        <p:separator style="width:800px;height:5px" />
+        
+        <p:panelGrid columns="1"  style="margin: auto; border: transparent; align-content:  center" >
+       
+              <p:commandButton  
+                  value="Generar consulta de usuario"
+                  actionListener="#{emergenciasmed.cargadatos(loginBean.username)}"
+                  update=":form:panel,:form:wizard, :form:growl, :formb:panelp, :form:panel72"  > 
+             </p:commandButton>
+
+            
+          <p:separator style="width:800px;height:5px"  rendered="#{emergenciasmed.panelcaputura}" />              
+           
+          <p:commandButton value="Reset Valores" update=":form:panel" rendered="#{emergenciasmed.panelcaputura}"
+            actionListener="#{emergenciasmed.listener}" immediate="true" ajax="false">
+            <p:resetInput target=":form:panel" />
+            <p:resetInput target=":formb:panelp" />
+             </p:commandButton>
+
+            
+           </p:panelGrid>  
+   </p:panel> 
+                    
+    </h:form>
+    
+      <h:form id="form">
+          
+          <p:growl id="growl"  life="10000"  showDetail="true"    autoUpdate="true"/>
+    
+    <p:panel     id="panel"  style="width: auto;  border: transparent;  text-align:  center" visible="#{emergenciasmed.panelcaputura}">                    
+                     
+                <p:panelGrid columns="1"  style="margin: auto; border: transparent; align-content:  center" >
+                  
+                <p:graphicImage  value="/resources/images/galeria/CabeceraEM_2.png"  /> 
+                        
+         
+                                       <p:dataTable id="dataTable"   
+                                     var="vartabs"  
+                                     value="#{emergenciasmed.mostrarProcesados}" 
+                                     widgetVar="procesadosTable"  
+                                     rows="25"
+                                     scrollable="true" 
+                                     liveScroll="true" 
+                                     emptyMessage="No se tiene registro" 
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="25,50,75"
+                                     style=" font-size:15px; font-family:  Segoe UI; width:  1000px; margin:  auto;"
+                                     filteredValue="#{emergenciasmed.filteredProcesados}" 
+                                     selectionMode="single" 
+                                     selection="#{emergenciasmed.selectedProcesados}"
+                                     rowKey="#{vartabs.NUM}"
+                                     >  
+                           
+                            <p:ajax event="rowSelect" listener="#{emergenciasmed.onRowSelect}"  update=":form:panel,:form:wizard, :form:growl, :formb:panelp: :form:panel72" />
+                           
+  
+
+
+                            <p:column style="text-align:center; font-size: 18px; " 
+                                      id="noempleado" 
+                                      headerText="Id_empleado">    
+                                <h:outputText value="#{vartabs.NUM}" />  
+                            </p:column>
+                              <p:column style="text-align:center; font-size: 18px; " 
+                                      id="attid" 
+                                      headerText="ATTID">    
+                                  <h:outputText value="#{vartabs.ATTID}" />  
+                            </p:column>                            
+                            <p:column style="text-align:center; font-size: 18px; " 
+                                      id="nom" 
+                                      headerText="NOMBRE">    
+                                <h:outputText value="#{vartabs.NOMBRE}" />  
+                            </p:column>
+                             <p:column style="text-align:center; font-size: 18px; " 
+                                      id="apeo" 
+                                      headerText="APELLIDOP">    
+                                 <h:outputText value="#{vartabs.APELLIDOP}" />  
+                            </p:column>
+                             <p:column style="text-align:center; font-size: 18px;" 
+                                      id="apem" 
+                                      headerText="APELLIDOM">    
+                                 <h:outputText value="#{vartabs.APELLIDOM}" />  
+                            </p:column>
+                             <p:column style="text-align:center; font-size: 18px; " 
+                                      id="puesto" 
+                                      headerText="PUESTO">    
+                                 <h:outputText value="#{vartabs.PUESTO}" />  
+                            </p:column>
+                   
+                            
+                        </p:dataTable> 
+                
+                
+    
+                <p:wizard  id="wizard" flowListener="#{emergenciasmed.onFlowProcess}"  style=" width:   fit-content"  nextLabel="Siguiente"  backLabel="Regresar" >
+        <p:tab id="personal" title="Detalle Personal" >
+            <p:panel >
+          
+               <h:panelGrid columns="2" style="width: 50%; text-align:  left" columnClasses="label, value">
+                  <h:outputText value="ATT ID:"  style="font-weight: 800" />
+                    <p:inplace id="ATTIDin" editor="true" emptyLabel="Sin registro">                          
+                        <p:inputText value="#{emergenciasmed.usuario.ATTID}" required="true"  requiredMessage="ATT ID es requerido" label="ATT ID es requerido"/>                    
+                    </p:inplace>    
+                    <h:outputText value="Nombre:"  style="font-weight: 800"  />
+                    <p:inplace id="NOMBREin" editor="true" emptyLabel="Sin registro">
+                        <p:inputText value="#{emergenciasmed.usuario.NOMBRE}" required="true" requiredMessage="Nombre es Requerido" label="Nombre es Requerido"/>
+                     </p:inplace>
+                    <h:outputText value="Apellido Paterno:"  style="font-weight: 800"   />
+                    <p:inplace id="APELLIDOPin" editor="true" emptyLabel="Sin registro">
+                    <p:inputText value="#{emergenciasmed.usuario.APELLIDOP}" required="true" label="Apellido Paterno es Requerido"/>
+                     </p:inplace>
+                    <h:outputText value="Apellido Materno:" style="font-weight: 800"   />
+                    <p:inplace id="APELLIDOMin" editor="true" emptyLabel="Sin registro">
+                    <p:inputText value="#{emergenciasmed.usuario.APELLIDOM}" required="true" label="Apellido Materno es Requerido"/>
+                     </p:inplace>    
+                    <h:outputText value="Número Telefónico:"  style="font-weight: 800"  />
+                    <p:inplace id="TELEFONOin" editor="true" emptyLabel="Sin registro">
+                    <p:inputText value="#{emergenciasmed.usuario.TELEFONO}" required="true" label="Telefóno es Requerido" />
+                     </p:inplace>
+                        
+               
+                    <h:outputText value="Nombre Puesto: " style="font-weight: 800" />
+                    <p:inplace id="PUESTOin" editor="true" emptyLabel="Sin registro">
+                    <p:inputText value="#{emergenciasmed.usuario.PUESTO}" />
+                    </p:inplace>
+                    <h:outputText value="Área: " style="font-weight: 800"/>
+                    <p:inplace id="AREAin" editor="true" emptyLabel="Sin registro">
+                    <p:inputText value="#{emergenciasmed.usuario.AREA}" />
+                    </p:inplace>
+                    <h:outputText value="Vicepresidencia: " style="font-weight: 800"/>
+                    <p:inplace id="VPin" editor="true" emptyLabel="Sin registro">
+                    <p:inputText value="#{emergenciasmed.usuario.VP}" />
+                    </p:inplace>
+                    <h:outputText value="Localidad: " style="font-weight: 800"/>
+                    <p:inplace id="LOCALIDADin" editor="true" emptyLabel="Sin registro">
+                    <p:inputText value="#{emergenciasmed.usuario.LOCALIDAD}" />
+                    </p:inplace>    
+                    <h:outputText value="Nombre Jefe Inmediato: " style="font-weight: 800"/>
+                    <p:inplace id="JEFE_INMEDIATOin" editor="true" emptyLabel="Sin registro">
+                    <p:inputText value="#{emergenciasmed.usuario.JEFE_INMEDIATO}" />
+                    </p:inplace>
+                    
+                    <h:outputText value="Incidente de trabajo: " style="font-weight: 800; width: 500px"/>
+                    <p:selectOneListbox id="basic" 
+                                        value="#{emergenciasmed.usuario.ACCIDENTE_TRABAJO}" 
+                                        required="true"  
+                                        requiredMessage="Incidente de trabajo es Requerido" 
+                                        label="Incidente de trabajo es Requerido"
+                                        style=" width:  300px">
+                    <f:selectItem itemLabel="Accidente trabajo" itemValue="Accidente trabajo"    />
+                    <f:selectItem itemLabel="Accidente trayecto" itemValue="Accidente trayecto" />
+                    <f:selectItem itemLabel="Enfermedad Profesional" itemValue="Enfermedad Profesional" />
+                    </p:selectOneListbox>
+                    
+                     <h:outputText value="Persona que reporta:" style="font-weight: 800; width: 500px"/>
+                    <p:selectOneListbox id="basic2" 
+                                        value="#{emergenciasmed.usuario.PREPORTA}" 
+                                        required="true"  
+                                        requiredMessage="Persona que reporta es requerida" 
+                                        label="Persona que reporta"
+                                        style=" width:  300px">
+                    <f:selectItem itemLabel="Empleado" itemValue="Empleado"    />
+                    <f:selectItem itemLabel="Compañero de trabajo" itemValue="Compañero de trabajo" />
+                    <f:selectItem itemLabel="Familiar" itemValue="Familiar" />
+                    <f:selectItem itemLabel="Conocido" itemValue="Conocido" />
+                    <f:selectItem itemLabel="Otro" itemValue="Otro" />
+                    </p:selectOneListbox>
+ 
+
+                </h:panelGrid>
+            </p:panel>
+        </p:tab>
+ 
+        <p:tab id="confirm" title="Confirmación">
+            <p:panel   header="Confirmación">
+                <h:panelGrid id="confirmation" columns="2"  style="margin: auto; border: transparent; align-content:  center" >
+                    <h:panelGrid columns="2" columnClasses="label, value"  border="3">
+                        <h:outputText value="ATT ID: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.ATTID}" styleClass="outputLabel"/>
+ 
+                        <h:outputText value="Nombre: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.NOMBRE}" styleClass="outputLabel"/>
+ 
+                        <h:outputText value="Apellido Paterno: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.APELLIDOP}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Apellido Materno: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.APELLIDOM}" styleClass="outputLabel"/>                        
+                        
+                         <h:outputText value="Número Telefónico: " style="font-weight: 800"/>
+                         <h:outputText value="#{emergenciasmed.usuario.TELEFONO}" styleClass="outputLabel"/>   
+
+                        <h:outputText value="Nombre Puesto: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.PUESTO}" styleClass="outputLabel"/>
+ 
+                        <h:outputText value="Área: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.AREA}" styleClass="outputLabel"/>
+ 
+                        <h:outputText value="Viceprecidencia: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.VP}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Localidad: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.LOCALIDAD}" styleClass="outputLabel"/>
+                        
+                        <h:outputText value="Nombre Jefe Inmediato: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.JEFE_INMEDIATO}" styleClass="outputLabel"/>
+
+                        
+                        <h:outputText value="Accidente trabajo: " style="font-weight: 800"/>
+                        <h:outputText value="#{emergenciasmed.usuario.ACCIDENTE_TRABAJO}" styleClass="outputLabel"    />
+                   
+                         <h:outputText value="Persona que reporta: " style="font-weight: 800"/>
+                         <h:outputText value="#{emergenciasmed.usuario.PREPORTA}" styleClass="outputLabel"    />
+ 
+                        <h:outputText />
+                    </h:panelGrid>
+                </h:panelGrid>
+ 
+                <p:panel id="paneltermino" visible="#{emergenciasmed.desaboton}">
+                    <p:commandButton   id="botontermino"  style=" text-align:  left;  margin-left:  auto" value="Capturar registro" action="#{emergenciasmed.save}" update="panel,growl,:form:comfin,paneltermino" process="@this"   resetValues="true"  >
+                     <p:confirm header="Confirmación" message="Los datos están completos?" icon="pi pi-exclamation-triangle" />
+                </p:commandButton>
+                      </p:panel>   
+                
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                   <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" action="GLDC_EmergenciasM.xhtml" />
+                   <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+               </p:confirmDialog>   
+                
+                <p:panel visible="#{emergenciasmed.finalizar}">
+                <h:panelGrid  columnClasses="column1"  columns="1"   style=" font-weight:  bolder; margin: auto; border: transparent; align-content:  center" > 
+              
+                <p:outputLabel  value="Folio: #{emergenciasmed.nofolio}"  />
+              
+             </h:panelGrid> 
+                 </p:panel>
+
+                
+            </p:panel>
+        </p:tab>
+    </p:wizard>
+
+                <h:panelGrid  columnClasses="column1" styleClass="panelGridCenter" columns="6"  style=" text-align:   right" >
+              
+
+        
+    </h:panelGrid>
+ 
+                    <p:panel id="comfin"  style=" text-align:  center"  visible="#{emergenciasmed.finalizar}"   >  
+                    <h:panelGrid columns="1" style="  width:  auto; margin:  auto" >
+                   
+                    
+                    <p:commandButton value="GENERAR NUEVA SOLICITUD" update=":form:panel" rendered="#{emergenciasmed.panelcaputura}"
+                                     style="   font-family:  sans-serif; font-size:  xx-large; font-weight:  200;"
+                                     actionListener="#{emergenciasmed.reload()}" immediate="true" ajax="false">
+
+                    </p:commandButton>
+                    
+                    
+    </h:panelGrid>
+                        
+                        
+                        
+                        
+                        
+                 </p:panel>  
+               
+
+                 <p:graphicImage  value="/resources/images/galeria/PieEM_1.png"  /> 
+                
+                
+                </p:panelGrid>  
+             </p:panel>  
+
+          
+          
+                        
+          <p:panel id="panel72" style="width: auto;  border: transparent;  text-align:  center" visible="#{emergenciasmed.panel72}">  
+               
+              <p:messages id="messages" showDetail="true" ></p:messages>
+                 <p:panelGrid columns="2" style="width: auto;  border: transparent;  text-align:  center; align-content:  center; margin: 0 auto;" >
+                       <f:facet name="header" >
+                           <h:outputText  style="font-size:  20px;" value="***El empleado ya cuenta con registro en los últimos 30 dias.***" />
+                       </f:facet>
+                     
+                      <h:outputText value="" />
+                       <h:outputText value="" />
+
+
+                       <h:outputText value="Número Folio:" />
+                       <h:outputText value="#{emergenciasmed.s_ID_REGISTRO}" />
+
+                       <h:outputText value="Nombre:" />
+                       <h:outputText value="#{emergenciasmed.s_NOMBRE}" />
+
+                       <h:outputText value="Attid:" />
+                       <h:outputText value="#{emergenciasmed.s_ATTID}" />
+
+                       <h:outputText value="Número de Teléfono:" />
+                       <h:outputText value="#{emergenciasmed.s_TELEFONO}" />
+                       
+                       <h:outputText value="Fecha de Reporte:" />
+                       <h:outputText value="#{emergenciasmed.s_FECHA_REPORTE}" />
+                       
+                       <h:outputText value="¿Quién reporto?" />
+                       <h:outputText value="#{emergenciasmed.s_PREPORTA}" />
+                       
+                       
+                       <h:outputText value="Causa:" />
+                       <h:outputText value="#{emergenciasmed.s_ENFERMEDAD}" />
+                       
+                   </p:panelGrid>
+                 
+                 <p:separator style="width:800px;height:5px"  rendered="#{emergenciasmed.panel72}" />    
+              
+                 <p:graphicImage  value="/resources/images/galeria/PieEM_1.png"  /> 
+                
+                
+                </p:panel>  
+          
+          
+          
+          
+          
+       </h:form>
+             
+                
+            </ui:define>
+
+
+        </ui:composition>
+
+                    <p:dialog modal="true" widgetVar="statusDialog"  
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent"
+                      styleClass="estatusdiag"
+                      >  
+                <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+            </p:dialog> 
+        
+
+    </body>
+</html>

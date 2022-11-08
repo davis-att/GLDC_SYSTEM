@@ -1,0 +1,309 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+         
+     <style type="text/css">       
+            
+       .hide
+        {
+        display:none;
+        visibility:hidden;
+        }
+
+        </style>
+        
+        
+    <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+                 <h:form id="form"> 
+                     
+                    <p:growl id="growl" showDetail="true" sticky="true" />  
+                      
+                    <p:panel header="HISTORICO DE REGISTROS DE 911" style="font-size: 13px ; width: auto" >
+                                   
+                             <p:panelGrid columns="4"  style=" margin:  auto; border: transparent; align-content:  center" >
+
+
+                            <p:outputLabel for="fechainicio" value="Fecha inicial:" />
+                               <p:calendar id="fechainicio"
+                                           value="#{mostrarIncidentes911.fechainicial}" 
+                                            pages="1" 
+                                            timeZone="America/Mexico_City"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa la Fecha inicio, regresa dando click sobre el calendario"
+                                            style="font-size: 25px; font-family:  sans-serif; width: 500px"
+                                            navigator="true"   
+                                            />  
+                               
+                               <p:outputLabel for="fechainicio" value="Fecha Final:" />
+                               <p:calendar id="fechafinal"
+                                           value="#{mostrarIncidentes911.fechafinal}" 
+                                            pages="1" 
+                                            timeZone="America/Mexico_City"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa la Fecha final, regresa dando click sobre el calendario"
+                                            style="font-size: 25px; font-family:  sans-serif; width: 500px"
+                                            navigator="true"   
+                                            />  
+
+
+
+
+
+                        </p:panelGrid>    
+                        
+                          <p:separator style="width:800px;height:5px" />
+        
+                                 
+                           
+                          <p:panelGrid columns="1"  style="margin: auto; border: transparent; align-content:  center">
+
+                              <p:commandButton  
+                                  value="Generar reporte"
+                                  actionListener="#{mostrarIncidentes911.CargaTabla_911()}"
+                                  update="paneltabla, growl"  > 
+                              </p:commandButton>
+
+
+                          </p:panelGrid>      
+                        
+                    </p:panel>    
+                        
+                        
+                     <p:panel id="paneltabla" style="font-size: 20px;"  visible="#{mostrarIncidentes911.muestrapanel}">  
+                                      
+                         <p:dataTable   id="bitacoraTabla"  
+                                        scrollRows="25"  
+                                        scrollable="true" 
+                                        liveScroll="true" 
+                                        paginator="true"
+                                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                        rowsPerPageTemplate="25,50,75"
+                                       value="#{mostrarIncidentes911.eventoBitacora}" 
+                                       var="eventoBitacora" 
+                                       widgetVar="vargeneral"
+                                       emptyMessage="No hay registros" filteredValue="#{mostrarIncidentes911.filterEventoBitacora}"
+                                       selection="#{mostrarIncidentes911.selectedEventoBitacora}"
+                                       style="width: auto ; font-size: 11px !important" 
+                                       resizableColumns="true"
+                                       >
+                            <f:facet name="header"  >  
+                                <p:outputPanel >  
+                                    <h:outputText value="Buscar en todos los campos" />  
+                                    <p:inputText id="globalFilter"  onkeyup="PF('vargeneral').filter()" style="width:150px" />  
+                                </p:outputPanel>  
+                            </f:facet>  
+
+
+                            
+                             <p:column id="ID_EVENT" headerText="ID_EVENTO" filterStyleClass="hide" filterBy="#{eventoBitacora.ID_EVENT}"  filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ID_EVENTO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ID_EVENT}" />  
+                            </p:column>  
+
+                             <p:column id="USUARIO" headerText="USUARIO" filterStyleClass="hide" filterBy="#{eventoBitacora.USUARIO}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="USUARIO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.USUARIO}" />  
+                            </p:column>
+                            
+                             
+                             <p:column id="NOMBRE_OFICIO" headerText="ASUNTO" filterStyleClass="hide" filterBy="#{eventoBitacora.NOMBRE_OFICIO}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ASUNTO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.NOMBRE_OFICIO}" />  
+                            </p:column>  
+                            
+                             <p:column id="FECHA_INICIO" headerText="FECHA_RECEPCIÓN" filterStyleClass="hide" filterBy="#{eventoBitacora.FECHA_INICIO}" filterMatchMode="contains"  >  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_RECEPCIÓN" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.FECHA_INICIO}" />  
+                            </p:column>  
+                            
+                             <p:column id="FECHA_FIN" headerText="FECHA_ENVIO" filterStyleClass="hide"  filterBy="#{eventoBitacora.FECHA_FIN}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_ENVIO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.FECHA_FIN}" />  
+                            </p:column>  
+                            
+                             <p:column id="PRIORIDAD" headerText="PRIORIDAD" filterStyleClass="hide" filterBy="#{eventoBitacora.PRIORIDAD_911}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="PRIORIDAD" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.PRIORIDAD_911}" />  
+                            </p:column>
+        
+        
+        
+                            
+                             <p:column id="TIPO_FALLA" headerText="TIPO_FALLA" filterStyleClass="hide" filterBy="#{eventoBitacora.TIPOFALLA_911}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="TIPO_FALLA" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.TIPOFALLA_911}" />  
+                            </p:column>
+                            
+                             <p:column id="ID_REMEDY" headerText="ID_REMEDY" filterStyleClass="hide" filterBy="#{eventoBitacora.INC_REMEDY_911}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ID_REMEDY" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.INC_REMEDY_911}" />  
+                            </p:column>
+                            
+                             <p:column id="ENTIDAD_GOB" headerText="ENTIDAD_GOB" filterStyleClass="hide" filterBy="#{eventoBitacora.ENTIDAD_GOB_911}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ENTIDAD_GOB" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.ENTIDAD_GOB_911}" />  
+                            </p:column>
+                            
+                             <p:column id="ESTADO" headerText="ESTADO" filterStyleClass="hide" filterBy="#{eventoBitacora.ESTADO_911}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ESTADO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ESTADO_911}" />  
+                            </p:column>                                                     
+                             
+        
+                            <p:column id="MUNICIPIO" headerText="MUNICIPIO" filterStyleClass="hide" filterBy="#{eventoBitacora.MUNICIPIO_911}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="MUNICIPIO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.MUNICIPIO_911}" />  
+                            </p:column>                                                     
+                             
+        
+                            <p:column id="SERV_AFECTADO" headerText="SERV_AFECTADO" filterStyleClass="hide" filterBy="#{eventoBitacora.SERV_AFEC_911}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="SERV_AFECTADO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.SERV_AFEC_911}" />  
+                            </p:column>                                                     
+                              
+                             
+                             
+                             <p:column id="DESCRIPCION" headerText="DESCRIPCION" filterStyleClass="hide" filterBy="#{eventoBitacora.DESCRIPCION}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="DESCRIPCION" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.DESCRIPCION}" />  
+                            </p:column>
+                            
+                             
+        
+                             <p:column id="USUARIO_BO" headerText="USUARIO_BO" filterStyleClass="hide" filterBy="#{eventoBitacora.USUARIO_BO_911}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="USUARIO_BO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.USUARIO_BO_911}" />  
+                            </p:column>                                                     
+                             
+        
+                             <p:column id="ESTATUS" headerText="ESTATUS_GLDCSYS" filterStyleClass="hide" filterBy="#{eventoBitacora.ESTATUS}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ESTATUS_GLDCSYS" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ESTATUS}" />  
+                            </p:column>
+        
+        
+        
+        
+                             <p:column id="FECHA_APERTURA" headerText="FECHA_APERTURA_GLDCSYS" filterStyleClass="hide" filterBy="#{eventoBitacora.FECHA_APERTURA}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_APERTURA_GLDCSYS" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.FECHA_APERTURA}" />  
+                            </p:column>                                                     
+                             
+                             <p:column id="FECHA_CIERRE" headerText="FECHA_CIERRE_GLDCSYS" filterStyleClass="hide" filterBy="#{eventoBitacora.FECHA_CIERRE}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_CIERRE_GLDCSYS" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.FECHA_CIERRE}" />  
+                            </p:column>                                                     
+
+
+        
+                            <p:column id="DOCUMENTATION" headerText="DOCUMENTATION_GLDCSYS" filterStyleClass="hide" filterBy="#{eventoBitacora.DOCUMENTATION}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="DOCUMENTATION_GLDCSYS" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.DOCUMENTATION}" />  
+                            </p:column>
+        
+                             
+                             <p:column id="CLASIFICACION" headerText="CLASIFICACION_GLDCSYS" filterStyleClass="hide" filterBy="#{eventoBitacora.CLASIFICACION}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="CLASIFICACION_GLDCSYS" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.CLASIFICACION}" />  
+                            </p:column>
+                             
+        
+               
+        
+        
+
+                        </p:dataTable>
+                        
+                           <p:separator style="width:800px;height:5px" />                             
+               
+         
+                        
+                   <p:panelGrid  columns="2" style=" width:  auto; margin: auto">
+                       <h:commandLink>  
+                                        <p:graphicImage value="Bitacora/images/excel.png" height="40px"/>  
+                                        <p:dataExporter type="xls" target="bitacoraTabla" fileName="Reportes 911" postProcessor="#{mostrarIncidentes911.postProcessXLS}" />  
+                                    </h:commandLink>  
+                       <h:outputText value="Descarga Reporte" style="font-style: italic ; font-size: 20px"/>
+                    
+                    </p:panelGrid>   
+                              
+
+                    </p:panel>
+                 
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+        
+                   <p:dialog modal="true" widgetVar="statusDialog"  
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent"
+                      styleClass="estatusdiag"
+                      >  
+                <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+            </p:dialog> 
+        
+
+    </body>
+</html>

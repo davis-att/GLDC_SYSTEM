@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="leftMenuExternos"/>
+    </cc:interface>
+    
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            <p:panel header="Bienvenido" >
+                 <f:facet name="options" >  
+                            <p:menu style="font-size: smaller" >  
+                                <p:submenu label="Mis Datos">  
+                                    <p:menuitem value="Modificar" icon="ui-icon-person" url="informacionCuenta.xhtml"/>  
+                                </p:submenu>  
+                            </p:menu>  
+                </f:facet>  
+                <p:outputLabel value="#{loginBean.nombre}" style="margin-top: 5px; font-size: 10px"></p:outputLabel>
+                <br/>              
+                <img  id="fotoUsuario" src="../views/FOTOS/#{loginBean.fotos}.jpg" width="140" height="170" style="margin-left: 20px; margin-top: 10px ; border-style: groove"/>                                          
+                <br/>              
+                <p:outputLabel value="#{loginBean.puesto}" style="margin-top: 5px; font-size: 10px"></p:outputLabel>
+                <br/>              
+                <p:outputLabel value="#{loginBean.username}" style="margin-top: 5px; font-size: 10px"></p:outputLabel>
+            </p:panel>
+            
+
+            
+            <p:panel header="Noticias" style="width: 300px" >
+                
+            </p:panel>
+            
+            
+         </h:form>    
+    </cc:implementation>
+</html>

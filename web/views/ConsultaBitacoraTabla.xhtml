@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+         
+     <style type="text/css">       
+            
+       .hide
+        {
+        display:none;
+        visibility:hidden;
+        }
+
+        </style>
+        
+        
+    <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+                 <h:form id="form"> 
+                    <p:panel header="HISTORICO DE INCIDENTES" style="font-size: 13px ; width: 2220px !important " >
+                        <h:panelGrid columns="2" cellspacing="6" style="border-color: transparent;border-color: transparent">      
+                                    <h:commandLink>  
+                                        <p:graphicImage value="Bitacora/images/excel.png" height="20px"/>  
+                                        <p:dataExporter type="xls" target="bitacoraTabla" fileName="Bitacora_export" postProcessor="#{mostrarIncidentes.postProcessXLS}" />  
+                                    </h:commandLink>  
+                                                                      
+                                    <h:outputText value="Aquí puedes descargar la bitácora de eventos" style="font-style: italic ; font-size: 11px"/>
+                         </h:panelGrid>                 
+                                      
+                         <p:dataTable   id="bitacoraTabla"  
+                                       paginator="true" 
+                                       rows="50"
+                                       value="#{mostrarIncidentes.eventoBitacora}" 
+                                       var="eventoBitacora" 
+                                       widgetVar="vargeneral"
+                                       emptyMessage="No hay registros" filteredValue="#{mostrarIncidentes.filterEventoBitacora}"
+                                       selection="#{mostrarIncidentes.selectedEventoBitacora}"
+                                       style="width: 2200px ; font-size: 11px !important" 
+                                       >
+                            <f:facet name="header"  >  
+                                <p:outputPanel >  
+                                    <h:outputText value="Buscar en todos los campos" />  
+                                    <p:inputText id="globalFilter"  onkeyup="PF('vargeneral').filter()" style="width:150px" />  
+                                </p:outputPanel>  
+                            </f:facet>  
+
+                             
+                             
+                             
+                             <p:column id="id_NOMBRE_OFICIO" headerText="Service" filterStyleClass="hide" filterBy="#{eventoBitacora.NOMBRE_OFICIO}"  filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="NOMBRE_OFICIO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.NOMBRE_OFICIO}" />  
+                            </p:column>  
+
+                             <p:column id="idEvent" headerText="ID_EVENT" filterStyleClass="hide" filterBy="#{eventoBitacora.ID_EVENT}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="Id Evento" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ID_EVENT}" />  
+                            </p:column>  
+                            
+                             <p:column id="id_ID_TYPEB" headerText="ID_TYPEB" filterStyleClass="hide" filterBy="#{eventoBitacora.ID_TYPEB}" filterMatchMode="contains"  >  
+                                <f:facet name="header">
+                                    <h:outputText value="ID_TYPEB" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ID_TYPEB}" />  
+                            </p:column>  
+                            
+                             <p:column id="id_FECHA_INICIO" headerText="FECHA_INICIO" filterStyleClass="hide"  filterBy="#{eventoBitacora.FECHA_INICIO}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_INICIO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.FECHA_INICIO}" />  
+                            </p:column>  
+                            
+                             <p:column id="id_FECHA_FIN" headerText="FECHA_FIN" filterStyleClass="hide" filterBy="#{eventoBitacora.FECHA_FIN}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_FIN" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.FECHA_FIN}" />  
+                            </p:column>
+                            
+                             <p:column id="id_ID_TICKET" headerText="Incident" filterStyleClass="hide" filterBy="#{eventoBitacora.ID_TICKET}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ID_TICKET" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ID_TICKET}" />  
+                            </p:column>
+                            
+                            <p:column id="id_ID_CASO" headerText="ID_CASO" filterStyleClass="hide" filterBy="#{eventoBitacora.ID_EVENT}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ID_CASO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ID_CASO}" />  
+                            </p:column>
+
+                             <p:column id="id_TIPO_SOLICITUD" headerText="TIPO_SOLICITUD" filterStyleClass="hide" filterBy="#{eventoBitacora.TIPO_SOLICITUD}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="Area TIPO_SOLICITUD" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.TIPO_SOLICITUD}" />  
+                            </p:column>
+                            
+                             <p:column id="id_PARAMETRO_BUSQUEDA" headerText="PARAMETRO_BUSQUEDA" filterStyleClass="hide" filterBy="#{eventoBitacora.PARAMETRO_BUSQUEDA}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="PARAMETRO_BUSQUEDA" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.PARAMETRO_BUSQUEDA}" />  
+                            </p:column>
+                            
+                             <p:column id="id_DESCRIPCION" headerText="DESCRIPCION" filterStyleClass="hide" filterBy="#{eventoBitacora.DESCRIPCION}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="DESCRIPCION" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.DESCRIPCION}" />  
+                            </p:column>
+                            
+                             <p:column id="id_USUARIO" headerText="USUARIO" filterStyleClass="hide" filterBy="#{eventoBitacora.USUARIO}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="USUARIO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.USUARIO}" />  
+                            </p:column>
+                            
+                             <p:column id="id_DOCUMENTATION" headerText="DOCUMENTATION" filterStyleClass="hide" filterBy="#{eventoBitacora.DOCUMENTATION}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="DOCUMENTATION" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.DOCUMENTATION}" />  
+                            </p:column>
+                            
+                             <p:column id="id_ESTATUS" headerText="ESTATUS" filterStyleClass="hide" filterBy="#{eventoBitacora.ESTATUS}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ESTATUS" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ESTATUS}" />  
+                            </p:column>                                                     
+                             
+                             <p:column id="id_FECHA_APERTURA" headerText="FECHA_APERTURA" filterStyleClass="hide" filterBy="#{eventoBitacora.FECHA_APERTURA}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_APERTURA" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.FECHA_APERTURA}" />  
+                            </p:column>                                                     
+                             
+                             <p:column id="id_FECHA_CIERRE" headerText="FECHA_CIERRE" filterStyleClass="hide" filterBy="#{eventoBitacora.FECHA_CIERRE}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_CIERRE" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.FECHA_CIERRE}" />  
+                            </p:column> 
+                             
+                             <p:column id="DIAS_ABIERTO" headerText="DIAS_ABIERTO" filterStyleClass="hide" filterBy="#{eventoBitacora.DIASASIGNADO}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="DIAS_ABIERTO" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.DIASASIGNADO}" />  
+                            </p:column>   
+                             
+                             <p:column id="ASIGNADO" headerText="ASIGNADO A" filterStyleClass="hide" filterBy="#{eventoBitacora.ASIGANDOA}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="ASIGNADO A" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.ASIGANDOA}" />  
+                            </p:column> 
+
+
+
+                        </p:dataTable>
+
+                    </p:panel>
+                 
+
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

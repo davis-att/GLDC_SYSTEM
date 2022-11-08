@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="#{loginBean.template}">
+
+            <ui:define name="content">
+                 <h:form id="f1">
+                      <h:outputText value="Programación de Jobs"/>
+                      <br/>
+                      <br/> 
+                      
+                      <p:dataTable   var="scheduleJobs" value="#{mostrarScheduleJobs.scheduleJobs}" id="dataTable"
+                                       style="font-size: 15px ; width: 90% ; margin-left: 20px">
+                          
+                          <p:column id="jobName" headerText="Id_JOB" >  
+                              <h:outputText value="#{scheduleJobs.JOBNAME}" />  
+                          </p:column>  
+
+                          <p:column id="jobClass" headerText="JOBNAME"  >  
+                              <h:outputText value="#{scheduleJobs.CLASS}" />  
+                          </p:column> 
+
+                          <p:column id="jobTrigger" headerText="CLASS">  
+                              <h:outputText value="#{scheduleJobs.TRIGGER}"/>  
+                          </p:column> 
+
+                          <p:column id="schedule" headerText="TRIGGER" >  
+                              <h:outputText value="#{scheduleJobs.SCHEDULE}" />  
+                          </p:column>   
+                          
+                          <p:column id="jobGroup" headerText="SCHEDULE" >  
+                              <h:outputText value="#{scheduleJobs.GROUP}" />  
+                          </p:column>  
+                        </p:dataTable>      
+            
+                       <p:commandButton value="Refresh" update=":f1:dataTable" icon="ui-icon-arrowrefresh-1-w"
+                                        style="color: crimson  ;font-size: 11px ; margin-left: 40px ; margin-top:10px">
+                       </p:commandButton>
+                       <br/>
+                       <br/>                 
+                      
+                  </h:form> 
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="vasMenu"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form>
+            <p:growl id="growl" showDetail="true"  life="3000"/>
+            <p:menubar autoDisplay="false">
+                <p:submenu label="Consecutivos" icon="ui-icon-mail-closed"> 
+                    <p:submenu label="Revisión">  
+                        <p:menuitem value="Revisar Consecutivos"  actionListener="#{dialogBean.verOpciones()}">                                         
+                        </p:menuitem> 
+
+                        <p:menuitem value="Mostrar"  url="#{appBean.baseUrl}faces/views/mostrarRevisionConsecutivos.xhtml" >                                         
+                        </p:menuitem>                                                                        
+                    </p:submenu>    
+                    <p:submenu label="Conteos"> 
+                        <p:menuitem value="Conteo Consecutivos"  actionListener="#{dialogBean.opcionesConteoConsecutivos()}" >                                        
+                        </p:menuitem>
+                    </p:submenu>
+                </p:submenu>
+
+                <p:submenu label="Distribución" icon="ui-icon-mail-closed">
+                    <p:menuitem value="Generar Reporte de Distribución"  actionListener="#{dialogBean.distribucionVAS()}">                                         
+                    </p:menuitem>                                
+                </p:submenu>
+
+                <p:submenu label="Consulta de Catálogos" icon="ui-icon-document">                             
+                    <p:menuitem value="Catálogo de sitios EVOLUTION"  url="sitiosEvolutionVAS_tc.xhtml"/>                                
+                    <p:menuitem value="Catálogo de sitios IDEN"  url="sitiosIdenVAS_tc.xhtml"/>      
+                </p:submenu>
+                
+                <p:submenu label="Monitoreos" icon="ui-icon-shuffle">
+                    <p:menuitem value="Monitoreo JMR"  url="Monitoreo_VasJmr_tc.xhtml">                                         
+                    </p:menuitem>                                
+                </p:submenu>
+
+                <p:menuitem value="Salir" actionListener="#{loginBean.logOut()}" oncomplete="handleLoginRequest(xhr, status, args)"></p:menuitem>
+
+            </p:menubar>  
+
+        </h:form>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.LoggetOut) {
+                    location.href = args.ruta;
+                }
+            }
+        </script>                  
+    </cc:implementation>
+</html>

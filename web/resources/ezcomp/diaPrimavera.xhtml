@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="diaPrimavera"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form style="font-size: smaller">
+
+
+            <p:panel header="Aseguramiento de Ingresos - Gestion y Análisis de Tráfico" style="text-align: center">
+               <p align="right"> <font size="1"> <h>Mex: </h><p:clock pattern=" EEEE, dd MMM, yyyy h:mm:ss a"/> </font> </p>
+                 <p:separator></p:separator>
+                
+                 <p:panelGrid columns="2" >
+                     <p:column>
+                        <p>05 de Junio, Día mundial del Medio Ambiente.</p>
+                        <img src="../resources/images/Medioambiente.jpg" alt="Bienvenido_iPhone5S"/>
+                     </p:column>
+                     <p:column>
+                        El día Mundial del Medio Ambiente es un vínculo por medio del cual la Organización de Naciones Unidas (ONU) 
+                        sensibiliza a la población mundial en relación a temas ambientales, intensificando la atención y la acción política. 
+                        Los objetivos principales son brindar un contexto humano, motivar a las personas para que se conviertan en agentes 
+                        activos del desarrollo sustentable y equitativo; promover el papel fundamental de las comunidades en el cambio de 
+                        actitud hacia temas ambientales, y fomentar la cooperación para que el medio ambiente sea sostenible, pues ésta garantizará 
+                        que todas las naciones y personas disfruten de un futuro más próspero y seguro. 
+                     </p:column>   
+                 </p:panelGrid>     
+
+            </p:panel>      
+        </h:form> 
+    </cc:implementation>
+</html>

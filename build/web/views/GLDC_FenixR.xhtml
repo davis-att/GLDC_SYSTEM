@@ -1,0 +1,236 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        
+    
+    <h:head>
+        
+        <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+    
+     <style type="text/css">       
+            
+       .hide
+        {
+        display:none;
+        visibility:hidden;
+        }
+
+        </style>
+             
+        </h:head>
+    
+      <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <h:form id="form"> 
+                     
+                     <p:growl id="growl"  life="10000"  showDetail="true" />
+                     
+                    <p:panel header="GENERAR REPORTE FENIX" style="font-size: 20px; " >
+                       
+                        <p:panelGrid columns="4"  style=" margin:  auto; border: transparent; align-content:  center" >
+
+                            <p:outputLabel  value="Ingresa Ticket: " />
+                            <p:inputTextarea id="Ticket" style="width:auto; text-height: auto "  value="#{fenix.ticket}" rows="2" >                               
+                            </p:inputTextarea>                                                                                                                                      
+                  
+                            
+                            <p:outputLabel  value="Ingresa Caso: " />
+                            <p:inputTextarea id="Caso" style="width:auto; text-height: auto "  value="#{fenix.caso}" rows="2" >                               
+                            </p:inputTextarea> 
+
+                                                                                                       
+                                
+                            <p:outputLabel  value="Ingresa el Delito: " />
+                            <p:selectOneMenu id="instr_delito"  required="true"  requiredMessage="Por favor ingresa el delito"
+                                                       onchange="$('#tabform').submit();" value="#{fenix.delito}"  >  
+                                    <f:selectItem itemLabel="Escoger Delito"   />  
+                                    <f:selectItems id="selectMenu22" 
+                                                   value="#{catalogoDelitosF.listaDelitos}"
+                                                   var="c" itemLabel="#{c.delitos}" 
+                                                   itemValue="#{c.delitos}"/>                                         
+                            </p:selectOneMenu>
+                            
+
+                            
+                            <p:outputLabel  value="Nuevo Delito: " />
+                               <p:commandButton  styleClass="button" icon="ui-icon-plusthick" value="Crear" type="button" onclick="PF('insrdialog').show();" style=" margin:  auto; width: 100%"  />    
+                            
+                        </p:panelGrid>    
+                        
+                          <p:separator style="width:800px;height:5px" />
+
+                          <p:panelGrid columns="4"  style="margin: auto; border: transparent; align-content:  center">
+
+                              <p:commandButton  
+                                  value="Generar reporte"
+                                  actionListener="#{fenix.consultaquery()}"
+                                  update="paneltabla, form, growl"  > 
+                              </p:commandButton>
+                           
+                          </p:panelGrid>
+                          
+                           <p:separator style="width:800px;height:5px" />
+                           
+                           <p:dataTable   id="bitacoraTabla"  
+                                       paginator="true" 
+                                       rows="5"
+                                       value="#{fenix.eventoBitacora}"
+                                       var="eventoBitacora" 
+                                       widgetVar="vargeneral"
+                                       emptyMessage=" ESPERANDO LOS VALORES " filteredValue="#{fenix.filterEventoBitacora}"
+                                       selection="#{fenix.selectedEventoBitacora}"
+                                       style="width:  auto; font-size: 10px !important" 
+                                       resizableColumns="true"
+                                       liveResize="false"
+                                       resizeMode="expand"                                        
+                                       >
+                             
+                             <p:column id="CRITERIOB" headerText="CRITERIOB" >  
+                                <f:facet name="header">
+                                    <h:outputText value="MSISDN" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.CRITERIOB}" />  
+                            </p:column> 
+                             
+                                <p:column id="TICKET_NUMBER" headerText="TICKET_NUMBER" >  
+                                <f:facet name="header">
+                                    <h:outputText value="TICKET NUMBER" /> 
+                                </f:facet>
+                                    <h:outputText value="#{eventoBitacora.TICKET_NUMBER}" />  
+                                </p:column>
+                            
+                                <p:column id="CASO" headerText="CASO" >  
+                                <f:facet name="header">
+                                    <h:outputText value="CASO" /> 
+                                </f:facet>
+                                    <h:outputText value="#{eventoBitacora.CASO}" />  
+                                </p:column>
+                            
+                               <p:column id="REPORTE" headerText="REPORTE" >  
+                                <f:facet name="header">
+                                    <h:outputText value="REPORTE" /> 
+                                </f:facet>
+                                   <h:outputText value="#{fenix.REPORTE}" />  
+                                </p:column>
+                               
+                        </p:dataTable>
+                          
+
+
+                          
+                          <p:panel id="paneltabla" style="font-size: 20px; size:  auto;"  visible="#{fenix.vpanel}">  
+                                     
+                     <p:separator style="width:800px;height:10px" />
+                           <p:panelGrid  columns="2" style=" width:  auto; margin: auto">
+                                                           
+                         <p:outputLabel  value="Descarga el formato " /> 
+                                                                                    
+                         <p:commandButton id="downloadLink" value="Download" ajax="false"  style=" margin:  auto"
+                                             onclick="PrimeFaces.monitorDownload(start, stop);"  icon="ui-icon-arrowthichk-s">  
+                             <p:fileDownload value="#{fenix.file}"/>  
+                                                     
+                         </p:commandButton>       
+                                       
+                    </p:panelGrid> 
+                   </p:panel>               
+                   </p:panel>     
+                       
+                       
+                </h:form>
+                
+              
+                
+            </ui:define>
+
+        </ui:composition>
+        
+                <f:facet name="loading">
+                            <i class="pi pi-spin pi-spinner" style="font-size: 3em"></i>
+                            </f:facet>
+                  
+             
+          <p:dialog widgetVar="statusDialog" 
+                    modal="true" 
+                    draggable="false" 
+                    closable="false" 
+                    resizable="false" 
+                    style="border: none; box-shadow: none;  background: transparent"
+                    showHeader="false">
+                    
+              <p:graphicImage value="../resources/images/ajax-loader-roller_ant.gif" />   
+            </p:dialog> 
+          
+          
+          
+           <h:form  id="form3" enctype="multipart/form-data">   
+
+                    <p:dialog header="Ingresa nuevo Delito!!!" 
+                              widgetVar="insrdialog" 
+                              resizable="true"
+                              id="bitacoraDetalleDlg"  
+                              showEffect="fade" 
+                              hideEffect="explode" 
+                              height="670px" 
+                              width="900px"                                  
+                              modal="false"  
+                              style="font-size: medium; margin:  auto">  
+                        <p:panel header="Captura Información:" 
+                                 style="font-size:  small" 
+                                 id="insrpanel"
+                                 >  
+                            
+                            <h:panelGrid  columns="2" style="margin:  auto; text-align:  left">
+                                
+                                <f:facet name="header">  
+                                    <p:graphicImage style=" height: 40%; border-right:  #52B4FC; " value="../resources/images/soporte1.png"/>  
+                                </f:facet>  
+                                
+                               <f:facet name="header">   
+                                <h:outputText
+                                          value="  En este apartado podrás actualizar la información relacionadas al catálogo de delitos para las solicitudes de Fenix."/>
+                                </f:facet>
+                                
+                            </h:panelGrid>
+                            
+                                
+                            <p:separator />       
+                            
+                            <h:panelGrid  style="margin:  auto">
+                                
+                                    
+                                <h:outputText  value="Nuevo delito: "  style=" font-size:  small" />
+                                <p:inputText id="instr_incidente" value="#{fenix.NDelito}" label="instr_incidente" style=" font-size:  small; width: 600px"
+                                             required="true"
+                                             requiredMessage="Por favor ingresa el Título Incidente, regresa dando click sobre el calendario"
+                                              />      
+                                
+                                
+  
+                            </h:panelGrid>   
+                            <p:separator />             
+                   
+                            <p:commandButton 
+
+                                             style=" font-size:  small"
+                                             value="Finalizar y crear delito"  
+                                             action="#{fenix.ingresanuevodelito(loginBean.username)}"  
+                                             resetValues="true" 
+                                             update=":form:instr_delito, :form:growl "       
+                                             oncomplete="if (args &amp;&amp; !args.validationFailed) PF('insrdialog').hide()"
+                                             /> 
+                           
+                        </p:panel>    
+                    </p:dialog>  
+                </h:form>   
+
+    </body>
+</html>

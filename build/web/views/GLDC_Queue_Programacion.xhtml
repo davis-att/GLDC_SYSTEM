@@ -1,0 +1,521 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+         
+    
+    <h:head>
+        
+  <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+  
+         <style type="text/css">        
+.hor-minimalist-b
+{
+font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+font-size: 12px;
+border-collapse:  inherit;
+text-align:  center;
+ 
+
+}
+
+.hor-minimalist-b .ui-datatable .ui-datatable-header,.ui-datatable .ui-datatable-footer{
+	text-align:center;padding:5px 5px;
+        
+}
+
+
+.hor-minimalist-b  .ui-datatable thead th,.ui-datatable tbody td,.ui-datatable tfoot td{
+	padding:8px 8px;
+	overflow:hidden;
+	white-space:nowrap;
+	border-width:1px;
+        border-color:  transparent;
+        width:  auto;
+        
+}
+
+.hor-minimalist-b  .ui-datatable-scrollable-footer, .ui-datatable-scrollable-body, .ui-datatable-scrollable-footer-box td{
+	 background-color:   #2F4254 !important;
+         border-color:  transparent !important;
+         font-size: 12px;
+}
+
+
+
+.hor-minimalist-b th
+{
+font-size: 12px;
+font-weight: normal;
+color:  #5a5a5a;
+padding: 5px 5px;
+border-bottom: transparent;
+}
+.hor-minimalist-b td
+{
+font-size: 12px;    
+border-bottom:  transparent;
+color:  #5a5a5a;
+padding: 2px 2px;
+ border-color:  transparent;
+ width:  auto;
+
+}  
+
+
+</style>    
+        
+
+        
+     <style type="text/css">       
+            
+       .hide
+        {
+        display:none;
+        visibility:hidden;
+        }
+        
+        .normal{
+                background-color:  #58D68D; 
+                color:  black !important; 
+        }      
+        .comida{
+                background-color:  #FFFB9C; 
+                color:  black !important; 
+        }   
+        
+        .botonadd {
+                background-image: url(/resources/images/queue/addicon.PNG)
+            }
+            
+        .botonremove {
+                background-image: url(/resources/images/queue/removeicon.PNG)
+            }
+    
+
+        </style>
+        
+          <style type="text/css">
+            .columna1 {
+                width: 35%;
+                height: 400px;
+                 margin:  auto;
+            }
+            .columna2 {
+                width: 80%;
+                height: 400px;
+                margin:  auto;
+            }
+     
+            
+        </style>        
+
+        
+        <script type="text/javascript">
+                PrimeFaces.locales["es"] = {
+                closeText: "Cerrar",
+                prevText: "Anterior",
+                nextText: "Siguiente",
+                monthNames: ["Enero","Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+                dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                weekHeader: "Semana",
+                chooseTIME: "Tiempo",
+                firstDay: 0,
+                isRTL: false,
+                                showMonthAfterYear: false,
+                                yearSuffix: "",
+                                timeOnlyTitle: "Solo hora",
+                                timeText: "Tiempo",
+                                hourText: "Hora",
+                                minuteText: "Minuto",
+                                secondText: "Segundo",
+                                currentText: "Fecha actual",
+                                ampm: false,
+                                month: "Mes",
+                                week: "Semana",
+                                day: "Día",
+                                allDayText: "Todo el día"
+                            };
+        </script>
+
+          <h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
+        
+    </h:head>
+
+    
+    <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+                 <h:form id="form"> 
+                     
+                     <p:growl id="growl"  life="10000"  showDetail="true" />
+            
+                     
+                    <p:panel  id="hola">
+                            <h8 style="font-family: Corbel Light; font-size: 30px; margin-top:   auto " > Queue Management. </h8>
+                              <h7 style="float: right; font-family: Corbel Light; font-size: 30px; margin-top:   auto " > Programación de Personal </h7>
+                       <br/>
+                       <br/>
+                       
+                
+                        
+                        
+                       <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto " > Usuario: </h8>
+                       
+                                          
+                       <h8 style="font-family: Corbel Light; font-size: 23px; margin-top:   auto;  font-weight:bold " > #{loginBean.username} </h8>
+                         &nbsp;&nbsp;
+                       <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto; " > Estatus: </h8>
+                       
+                       <h:outputText  id="conec1" value="&nbsp;&nbsp;&nbsp;&nbsp;Conectado&nbsp;&nbsp;&nbsp;&nbsp;" style="font-family: Corbel Light; font-size: 23px; margin-top:   auto ; font-weight:bold ;background-color:  green;  border-radius: 15px; color: #fff;  "
+                                      />
+                                            
+                                            
+                       
+                     </p:panel>    
+                              
+                       
+                         <p:separator style="width:1200px;height:1px" />
+                    
+
+                      <br/>     
+ 
+                      <p:panelGrid columns="2"  columnClasses="columna1,columna2">
+                          
+                          <p:column >
+                       <h8 style="font-family: Corbel Light; font-size: 30px; margin-top:   auto "> Selecciona el usuario. </h8>
+
+                            <p:separator style="width:250px;height:1px; margin-left:  2px; " />
+                            
+                        <br></br>  
+                        <br></br>
+                        
+            
+                        <p:panelGrid columns="2"  style=" margin:  auto">
+                          
+                            <p:graphicImage  id="imagenf" value="#{queue_progra.imagen}" width="130px"  
+                                              style="margin:auto;  font-size: 12px "  />    
+                        
+                            <p:selectOneListbox id="catparam"
+                                                value="#{queue_progra.usuario}"   scrollHeight="550"
+                                                style=" width: auto; margin:  auto; height: 550px; font-size: 12px"                                                
+                                                >     
+                                <f:selectItem itemLabel="......Todos........." itemValue="Todos" />
+                                <f:selectItems value="#{queue_progra.lusuarios}" 
+                                               var="c" itemLabel="#{c}" 
+                                               itemValue="#{c}" />     
+                                <p:ajax listener="#{queue_progra.valueChanged(event)}"   update="imagenf,products1,schedule "
+                                        onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+                                
+                       
+                                
+                         </p:selectOneListbox>       
+                        </p:panelGrid>
+                            
+                      </p:column> 
+                       
+                          
+                          
+                          <p:column>
+                              
+                     <h8 style="font-family: Corbel Light; font-size: 30px; margin-top:   auto " > Modifica Información. </h8>
+
+                            <p:separator style="width:250px;height:1px; margin-left:  2px; " />
+                              
+                      <br/> 
+                      <br/> 
+                     
+                      <p:commandLink  oncomplete="PF('otrod2').show();" >
+                         <p:graphicImage  value="/resources/images/queue/addicon.png"  style="  margin-right:  5px;  width: 30px;  " />                          
+                    </p:commandLink>  
+                         <p:commandLink  oncomplete="PF('otrod').show();"  >
+                         <p:graphicImage  value="/resources/images/queue/removeicon.png"  style=" margin:  auto; width: 30px;  " />                          
+                    </p:commandLink> 
+                    <h:commandLink>  
+                                        <p:graphicImage value="Bitacora/images/excel.png" height="30px"/>  
+                                        <p:dataExporter type="xls"  target="products1" fileName="Progra_queue" postProcessor="#{queue_progra.postProcessXLS}" />  
+                   </h:commandLink>  
+                 
+                   
+                 
+                     <p:dataTable id="products1" 
+                                var="product" 
+                                value="#{queue_progra.progralist}"
+                                editable="true"
+                                paginator="true" 
+                                style="margin-bottom:20px;  font-size: 10px !important font-family: Corbel Light;  width: 90%; 
+                                margin:  auto"                                  
+                                rows="10"
+                                emptyMessage="No hay registros" 
+                                filteredValue="#{queue_progra.filterProgralist}"
+                                liveResize="false"
+                                resizeMode="expand"          
+                                 styleClass="hor-minimalist-b" 
+                               paginatorTemplate="{PageLinks}"  paginatorPosition="bottom"   
+                                  >
+                         
+                  
+                         <p:ajax event="rowEdit" listener="#{queue_progra.onRowEdit}" update=":form:growl, :form:products1,:form:schedule  "/>
+                         <p:ajax event="rowEditCancel" listener="#{queue_progra.onRowCancel}" update=":form:growl"/>
+
+                         <p:column headerText="id_prog" style="width:100px;"  sortBy="#{product.id_prog}" filterBy="#{product.id_prog}" >
+                                     <h:outputText value="#{product.id_prog}"/>
+                         </p:column>
+
+                         <p:column headerText="id_usuario" style="width:150px;" sortBy="#{product.id_usuario}" filterBy="#{product.id_usuario}">
+                                     <h:outputText value="#{product.id_usuario}"/>
+                         </p:column>
+                      
+                         <p:column headerText="fecha_inicial" sortBy="#{product.fecha_inicial}" filterBy="#{product.fecha_inicial}">
+                             <p:cellEditor>
+                                 <f:facet name="output">
+                                     <h:outputText value="#{product.fecha_inicial}"/>
+                                 </f:facet>
+                                 <f:facet name="input">
+                                     <p:inputText value="#{product.fecha_inicial}" style="width:100%" label="Name"/>
+                                 </f:facet>
+                             </p:cellEditor>
+                         </p:column>
+                        
+                         <p:column headerText="fecha_final">
+                             <p:cellEditor>
+                                 <f:facet name="output">
+                                     <h:outputText value="#{product.fecha_final}"/>
+                                 </f:facet>
+                                 <f:facet name="input">
+                                     <p:inputText value="#{product.fecha_final}" style="width:100%" label="Name"/>
+                                 </f:facet>
+                             </p:cellEditor>
+                         </p:column>
+                         
+                         <p:column headerText="Inicio comida">
+                             <p:cellEditor>
+                                 <f:facet name="output">
+                                     <h:outputText value="#{product.fecha_incialc}"/>
+                                 </f:facet>
+                                 <f:facet name="input">
+                                     <p:inputText value="#{product.fecha_incialc}" style="width:100%" label="Name"/>
+                                 </f:facet>
+                             </p:cellEditor>
+                         </p:column>
+                         
+                         <p:column headerText="Termino comida">
+                             <p:cellEditor>
+                                 <f:facet name="output">
+                                     <h:outputText value="#{product.fecha_finalc}"/>
+                                 </f:facet>
+                                 <f:facet name="input">
+                                     <p:inputText value="#{product.fecha_finalc}" style="width:100%" label="Name"/>
+                                 </f:facet>
+                             </p:cellEditor>
+                         </p:column>
+
+
+                         <p:column style="width:2rem">
+                             <p:rowEditor editTitle="Edit Row" cancelTitle="Cancel Edit" saveTitle="Save Row" style="width:200%  "  />
+                         </p:column>
+                     </p:dataTable>
+                             <p:messages id="messages" showDetail="true" closable="true" >
+                       </p:messages>                
+                       </p:column>
+                   
+                      </p:panelGrid>                       
+                                             
+                         <p:separator style="width: auto;height:5px" />  
+                     
+  
+                     <br/>    
+
+ 
+                <p:schedule id="schedule"
+                            value="#{queue_progra.eventModel}" 
+                            widgetVar="myschedule"
+                             locale="es"
+                             showHeader="true"  
+                             style=" font-size: 14px; font-family:  cursive; width: 60%;  margin: auto"
+                             timeZone="America/Mexico_City"
+                             tooltip="true" view="agendaWeek"
+                            
+                            >
+                           <p:ajax event="dateSelect" listener="#{queue_progra.onDateSelect(actionEvent)}" update="eventDetails"
+                                   oncomplete="PF('otrod2').show();"/>
+                           <p:ajax event="eventSelect" listener="#{queue_progra.onEventSelect(actionEvent)}" update="eventDetails"
+                                   oncomplete="PF('otrod2').show();"/>
+                           <p:ajax event="eventMove" listener="#{queue_progra.onEventMove(actionEvent)}" update="growl"/>
+                           <p:ajax event="eventResize" listener="#{queue_progra.onEventResize(actionEvent)}" update="growl"/>
+                       </p:schedule>
+
+                     
+               
+                     
+                     
+                     
+                     <p:dialog widgetVar="eventDialog" header="Programar Jornada Laboral" showEffect="fade" hideEffect="fade"   visible="#{queue_progra.abilidialog}">
+                        <h:panelGrid id="eventDetails" columns="2" cellpadding="7">
+                            <p:outputLabel  value="Análista:" styleClass="p-text-bold"/>
+                            <p:outputLabel id="title" value="#{queue_progra.usuario}" />
+
+                            <p:outputLabel value="Inicio de Jornada:" styleClass="p-text-bold"/>
+                         
+                             <p:calendar id="fechainicio" mode="popup" showOn="button"
+                                         value="#{queue_progra.d_fechaini}" 
+                                            pages="1" 
+                                            timeZone="America/Mexico_City"
+                                            pattern="yyyy/MM/dd HH:mm:ss" selectOtherMonths="true"
+                                             locale="es"
+                                           
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"                              
+                                            />  
+                            
+                            
+                               <p:outputLabel value="Fin de Jornada:" styleClass="p-text-bold"/>
+                         
+                             <p:calendar id="fechafin" mode="popup" showOn="button"
+                                         value="#{queue_progra.d_fechafin}" 
+                                            pages="1" 
+                                            timeZone="America/Mexico_City"
+                                            pattern="yyyy/MM/dd HH:mm:ss" selectOtherMonths="true"
+                                            showOtherMonths="true" showWeek="true" locale="es"
+                                            
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"                              
+                                            />  
+                        
+                             
+                              <p:outputLabel value="Inicio de Comida:" styleClass="p-text-bold"/>
+                         
+                             <p:calendar id="fechainicioc" mode="popup" showOn="button"
+                                         value="#{queue_progra.dc_fechaini}" 
+                                            pages="1" 
+                                            timeZone="America/Mexico_City"
+                                             pattern="yyyy/MM/dd HH:mm:ss" selectOtherMonths="true"  
+                                            showOtherMonths="true" showWeek="true" locale="es"
+                                            
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"                              
+                                            />  
+                            
+                            
+                               <p:outputLabel value="Fin Comida" styleClass="p-text-bold"/>
+                         
+                             <p:calendar id="fechafinc" mode="popup" showOn="button"
+                                         value="#{queue_progra.dc_fechafin}" 
+                                            pages="1" 
+                                            timeZone="America/Mexico_City"
+                                             pattern="yyyy/MM/dd HH:mm:ss" selectOtherMonths="true"  
+                                            showOtherMonths="true" showWeek="true" locale="es"
+                                     
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"                              
+                                            />  
+                        
+                          
+                             <p:selectBooleanCheckbox value="#{queue_progra.programulti}" itemLabel="Replicar" />
+    
+                                
+                             <p:selectCheckboxMenu value="#{queue_progra.lusuariosmp}" label="Usuarios" style=" margin-left: 50px">
+                                            <f:selectItems value="#{queue_progra.lusuarios}" />
+                                      </p:selectCheckboxMenu>
+                             
+                                <p:separator style="width: auto;height:1px" />  
+                                
+                             
+                          </h:panelGrid>   
+                        
+                
+                            
+                        
+
+                        <div class="p-d-flex p-jc-between p-mt-3">
+                            <p:commandButton type="reset" value="Reset" />
+                            <p:commandButton id="addButton" value="Save" action="#{queue_progra.addEvent(actionEvent)}"
+                                             oncomplete="PF('myschedule').update();PF('eventDialog').hide();"  onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" 
+                                             update="growl,:form"/>
+                        </div>
+                    </p:dialog>
+           
+                     
+                     
+                     
+                       <p:dialog widgetVar="otrod" header="Eliminar programación" showEffect="fade" hideEffect="fade">
+                        <h:panelGrid id="otrodp" columns="2" cellpadding="7">
+                        
+                            <p:outputLabel value="Ingresa el id de programación:" styleClass="p-text-bold"/>
+                         
+                            <p:inputText value="#{queue_progra.idprogel}"/>
+                          </h:panelGrid>   
+
+                        <div class="p-d-flex p-jc-between p-mt-3">
+                            <p:commandButton id="addButton_d" value="Ejecutar" action="#{queue_progra.deleteEvent(actionEvent)}"
+                                        oncomplete="PF('myschedule').update();PF('otrod').hide();"  onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" 
+                                        update="growl ,:form "/>
+                        </div>
+                    </p:dialog> 
+          
+                   <p:dialog widgetVar="otrod2" header="Nueva programación" showEffect="fade" hideEffect="fade">
+                        <h:panelGrid id="otrodp2" columns="2" cellpadding="7">
+                        
+                            <p:outputLabel value="¿Con quién quieres iniciar la pogramación?" styleClass="p-text-bold"/>
+                         
+                            <p:selectOneListbox id="catparam2"
+                                                value="#{queue_progra.usuario}" 
+                                                style=" width: 450px; margin:  auto"                                                
+                                                >     
+                                <f:selectItems value="#{queue_progra.lusuarios}"
+                                               var="c" itemLabel="#{c}" 
+                                               itemValue="#{c}" />     
+                                <p:ajax listener="#{queue_progra.valueChanged(event)}"   onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"
+                                        update="imagenf,products1,schedule " />
+                                
+                       
+                                
+                         </p:selectOneListbox>   
+                                
+                                
+                                
+                          </h:panelGrid>   
+
+                        <div class="p-d-flex p-jc-between p-mt-3">
+                            <p:commandButton id="addButton_d2" value="Confirmar"
+                                        oncomplete="PF('otrod').hide();PF('eventDialog').show();" update="growl ,:form "/>
+                        </div>
+                    </p:dialog>            
+                     
+                     
+                     
+                     
+                     
+                </h:form>
+        
+                     
+            
+            </ui:define>
+
+        </ui:composition>
+        
+        
+        
+  <p:dialog modal="true" widgetVar="statusDialog"   
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      showHeader="false"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent; "  
+                      styleClass="estatusdiag"
+                      >  
+               <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+    </p:dialog> 
+
+    </body>
+</html>

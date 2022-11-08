@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="MenuFraudes"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        
+    <h:head>
+        <style type="text/css">      
+
+            .menubar_estilo {
+                 top:  100px;
+                margin:   auto !important; 
+                width:  1160px !important; 
+                font-size: 13px !important; 
+                font-style:   normal;
+                font-family: Corbel Light;
+                background-color:  #000000 !important; 
+                border-color:  transparent !important; 
+
+            }
+            
+            .menusletra_estilo {
+                color:    #000000
+            }
+        </style>
+    </h:head>     
+        
+        
+             
+        <h:form >
+            
+          
+           <p:growl id="growl" showDetail="true"  life="3000"/>
+ 
+           <p:menubar id="menuBar" autoDisplay="false" styleClass="menubar_estilo">   
+                <p:menuitem value="Home" icon="ui-icon-home" url="inicio.xhtml" styleClass="menusletra_estilo"/>
+                               
+                  <p:submenu label="Emergencias Médicas" icon="ui-icon-folder-collapsed">
+                    <p:submenu label="Creación" rendered="#{loginBean.respuestaTELEFONIA}">
+                        <p:menuitem value="Nuevo Folio" url="GLDC_EmergenciasM.xhtml"/>                                    
+                    </p:submenu>    
+                    <p:submenu label="Consulta" rendered="#{loginBean.respuestaTELEFONIA}">
+                        <p:menuitem value="Informe capturas" url="GLDC_ConsultaEM.xhtml"/>                                    
+                    </p:submenu> 
+                 </p:submenu>
+                
+                               
+                <p:menuitem value="Salir" icon="ui-icon-power" actionListener="#{loginBean.logOut()}" oncomplete="handleLoginRequest(xhr, status, args)"/>
+
+               
+                
+            </p:menubar>  
+
+        </h:form>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.LoggetOut) {
+                    location.href = args.ruta;
+                }
+            }
+        </script>                  
+    </cc:implementation>
+</html>

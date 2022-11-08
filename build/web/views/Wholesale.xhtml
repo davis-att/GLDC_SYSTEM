@@ -1,0 +1,353 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"> 
+ 
+   
+      <style type="text/css">            
+          
+          
+             .estatusdiag .ui-dialog-titlebar{
+                       display:none !important; 
+            }
+            .customHeader{ 
+                background: appworkspace !important;
+                border-color: gray !important;
+                background-color:  lightgray !important;
+            }  
+            .customFacet{
+                background: coral !important;
+                border-color: white !important;
+                background-color: darkgray !important;
+                color: black  !important;    
+                font-size: 15px !important;
+                font-weight: bold !important;
+            }
+            
+            .customBody{                 
+                border-color: gray !important;              
+            }  
+           
+      </style>   
+  <script type="text/javascript">
+    function extender() {
+        this.cfg.axes = {
+            xaxis : {
+                min:0,
+                max:10,
+                tickOptions : { 
+                    fontSize:'10pt',
+                    fontFamily:'Tahoma',               
+                    formatString:'%b-%y'
+                },
+                tickInterval: 1
+            },
+            yaxis : {
+                min: 0,
+                tickOptions: {
+                    formatString: "\003\%'d"
+                }
+            },
+        };
+        this.cfg.axes.xaxis.ticks = this.cfg.categories;
+    }
+</script>        
+
+        <script type="text/javascript" >
+
+            function ext() {
+                    //this = chart widget instance
+                    this.cfg.seriesDefaults = {
+                             rendererOptions: {
+                              smooth: true
+                                 },
+                    showMarker:true,
+                    pointLabels:{ show:true, location:'s', ypadding:3 }
+                   
+                    
+                    },
+                                                                      
+    this.cfg.grid = {
+        drawGridLines: true,        // wether to draw lines across the grid or not.
+        gridLineColor: '#cccccc',    // *Color of the grid lines.
+        background: '#D7F6B7',      // CSS color spec for background color of grid.
+        borderColor: '#999999',     // CSS color spec for border around grid.
+        borderWidth: 2.0,           // pixel width of border around grid.
+        shadow: true,               // draw a shadow for grid.
+        shadowAngle: 45,            // angle of the shadow.  Clockwise from x axis.
+        shadowOffset: 1.5,          // offset from the line of the shadow.
+        shadowWidth: 3,             // width of the stroke for the shadow.
+        shadowDepth: 3,             // Number of strokes to make when drawing shadow.
+        shadowAlpha: 0.5           // Opacity of the shadow
+    },
+            
+     
+            
+                                 
+                     this.cfg.axes = {
+                                yaxis: {
+                                    labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                                    tickOptions: {
+                                        fontSize: '8pt',
+                                         formatString: "%'.0f" 
+                                    }
+                                },
+                                xaxis: {
+                                    pad: 1.05,
+                                    renderer: $.jqplot.CategoryAxisRenderer,
+                                    rendererOptions: {
+                                        tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                                    },
+                                    labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                                    labelRenderer: $.jqplot.CanvasTextRenderer,
+                                    tickOptions: {
+                                        fontSize: '8pt',
+                                        angle: 90,
+                                        markSize: 2,
+                                        formatString: '%s/'
+                                    }
+                                }
+                            },
+
+                            
+                    this.cfg.axes.xaxis.ticks = this.cfg.categories;
+                    
+
+                }
+
+ </script> 
+       
+<script type="text/javascript">
+
+                function ext() {
+                    //this = chart widget instance
+                    this.cfg.seriesDefaults = {
+                        renderer: $.jqplot.BarRenderer,
+                        pointLabels: {show: true},
+                        rendererOptions: {fillToZero: true, barWidth: 20},
+                    },
+                            this.cfg.axes = {
+                                yaxis: {
+                                    labelOptions: {fontFamily: 'Verdana', fontSize: '10pt'},
+                                    tickOptions: {
+                                        fontSize: '8pt',
+                                        formatString: '%d'
+                                    }
+                                },
+                                xaxis: {
+                                    pad: 1.05,
+                                    renderer: $.jqplot.CategoryAxisRenderer,
+                                    rendererOptions: {
+                                        tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                                    },
+                                    labelOptions: {fontFamily: 'Verdana', fontSize: '10pt'},
+                                    labelRenderer: $.jqplot.CanvasTextRenderer,
+                                    tickOptions: {
+                                        fontSize: '8pt',
+                                        angle: 90,
+                                        markSize: 2,
+                                        formatString: '%s/'
+                                    }
+                                }
+                            }
+                    this.cfg.axes.xaxis.ticks = this.cfg.categories;
+                }
+    </script>    
+      
+    <body>
+        <ui:composition template="./templateGatWebTool.xhtml">
+            <ui:define name="content">
+                <h:form>                                                    
+                    <h:panelGrid id="mesVas" columns="2" style="margin-bottom:10px" cellpadding="5">  
+                        <h:outputText value="Mes: " />  
+                        <p:selectOneButton value="#{wholesaleBean.selMes}" style="font-size: x-small" >  
+                            <p:ajax event="change" update="@form, panelitoVas, wholesaleEntrantes" 
+                                    listener="#{wholesaleBean.MesSeleccionadoVAS(actionEven)}"
+                                    onstart="PF('statusDialog').show();" 
+                                    onsuccess="PF('statusDialog').hide();"/>  
+                            <f:selectItem itemLabel="ENERO" itemValue="ENE" />  
+                            <f:selectItem itemLabel="FEBRERO" itemValue="FEB" />  
+                            <f:selectItem itemLabel="MARZO" itemValue="MAR" />  
+                            <f:selectItem itemLabel="ABRIL" itemValue="ABR" itemDisabled="TRUE"/>  
+                            <f:selectItem itemLabel="MAYO" itemValue="MAY" itemDisabled="TRUE"/>  
+                            <f:selectItem itemLabel="JUNIO" itemValue="JUN" itemDisabled="TRUE"/>  
+                            <f:selectItem itemLabel="JULIO" itemValue="JUL" itemDisabled="TRUE"/>  
+                            <f:selectItem itemLabel="AGOSTO" itemValue="AGO" itemDisabled="TRUE"/>  
+                            <f:selectItem itemLabel="SEPTIEMBRE" itemValue="SEP" itemDisabled="TRUE"/>  
+                            <f:selectItem itemLabel="OCTUBRE" itemValue="OCT" itemDisabled="TRUE"/>  
+                            <f:selectItem itemLabel="NOVIEMBRE" itemValue="NOV" itemDisabled="TRUE"/>  
+                            <f:selectItem itemLabel="DICIEMBRE" itemValue="DIC" itemDisabled="TRUE"/>                         
+                        </p:selectOneButton> 
+
+                    </h:panelGrid>  
+                                                            
+                    <p:separator /> 
+                                                            
+                    <p:panel  id="panelitoVas"  style="width: 100%; text-align: center; font-size: 12px" rendered="#{wholesaleBean.activarPanelVas}"> 
+                        <p:panelGrid>        
+                            <p:row>  
+                                <p:column styleClass="customFacet" colspan="4">Idicadores del mes: #{wholesaleBean.selMes}</p:column>  
+                            </p:row>  
+
+                            <p:row>
+                                <p:column style="width: 40%; font-size: x-small">                                           
+                                    <p:panel  header="TRAFICO DE WHOLESALE ENTRNATE  MINUTOS-LLAMADAS" 
+                                              style="font-size: 13px" 
+                                              toggleable="true" 
+                                              toggleSpeed="500" 
+                                              toggleTitle="PO"                                              
+                                              >                                                                                  
+
+                                        <p:lineChart id="wholesaleEntrantes" value ="#{wholesaleBean.graficaWholesaleEntMin}"
+                                                     legendPosition="sw" zoom="true" animate="true"  
+                                                     title="Comportamiento por mes" 
+                                                     minY="0"  
+                                                     style=" height:max-content; width: max-content; font-family:  sans-serif; font-size:  small;font-weight:  bold; margin:  auto"                                                          
+                                                     xaxisLabel="Fechas"                                                      
+                                                     seriesColors="0080FF,EB3542" xaxisAngle="90"
+                                                     />   
+                                        
+                                    </p:panel>
+                                    <p:panel  header="TRAFICO DE BARRASS" 
+                                              style="font-size: 13px" 
+                                              toggleable="true" 
+                                              toggleSpeed="500" 
+                                              toggleTitle="PO" 
+                                              >
+                                       
+                                        <p:barChart id="barCharMinutos"
+                                                    value ="#{wholesaleBean.grafBarEntMin}"                                                    
+                                                    style="height: 200px" 
+                                                    legendPosition="n"
+                                                    legendCols="2"
+                                                    legendRows="1"                                                                                                     
+                                                    title="Entrantes"
+                                                    />
+                                      
+                                      
+                                           <p:barChart id="barCharMinutos2"
+                                                    value ="#{wholesaleBean.grafBarSalMin}"                                                    
+                                                    style="height: 200px" 
+                                                    legendPosition="n"
+                                                    legendCols="2"
+                                                    legendRows="1"                                               
+                                                    title="Salientes"
+                                                    /> 
+                                                                             
+                                        
+                                    </p:panel>  
+                                </p:column>  
+                                
+                                <p:column style="width: 33%; font-size: x-small">
+                                    <p:panel  header="PORCENTAJE DE SALIDA POR OPERADOR" 
+                                              style="font-size: 13px" 
+                                              toggleable="true" 
+                                              toggleSpeed="500" 
+                                              toggleTitle="PO" >  
+                                        
+                                        <p:pieChart id="barCharOperMin"
+                                                    value ="#{wholesaleBean.pieModelOperSalMin}"
+                                                    legendPosition="e" 
+                                                    fill="TRUE" 
+                                                    showDataLabels="true"  
+                                                    title="Operadores" 
+                                                    diameter="150"                                                      
+                                                    style="height: min-content; width: min-content"                                                                                                         
+                                                    />
+                                    </p:panel> 
+                                    
+                                    <p:panel  header="TOTALES" 
+                                              style="font-size: 13px" 
+                                              toggleable="true" 
+                                              toggleSpeed="500" 
+                                              toggleTitle="PO" >
+                                        <p:panelGrid style=" alignment-baseline: central" >
+                                            <f:facet  name="header">
+                                                <p:row >
+                                                    <p:column styleClass = "customHeader" colspan="1" style="font-size: 15px ;font-weight: bold; text-align: center; color: black">     ENTRANTES DE IXC     </p:column>
+                                                </p:row>
+                                                <p:row >
+                                                    <p:column styleClass = "customHeader" colspan="4" style="font-size: 15px ;font-weight: bold; text-align: center; color: black">     TOTAL      </p:column> 
+                                                    <p:column styleClass = "customHeader" colspan="4" style="font-size: 15px ;font-weight: bold; text-align: center; color: black">     CMP        </p:column>
+                                                    <p:column styleClass = "customHeader" colspan="4" style="font-size: 15px ;font-weight: bold; text-align: center; color: black">     PORCENTAJE</p:column>
+                                                </p:row>  
+                                              </f:facet>   
+                                                <p:row>                                                  
+                                                    <p:column styleClass="" colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.totalEntIxc}</p:column>  
+                                                    <p:column colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.CMPEntIxc}</p:column> 
+                                                    <p:column colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.porcentEntIxc}</p:column>                                                
+                                            </p:row>                                                                                                                                        
+                                        </p:panelGrid> 
+                                        
+                                        <p:separator title="Tu QUE" style="font-size: 15px ;text-align: right">
+                                            
+                                        </p:separator>
+                                        
+                                        <p:panelGrid style=" alignment-baseline: central" >
+                                            <f:facet  name="header">
+                                                <p:row >
+                                                    <p:column styleClass = "customHeader" colspan="1" style="font-size: 15px ;font-weight: bold; text-align: center; color: black">     SALIENTES DE IXC     </p:column>
+                                                </p:row>
+                                                <p:row >
+                                                    <p:column styleClass = "customHeader" colspan="4" style="font-size: 15px ;font-weight: bold; text-align: center; color: black">     TOTAL      </p:column> 
+                                                    <p:column styleClass = "customHeader" colspan="4" style="font-size: 15px ;font-weight: bold; text-align: center; color: black">     CMP        </p:column>
+                                                    <p:column styleClass = "customHeader" colspan="4" style="font-size: 15px ;font-weight: bold; text-align: center; color: black">     PORCENTAJE</p:column>
+                                                </p:row>  
+                                              </f:facet>   
+                                                <p:row>                                                  
+                                                    <p:column styleClass="" colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.totalSalIxc}</p:column>  
+                                                    <p:column colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.CMPSalIxc}</p:column> 
+                                                    <p:column colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.porcentSalIxc}</p:column>                                                
+                                            </p:row>                                                                                                                                        
+                                        </p:panelGrid> 
+                                        
+                                        <p:separator title="Tu QUE"/>
+                                        
+                                        <p:panelGrid style=" alignment-baseline: central" >
+                                            <f:facet  name="header">
+                                                <p:row >
+                                                    <p:column styleClass = "customHeader" colspan="1" style="font-size: 15px ;font-weight: bold; text-align: center; color: black">     DESBORDE     </p:column>
+                                                </p:row>
+                                            </f:facet>  
+                                                <p:row >
+                                                    <p:column styleClass="" colspan="4" style="font-size: 15px ;text-align: right">AVANTEL</p:column>  
+                                                    <p:column colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.totalAvantel}</p:column> 
+                                                    <p:column colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.porcentAvantelIxc}</p:column>
+                                                </p:row>  
+                                              
+                                                <p:row>                                                  
+                                                    <p:column styleClass="" colspan="4" style="font-size: 15px ;text-align: right">NXT800</p:column>  
+                                                    <p:column colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.totalNxt800}</p:column> 
+                                                    <p:column colspan="4" style="font-size: 15px ;text-align: right">#{wholesaleBean.porcentNxt800Ixc}</p:column>                                                
+                                            </p:row>                                                                                                                                        
+                                        </p:panelGrid> 
+                                             
+                                    </p:panel>                                      
+                                </p:column>
+                            </p:row>                                                                                                                                                       
+                        </p:panelGrid>                                                             
+                                          
+                    </p:panel>
+                                                                                                                       
+                    
+                </h:form>   
+            </ui:define>
+
+        </ui:composition>
+                    <p:dialog modal="true" widgetVar="statusDialog"  
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent"
+                      styleClass="estatusdiag"
+                      >  
+                <p:graphicImage value="../resources/images/ajax-loader-roller.gif"  />   
+            </p:dialog> 
+
+    </body>
+</html>

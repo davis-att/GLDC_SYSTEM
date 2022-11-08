@@ -1,0 +1,877 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+       <h:head>
+        <title>GLDC System</title>
+ <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+         <style type="text/css">       
+            
+            .estatusdiag .ui-dialog-titlebar{
+                       display:none !important; 
+            }
+            
+           .davispanel {
+                font-size: 9px !important;
+                background-color:  transparent !important;
+                font-family: Segoe UI !important;
+                vertical-align:  middle;
+                width: 30px !important;
+            }
+
+            .old {
+             background-color: #fca752 !important;
+             background-image: none !important;
+             color: #000000 !important;
+             
+        </style>
+
+
+        <script type="text/javascript" >
+            function gl() {
+                //this = chart widget instance
+                this.cfg.seriesDefaults = {
+                    rendererOptions: {
+                        smooth: true
+                    },
+                    showMarker: true
+
+
+                },
+                this.cfg.grid = {
+                    drawGridLines: true, // wether to draw lines across the grid or not.
+                    gridLineColor: '#cccccc', // *Color of the grid lines.
+                    background: '#D7F6B7', // CSS color spec for background color of grid.
+                    borderColor: '#999999', // CSS color spec for border around grid.
+                    borderWidth: 2.0, // pixel width of border around grid.
+                    shadow: true, // draw a shadow for grid.
+                    shadowAngle: 45, // angle of the shadow.  Clockwise from x axis.
+                    shadowOffset: 1.5, // offset from the line of the shadow.
+                    shadowWidth: 3, // width of the stroke for the shadow.
+                    shadowDepth: 3, // Number of strokes to make when drawing shadow.
+                    shadowAlpha: 0.5      // Opacity of the shadow
+                },
+                this.cfg.axes = {
+                    yaxis: {
+                        labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                        tickOptions: {
+                            fontSize: '8pt',
+                            formatString: "%'.0f",
+                            min:0
+                        }
+                    },
+                    xaxis: {
+                        pad: 1.05,
+                        renderer: $.jqplot.CategoryAxisRenderer,
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                        labelRenderer: $.jqplot.CanvasTextRenderer,
+                        tickOptions: {
+                            fontSize: '8pt',
+                            angle: 90,
+                            markSize: 2,
+                            formatString: '%s/'
+                        }
+                    }
+                },
+                this.cfg.axes.xaxis.ticks = this.cfg.categories;
+
+
+            }
+        </script>         
+
+                <script type="text/javascript" >
+            function glf() {
+                //this = chart widget instance
+                this.cfg.seriesDefaults = {
+                    rendererOptions: {
+                        smooth: true
+                    },
+                    showMarker: true
+
+
+                },
+                this.cfg.grid = {
+                    drawGridLines: true, // wether to draw lines across the grid or not.
+                    gridLineColor: '#cccccc', // *Color of the grid lines.
+                    background: '#D7F6B7', // CSS color spec for background color of grid.
+                    borderColor: '#999999', // CSS color spec for border around grid.
+                    borderWidth: 2.0, // pixel width of border around grid.
+                    shadow: true, // draw a shadow for grid.
+                    shadowAngle: 45, // angle of the shadow.  Clockwise from x axis.
+                    shadowOffset: 1.5, // offset from the line of the shadow.
+                    shadowWidth: 3, // width of the stroke for the shadow.
+                    shadowDepth: 3, // Number of strokes to make when drawing shadow.
+                    shadowAlpha: 0.5      // Opacity of the shadow
+                },
+                this.cfg.axes = {
+                    yaxis: {
+                        labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                        tickOptions: {
+                            fontSize: '8pt',
+                            formatString: "%'.2f"
+                        }
+                    },
+                    xaxis: {
+                        pad: 1.05,
+                        renderer: $.jqplot.CategoryAxisRenderer,
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                        labelRenderer: $.jqplot.CanvasTextRenderer,
+                        tickOptions: {
+                            fontSize: '8pt',
+                            angle: 90,
+                            markSize: 2,
+                            formatString: '%s/'
+                        }
+                    }
+                },
+                this.cfg.axes.xaxis.ticks = this.cfg.categories;
+
+
+            }
+        </script>  
+        
+    </h:head>
+
+    <body>
+        
+        <ui:include src="/templates/sessionTimeOut.xhtml" />
+        <ui:composition template="#{loginBean.template}" >
+            
+            <ui:define name="content">
+
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+          
+                <h:form id="form">  
+
+                    <p:growl id="msgs" life="2500"  showDetail="false" />  
+
+                    <p:panelGrid columns="1" style=" margin: auto; border: transparent; " >
+                    <p:graphicImage  value="/resources/images/usuarios3.png"  style=" margin:  auto; " /> 
+                     
+                     </p:panelGrid>   
+
+                    
+                    <p:panel  
+                        id="PanelTabla"
+                        style="width: auto; text-align:left"
+                         
+                        >    
+
+
+                <p:tabView  effect="fade" >
+                                 
+                       <p:tab  id="USUARIOS" title="USUARIOS"  > 
+
+                        <h8 style="color:  #000000 ;font-size:  x-large;  text-align:center;border:1px solid #000000"> Vista General de Usuarios </h8>
+                        <br></br>
+                        <p:dataTable id="dataTable"   
+                                     var="mostrarProcesados"  
+                                     value="#{GLDC_ADMIN.mostrarProcesados}" 
+                                     widgetVar="procesadosTable"  
+                                     scrollRows="15"   
+                                     liveScroll="true" 
+                                     emptyMessage="No se tiene registro" 
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="15,30,45,60,75,90"
+                                      resizableColumns="true"
+                                      liveResize="true"
+                                      scrollWidth="120%" 
+                                      
+                                     style=" font-size:10px; font-family:  Segoe UI; width: auto; margin:  auto;"
+                                     filteredValue="#{GLDC_ADMIN.filteredProcesados}"
+                                      
+                                     >  
+
+
+                            <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="USUARIO" 
+                                      filterBy="#{mostrarProcesados.USUARIO }"   
+                                      headerText="USUARIO" width="70"  
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="USUARIO">    
+                                <h:outputText value="#{mostrarProcesados.USUARIO}" />  
+                            </p:column>
+
+                          <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="ID_USUARIO" 
+                                      filterBy="#{mostrarProcesados.ID_USUARIO }"   
+                                      headerText="ID" width="50"  
+                                      filterMatchMode="contains"  
+                                      filterStyle="width: 100px;"
+                                      footerText="ID">    
+                                <h:outputText value="#{mostrarProcesados.ID_USUARIO}" />  
+                            </p:column>
+
+                            <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="ROLL" 
+                                      filterBy="#{mostrarProcesados.ROLL }"   
+                                      headerText="ROLL" width="90"  
+                                      filterMatchMode="contains"  
+                                      filterStyle="width: 100px;"
+                                      footerText="ROLL">    
+                                <h:outputText value="#{mostrarProcesados.ROLL}" />  
+                            </p:column>
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="PASS" 
+                                      filterBy="#{mostrarProcesados.PASS }"   
+                                      headerText="PASS" width="90"  
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="PASS">    
+                                <h:outputText value="#{mostrarProcesados.PASS}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="NOMBRE_USUARIO" 
+                                      filterBy="#{mostrarProcesados.NOMBRE_USUARIO }"   
+                                      headerText="NOMBRE USUARIO" width="200"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="NOMBRE USUARIO">    
+                                <h:outputText value="#{mostrarProcesados.NOMBRE_USUARIO}"  />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="EMAIL" 
+                                      filterBy="#{mostrarProcesados.EMAIL }"   
+                                      headerText="EMAIL" width="100"  
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="EMAIL">    
+                                <h:outputText value="#{mostrarProcesados.EMAIL}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="ESTADO" 
+                                      filterBy="#{mostrarProcesados.ESTADO }"   
+                                      headerText="ESTADO"  width="90" 
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 90px;"
+                                      footerText="ESTADO">    
+                                <h:outputText value="#{mostrarProcesados.ESTADO}" />  
+                            </p:column>
+                            
+                             <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="CUENTA" 
+                                      filterBy="#{mostrarProcesados.CUENTA }"   
+                                      headerText="CUENTA"  width="90" 
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 90px;"
+                                      footerText="CUENTA">    
+                                 <h:outputText value="#{mostrarProcesados.CUENTA}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="URL" 
+                                      filterBy="#{mostrarProcesados.URL }"   
+                                      headerText="URL" width="100"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="URL">    
+                                <h:outputText value="#{mostrarProcesados.URL}" />  
+                            </p:column>
+                           
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="DAPQ" 
+                                      filterBy="#{mostrarProcesados.DAPQ }"   
+                                      headerText="DAPQ" width="90"  
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="DAPQ">    
+                                <h:outputText value="#{mostrarProcesados.DAPQ}" />  
+                            </p:column>
+                            
+           
+                           
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="DATOS" 
+                                      filterBy="#{mostrarProcesados.DATOS }"   
+                                      headerText="DATOS"  width="90" 
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="USER_ID">    
+                                <h:outputText value="#{mostrarProcesados.DATOS}" />  
+                            </p:column>                         
+                            
+                
+                           
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="TELEFONIA" 
+                                      filterBy="#{mostrarProcesados.TELEFONIA }"   
+                                      headerText="TELEFONIA"   width="90"
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="TELEFONIA">    
+                                <h:outputText value="#{mostrarProcesados.TELEFONIA}" />  
+                            </p:column>    
+ 
+                                                      
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="VAS" 
+                                      filterBy="#{mostrarProcesados.VAS }"   
+                                      headerText="VAS"   width="50"
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="VAS">    
+                                <h:outputText value="#{mostrarProcesados.VAS}" />  
+                            </p:column>    
+ 
+                            
+                                                      
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="ALCANCE" 
+                                      filterBy="#{mostrarProcesados.ALCANCE }"   
+                                      headerText="PERFIL"   width="80"
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="PERFIL">    
+                                <h:outputText value="#{mostrarProcesados.ALCANCE}" />  
+                            </p:column>    
+ 
+                            
+                                                      
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="ROAMING" 
+                                      filterBy="#{mostrarProcesados.ROAMING }"   
+                                      headerText="ROAMING" width="80"  
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="ROAMING">    
+                                <h:outputText value="#{mostrarProcesados.ROAMING}" />  
+                            </p:column>    
+ 
+                            
+                                                      
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="FECHA_CUMPLE" 
+                                      filterBy="#{mostrarProcesados.FECHA_CUMPLE }"   
+                                      headerText="FECHA CUMPLE" width="80"  
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 90px;"
+                                      footerText="FECHA CUMPLE">    
+                                <h:outputText value="#{mostrarProcesados.FECHA_CUMPLE}" />  
+                            </p:column>    
+ 
+                            
+                                                      
+                                        <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="NO_EMPLEADO" 
+                                      filterBy="#{mostrarProcesados.NO_EMPLEADO }"   
+                                      headerText="NO EMPLEADO" width="90"  
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="NO EMPLEADO">    
+                                <h:outputText value="#{mostrarProcesados.NO_EMPLEADO}" />  
+                            </p:column>
+                            
+                            <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="PUESTO" 
+                                      filterBy="#{mostrarProcesados.PUESTO }"   
+                                      headerText="PUESTO" width="240"  
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 90px;"
+                                      footerText="PUESTO">    
+                                <h:outputText value="#{mostrarProcesados.PUESTO}" />  
+                            </p:column>    
+ 
+                            
+                             <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="FECHA_REGISTRO" 
+                                      filterBy="#{mostrarProcesados.FECHA_REGISTRO }"   
+                                      headerText="FECHA REGISTRO" width="100"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="FECHA REGISTRO">    
+                                <h:outputText value="#{mostrarProcesados.FECHA_REGISTRO}" />  
+                            </p:column>    
+ 
+                             <p:column style="text-align:center; font-size: medium; font-size: 14px" 
+                                      id="FECHA_MODIFICACION" 
+                                      filterBy="#{mostrarProcesados.FECHA_MODIFICACION }"   
+                                      headerText="FECHA MODIFICACION" width="120"  
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 90px;"
+                                      footerText="FECHA MODIFICACION">    
+                                <h:outputText value="#{mostrarProcesados.FECHA_MODIFICACION}" />  
+                            </p:column>    
+ 
+                            
+                        </p:dataTable> 
+                              
+                       </p:tab>
+                       
+                          <p:tab  id="NUEVOUSUARIOS" title="NUEVO"> 
+          
+                           
+                         <p:separator style="width:0px;height:20px; margin-left:  auto" />
+                                                           
+                        <p:panelGrid columns="3"  style=" margin:  50px"  >
+                          
+                            <h:panelGrid columns="2"   >
+                                
+                                  <h8 style="color: #000000;font-size: x-large;  text-align:center;border:1px solid #000000">Datos Personales:</h8> 
+                                  <h:outputText  value="" />
+                                  
+                                 <p:separator style="width:320px;height:5px; margin-left:  auto; background-color: #F00;border-color:#0F0;" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                 <p:separator style="width:0px;height:20px; margin-left:  auto" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                   
+                                
+                                 <h:outputText  value="Usuario" />
+                                 <p:inputText id="usuario" value="#{GLDC_ADMIN.NUSUARIO}" label="usuario" style=" font-size:  small; width: 200px"  
+                                              
+                                               />
+
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                 
+                                <h:outputText  value="Nombre Usuario" />
+                                <p:inputText id="nomusua" value="#{GLDC_ADMIN.NNOMBRE_USUARIO}" label="nomusua" style=" font-size:  small; width: 200px"
+                                             />
+                                
+                                  <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+
+                                <h:outputText  value="Email" />
+                                <p:inputText id="Email" value="#{GLDC_ADMIN.NEMAIL}" label="Email" style=" font-size:  small; width: 200px"
+                                             />
+                                
+                                  <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+
+                                <h:outputText  value="Numero de Empleado"/>
+                                <p:inputText id="Empleado" value="#{GLDC_ADMIN.NNO_EMPLEADO}" label="Empleado" style=" font-size:  small; width: 200px"
+                                             />
+                                
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+
+
+                                <h:outputText  value="Fecha de Cumpleaños"/>
+                                <p:calendar id="fecha_cumple"
+                                            value="#{GLDC_ADMIN.fecha_cumple}" 
+                                            pages="1" 
+                                            timeZone="America/Mexico_City"
+                                            pattern="dd/MM/yyyy"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            requiredMessage="Fecha de Cumpleaños"
+                                            style="font-size: 15px; font-family:  sans-serif; width: 600px"
+                                            navigator="true"   
+                                            yearRange ="1900:2022"
+                                            effect="fold"
+                                            mode="inline"
+                                            />  
+                     
+                           </h:panelGrid>   
+                              
+                            <p:spacer width="100" />  
+                            
+                           <h:panelGrid columns="2"   >
+                   
+                               <h8 style="color: #000000;font-size: x-large;  text-align:center;border:1px solid #000000">Privilegios:</h8> 
+                                 
+                                <h:outputText  value="" />
+                                
+                                 <p:separator style="width:320px;height:5px; margin-left:  auto; background-color: #F00;border-color:#0F0;" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto; color:  transparent !important" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto;color:  transparent !important" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto;color:  transparent !important" />
+                                 
+                               
+                               
+                                 <h:outputText  value="Roll" />
+                                <p:selectOneMenu id="option" value="#{GLDC_ADMIN.NROLL}" panelStyle="width:200px" style=" font-size:  small; width: 200px "  >
+                                    <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                                    <f:selectItem itemLabel="Analista" itemValue="1"/>
+                                    <f:selectItem itemLabel="Consultor" itemValue="2"/>
+                                    <f:selectItem itemLabel="Especialista" itemValue="3"/>
+                                    <f:selectItem itemLabel="Abogado" itemValue="4"/>
+                                    <f:selectItem itemLabel="Lider" itemValue="5"/>
+                                    <f:selectItem itemLabel="Gerente" itemValue="6"/>
+                                    <f:selectItem itemLabel="Director" itemValue="7"/>
+                                    <f:selectItem itemLabel="AVP" itemValue="8"/>
+
+                                </p:selectOneMenu>             
+
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                 
+                                <h:outputText  value="Perfil" />
+                                <p:selectOneMenu id="option2" value="#{GLDC_ADMIN.NALCANCE}" panelStyle="width:200px" style=" font-size:  small; width: 200px "  >
+                                    <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                                    <f:selectItem itemLabel="INTERNO" itemValue="INTERNO"/>
+                                    <f:selectItem itemLabel="EXTERNO" itemValue="EXTERNO"/>
+                                    <f:selectItem itemLabel="RH" itemValue="RH"/>
+                               </p:selectOneMenu>             
+
+
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                 <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                
+                                <h:outputText  value="Puesto" />
+                                <p:inputText id="Puesto" value="#{GLDC_ADMIN.NPUESTO}" label="Puesto" style=" font-size:  small; width: 200px"
+                                             />
+                                
+                                <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                <p:separator style="width:0px;height:5px; margin-left:  auto" />
+                                
+                                <h:outputText  value="Estado" />
+                                
+                                <p:selectBooleanButton onLabel="Activo" offLabel="Desactivo" onIcon="star" offIcon="pi pi-times" style="width:10rem"  value="#{GLDC_ADMIN.NESTADO}"/>
+                                
+                                 <p:separator style="width:0px;height:200px; margin-left:  auto; background-color: #F00;"  />
+                             
+                     
+                           </h:panelGrid>   
+                     
+                     </p:panelGrid>   
+                        
+                           <p:separator style="width:900px;height:5px; margin-left:  auto; background-color: #F00;border-color:#0F0;" />
+                                      
+                          <p:panelGrid columns="1"  style="margin: auto; border: transparent; align-content:  center">
+
+                             
+                              
+                              <p:commandButton  
+                                  id="idRegistrar"
+                                  value="Registrar usuario"
+                                  actionListener="#{GLDC_ADMIN.crearusuario()}"
+                                  update=":form"  icon="star" 
+                                  > 
+                              </p:commandButton>
+
+
+                          </p:panelGrid>   
+                       
+                             
+                           
+                       </p:tab>
+                    
+                       <p:tab  id="MODUSUARIOS" title="MODIFICAR" > 
+                    
+                           
+                        <h:form  id="form2" >
+                    <p:growl id="msgs4" life="2500"  showDetail="false" />  
+            
+                            <p:panelGrid columns="7" >
+                                
+                                
+                        <h:outputText  value="Usuario" />            
+                        <p:inputText id="Modusuario" value="#{GLDC_ADMIN.modUsuario}" label="Modusuario" style=" font-size:  medium; width: 200px" 
+                                               />
+
+                       
+                        <p:graphicImage value="/resources/images/usuario6.png"  style=" margin:  auto; " /> 
+                                                    
+                              <p:commandButton  
+                                  value=" Modificar"
+                                  actionListener="#{GLDC_ADMIN.consultausuario()}" 
+                                  update=":form" resetValues="true"
+                                  icon="pi pi-check"
+                                  
+                                    > 
+                              </p:commandButton>
+
+                        <p:spacer width="100" height="10"/>   
+
+                        <p:graphicImage value="/resources/images/usuario5.png"  style=" margin:  auto; " />
+                       
+                        
+                        <p:commandButton value="Eliminar" actionListener="#{GLDC_ADMIN.borrarusuario()}" update=":form" styleClass="p-mr-2" icon="pi pi-check">
+                        <p:confirm header="Confirmation" message="Are you sure you want to proceed?" />
+                        </p:commandButton>
+                        
+                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                          <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                           <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                               </p:confirmDialog>  
+                        
+                          </p:panelGrid>      
+                 <br></br>
+                              
+                            
+                 <h:panelGrid columns="3" id="add2"  >  
+                            
+                     <h:panelGrid columns="1" >  
+                         <img  id="fotoUsuario" src="../views/FOTOS/#{GLDC_ADMIN.TFOTO}.jpg" width="161" height="200" style="margin-left: 20px; margin-top: 10px ; border-style: groove"/>
+                         
+                         <h:outputText value="Usuario: #{GLDC_ADMIN.TUSUARIO} "   />  
+                         <h:outputText value="Nombre: #{GLDC_ADMIN.TNOMBRE_USUARIO}" />  
+                                   <br></br>
+                             <h8 style="color: #000000; font-size: x-large ;text-align:center;border:1px solid #000000">Datos del Usuario  </h8>
+                    </h:panelGrid>               
+                                
+                      <p:spacer width="200" height="10"/>   
+           
+                        
+                            <h:panelGrid id="uppanelgrid" columns="2"  cellspacing="5" border="1" style="text-align:left ; font-size:  large; font-size: 15px" >  
+                                    
+                                <p:column style="text-align:left ; font-size: medium; font-size: 15px" >
+                                 <h:outputText value="Usuario"  />  
+                                </p:column>
+                                <p:column  style=" text-align:  left; font-size: 15px" >
+                                    <h:outputText value="#{GLDC_ADMIN.TUSUARIO}" />  
+                                 </p:column>
+                                
+                                
+                                 <p:column > 
+                                <h:outputText value="ID" />  
+                                </p:column>
+                                <p:column style=" text-align:  left; font-size: 15px;" > 
+                                
+                                    <h:outputText value="#{GLDC_ADMIN.TID_USUARIO}" />  
+                               
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="ROLL" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace3" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TROLL}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="PASS" />   
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace4" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TPASS}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="NOMBRE USUARIO" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace5" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TNOMBRE_USUARIO}"  
+                                                  />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="EMAIL" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace6" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TEMAIL}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="ESTADO" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace7" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TESTADO}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                
+                                 <p:column> 
+                                <h:outputText value="CUENTA" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace" editor="true">  
+                                   <p:selectOneMenu id="option7" value="#{GLDC_ADMIN.TCUENTA}" panelStyle="width:150px font-size:12px" style=" font-size:  small; width: 150px " effect="fade" >
+                                 <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                                    <f:selectItem itemLabel="BLOQUEADO" itemValue="BLOQUEADO"/>
+                                    <f:selectItem itemLabel="DESBLOQUEADO" itemValue="DESBLOQUEADO"/>
+                                    </p:selectOneMenu> 
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="URL" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace8" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TURL}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="DAPQ" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace9" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TDAPQ}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="DATOS" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace10" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TDATOS}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="TELEFONIA" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace11" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TTELEFONIA}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="VAS" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace12" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TVAS}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="PERFIL" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace13" editor="true">  
+                                    <p:selectOneMenu id="option4" value="#{GLDC_ADMIN.TALCANCE}" panelStyle="width:150px font-size:12px" style=" font-size:  small; width: 150px " effect="fade" >
+                                 <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                                    <f:selectItem itemLabel="INTERNO" itemValue="INTERNO"/>
+                                    <f:selectItem itemLabel="EXTERNO" itemValue="EXTERNO"/>
+                                    <f:selectItem itemLabel="RH" itemValue="RH"/>  
+                                    </p:selectOneMenu> 
+                                </p:inplace>  
+                                 </p:column>
+
+                                
+                                
+                                  <p:column> 
+                                <h:outputText value="ROAMING" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace214" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TROAMING}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="FECHA CUMPLE" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace15" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TFECHA_CUMPLE}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="NO EMPLEADO" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace16" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TNO_EMPLEADO}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="PUESTO" />  
+                                </p:column>
+                                <p:column> 
+                                <p:inplace id="ajaxInplace17" editor="true">  
+                                    <p:inputText value="#{GLDC_ADMIN.TPUESTO}"  
+                                                 />  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="FECHA REGISTRO" />  
+                                </p:column>
+                                <p:column> 
+                                   <h:outputText value="#{GLDC_ADMIN.TFECHA_REGISTRO}"/>  
+                                 </p:column>
+                                
+                                  <p:column> 
+                                <h:outputText value="FECHA MODIFICACION" />  
+                                </p:column>
+                                <p:column> 
+                                    <h:outputText value="#{GLDC_ADMIN.TFECHA_MODIFICACION}" />  
+                                 </p:column>
+                            
+                            </h:panelGrid>
+                 
+                      <br></br>
+                      <br></br>
+                      <br></br>
+                               <p:commandButton  
+                                    value="Guardar Cambios"
+                                    actionListener="#{GLDC_ADMIN.modificarusuario()}" 
+                                    update=" :form"
+                                    
+                                  icon="pi pi-save" > 
+                              </p:commandButton>
+                               </h:panelGrid>
+                            
+                 
+                                
+
+            <p:separator style="width:1600px;height:5px; margin-left:  auto; background-color: #F00;border-color:#0F0;" />
+
+                        </h:form>  
+              
+                           
+                       </p:tab>
+                      
+                          
+                    </p:tabView>      
+                        
+                              
+                    </p:panel>
+
+                </h:form>   
+
+
+            </ui:define>
+
+        </ui:composition>
+
+                    <p:dialog modal="true" widgetVar="statusDialog"  
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent"
+                      styleClass="estatusdiag"
+                      >  
+                <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+            </p:dialog> 
+        
+    </body>
+</html>
+             

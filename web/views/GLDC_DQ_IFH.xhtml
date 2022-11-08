@@ -1,0 +1,292 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+         
+     <style type="text/css">       
+            
+       .hide
+        {
+        display:none;
+        visibility:hidden;
+        }
+
+        </style>
+        
+      
+        
+        <style type="text/css">
+        i {
+           margin-right: 10px;
+        }    
+            
+            
+        .ui-g div {
+            
+            text-align: center;
+        
+        }
+        
+        .ui { 
+        color: orange;
+        }
+        
+        </style>
+
+<script type="text/javascript">
+            
+      
+   
+
+function barext() {
+     this.cfg.seriesDefaults = {
+                    renderer: $.jqplot.BarRenderer,
+                    shadow: true,
+                    shadowAlpha: 0.9,
+                    shadowAngle: 135,
+                    background: 'transparent',
+                    borderColor: 'transparent',                    
+                    pointLabels: {show: true, formatString: "%'.0f"}
+                },
+                this.cfg.grid = {
+                    drawGridLines: false, // wether to draw lines across the grid or not.
+                    gridLineColor: 'transparent', // *Color of the grid lines.
+                    background: 'transparent',
+                    borderColor: 'transparent',
+                    borderWidth: 0.1, // pixel width of border around grid.
+                    shadow: false, // draw a shadow for grid.
+                    shadowAngle: 45, // angle of the shadow.  Clockwise from x axis.
+                    shadowOffset: 1.5, // offset from the line of the shadow.
+                    shadowWidth: 1, // width of the stroke for the shadow.
+                    shadowDepth: 1, // Number of strokes to make when drawing shadow.
+                    shadowAlpha: 0.5           // Opacity of the shadow
+                },
+                
+                this.cfg.legend = {
+                show : true,
+                  location : 'ne',
+                  fontSize: '16px',           
+                  background: 'transparent' ,
+                  border : 'none',
+                  placement : 'outsideGrid',
+                  numberColumns : 1,
+                  numberRows: 1,
+                  
+              };
+            
+}
+
+
+                
+</script>
+
+<style type="text/css">
+    .column1 {
+        width:40%;
+        padding:6px;
+    }
+ 
+    .column2 {
+        width:60%;
+        padding:4px;
+    }
+  
+    .old {
+             background-color: #fca752 !important;
+             background-image: none !important;
+             color: #000000 !important;
+    }
+    
+</style>       
+        
+        
+        
+        
+        
+    <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+
+     <p:separator style="height:20px" />   
+  
+           
+<div class="ui-g">
+  <div class="ui-g-3 ui-g-nopad" title="Ticket RMS"   style="font-size:  20px; text-align:  left; ">
+      <img  id="fotoUsuario" src="../resources/images/engrane.png" />
+      Ticket RMS
+      <div class="ui-g-12"  style="border: 0px solid #fafafa;  border-left: 15px solid  orange"> 
+         <div class="ui-g-6"  style="font-size:  30px; border-right: 1px solid #fafafa;  "> RMS </div>                
+         <div class="ui-g-6"  style="font-size:  30px; " > #{monitorDQIFH.total_rms} </div>
+      </div>     
+  </div>             
+  <div class="ui-g-3 ui-g-nopad" title="Ticket RMS"  style="font-size:  20px; text-align:  left"> 
+       <img  id="fotoUsuario" src="../resources/images/Arrow_next_icon.png" />
+      Tickets Revisados
+      <div class="ui-g-12"  style="border: 0px solid #fafafa; border-left: 15px solid #52B4FC">
+         <div class="ui-g-6"  style="font-size:  30px; border-right: 1px solid #fafafa"> REV </div>                
+         <div class="ui-g-6"  style="font-size:  30px;"> #{monitorDQIFH.total_rev} </div>            
+      </div> 
+  </div>      
+  <div class="ui-g-3 ui-g-nopad" title="Ticket RMS"  style="font-size:  20px; text-align:  left"> 
+       <img  id="fotoUsuario" src="../resources/images/Arrow_up_icon.png" />
+      Correctos
+      <div class="ui-g-12"  style="border: 0px solid #fafafa;  ">
+         <div class="ui-g-6"  style="font-size:  30px; background-color:  #4CAF50; border-radius:  10px;"> OK </div>                
+         <div class="ui-g-6"  style="font-size:  30px;"> #{monitorDQIFH.total_ok} </div>   
+      </div>    
+  </div>            
+  <div class="ui-g-3 ui-g-nopad" title="Ticket RMS"  style="font-size:  20px; text-align:  left"> 
+      <img  id="fotoUsuario" src="../resources/images/Arrow_down_icon.png" />
+      Incorrectos
+      <div class="ui-g-12"  style="border: 0px solid #fafafa;  ">
+         <div class="ui-g-6"  style="font-size:  30px; background-color:   #D20005; border-radius:  10px;"> FAIL </div>                
+         <div class="ui-g-6"  style="font-size:  30px;"> #{monitorDQIFH.total_fail} </div>   
+       </div>    
+  </div>          
+
+   
+</div> 
+  
+   <p:separator style="height:20px" />                
+    
+     <p:growl id="messages" showDetail="true"  life="2000"  sticky="true" />
+   
+     <h:form id="f1" enctype="multipart/form-data">
+         
+    <p:poll listener="#{monitorDQIFH.onIdle}" update="messages,panelmonitor" interval="60" />
+     
+     <p:panel  id="panelmonitor"  > 
+         
+          <div class="ui-g"  style="font-size:  35px;   "> Tendencias </div> 
+          <div class="ui-g"  style="font-size:  18px;   "> Monitoreo del comportamiento... </div> 
+          
+                  
+   
+          <p:panelGrid columns="1"  style=" height: 300px; width: 100%; ">   
+                                
+                <p:chart type="bar" model="#{monitorDQIFH.modelbar}"  styleClass="barext"    />
+                                
+          </p:panelGrid>    
+          
+          
+        <div class="ui-g-12"  style="border: 0px solid #fafafa;  ">
+            <div class="ui-g-5">  
+                <p:commandButton id="loginButton1" value="Todo"  icon="ui-icon-calculator"
+                       actionListener="#{loginBean.login(actionEvent)}" 
+                       style=" background-color:  transparent; font-size:  15px !important; "  />                
+            
+            
+                       <p:commandButton id="loginButton2" value="Incorrectas"  icon="ui-icon-alert"   
+                       actionListener="#{loginBean.login(actionEvent)}" 
+                       style=" background-color:  transparent; font-size:  15px !important; "  />                
+            
+            
+                       <p:commandButton id="loginButton3" value="Correctas"    icon="ui-icon-check"
+                       actionListener="#{loginBean.login(actionEvent)}" 
+                       style=" background-color:  transparent; font-size:  15px !important; "  />                
+            </div>
+               
+        
+            
+       </div>    
+          
+             
+          
+          
+                        
+         <p:separator style="height:20px" />    
+         
+              <p:panelGrid columns="1"  style=" width: 80%; margin:  auto;">    
+                        
+                  
+                  <div class="ui-g"  style="font-size:  35px;   "> Recientes </div> 
+                  <div class="ui-g"  style="font-size:  18px;  "> Últimos tickets capturados... </div> 
+                  
+                    <p:dataTable   var="statusTickets" value="#{monitorDQIFH.statusTickets}" id="dataTable"
+                                   style="font-size: 18px ;  width: 100%; margin:  auto;" 
+                                   resizeMode="fit"    sortField="true"
+                                   resizableColumns="true"
+                                   rowStyleClass="#{statusTickets.FINALSTATUS == 'FAIL' ? 'old' : null}"
+                                   scrollRows="10"  
+                                   scrollable="true" 
+                                   liveScroll="true" 
+                                   emptyMessage="No se tiene registro" 
+                                   paginator="true"
+                                   paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                   rowsPerPageTemplate="10,20,30,40,50,60,70,80,90,100"
+                                   filteredValue="#{monitorDQIFH.filteredProcesados}" >
+
+                         <p:column id="idticket" headerText="TICKET" style=" ;width: 20px"
+                                   filterBy="#{statusTickets.TICKET }"    
+                                   filterMatchMode="contains" >  
+                             <h:outputText value="#{statusTickets.TICKET}" />  
+                        </p:column>
+                        
+                        <p:column id="idcaso" headerText="CASO" style=" ;width: 20px">  
+                            <h:outputText value="#{statusTickets.CASO}" />  
+                        </p:column>  
+                        
+                         <p:column id="idMsisdn" headerText="MSISDN" style=" ;width: 20px">  
+                             <h:outputText value="#{statusTickets.MSISDN}" />  
+                        </p:column>  
+
+                        
+                        <p:column id="idFecha" headerText="FECHA_CASO" style=" ;width: 40px"
+                                   filterBy="#{statusTickets.FECHA }"    
+                                   filterMatchMode="contains" >  
+                             <h:outputText value="#{statusTickets.FECHA}" />  
+                        </p:column>
+                        
+                        
+                         <p:column id="idusu" headerText="USUARIO"  style="width: 20px">  
+                             <h:outputText value="#{statusTickets.USUARIO}" />  
+                        </p:column> 
+
+                         <p:column id="idacta" headerText="ACTA"  style="width: 20px">  
+                             <h:outputText value="#{statusTickets.ACTA}" />  
+                        </p:column> 
+                        
+
+                        <p:column id="idcal" headerText="CALIFICACION"  style="width: 150px">  
+                            <h:outputText value="#{statusTickets.CALIFICACION}" />  
+                        </p:column> 
+
+                     
+                    </p:dataTable>    
+
+                    <p:commandButton value="Refresh" update=":f1:dataTable" icon="ui-icon-arrowrefresh-1-w"
+                                     style="color: crimson  ;font-size: 11px ; margin-left: 40px ; margin-top:10px">
+                    </p:commandButton>
+                  
+                  
+                    </p:panelGrid>         
+         
+         
+     </p:panel>    
+
+    </h:form>     
+         
+            </ui:define>
+
+        </ui:composition>
+        
+      <p:dialog modal="true" widgetVar="statusDialog"   
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      showHeader="false"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent; "  
+                      styleClass="estatusdiag"
+                      >  
+               <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+    </p:dialog> 
+
+    </body>
+</html>

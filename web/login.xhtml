@@ -1,0 +1,222 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+
+        <style type="text/css">
+
+            body
+            {           
+                    background-image: url(http://TD134927LDG3861:8080/GLDC_SYSTEM/resources/images/gldc_principal2.png);
+                    background-color: #000000;
+                    background-size: 100% 100%;
+                    background-attachment: fixed;
+                    background-repeat: no-repeat;    
+                    background-position: center;
+            };
+
+            estatusdiag .ui-widget-content{
+                background: transparent !important;
+                border:none !important; 
+                box-shadow:none !important; 
+            };
+            
+            
+            
+        conteiner{
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 50%;  
+        font-size: 80%;
+        
+        .ui-dialog-titlebar{
+                display:none;
+                }
+        
+};
+
+.iu-state-default .icon-login{
+    background-image: url(http://TD134927LDG3861:8080/GLDC_SYSTEM/resources/images/gldc_principal2.png);
+}
+
+        </style>
+
+
+
+
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.validationFailed || !args.loggedIn) {
+                    jQuery('#loginForm');
+                }
+                else {
+                    location.href = args.ruta;
+
+                }
+            }
+        </script>
+
+      
+        
+
+        <title>Login</title>
+        
+  
+        
+        
+
+    </h:head>
+    
+    <h:body>
+      
+        <div class="conteiner">
+            <p:growl id="growl" showDetail="true" life= "3000"  />
+            <h:form id ="loginForm"   >
+                <h:outputLink>
+
+                </h:outputLink>
+
+                <p:panel   
+                    style=" border: none; 
+                    box-shadow: none;  
+                    background: transparent; margin-left: 44%;
+                    width: 60%;    margin-top: 15% "  
+                    >
+
+            
+
+
+                    <h:panelGrid columns="3" cellpadding="5" style=" 
+                                 border: none; box-shadow: none;  background: transparent;">  
+
+         
+
+
+                       
+
+                        <h:panelGrid columns="1"   style=" 
+                                     background: transparent;  border-color:  #AFAFAF ;">  
+
+                            <h:outputText   value="Login"  style="font-size: 50px; font-family:  Corbel Light;   margin-left: 20% "   />
+
+                             <p:separator  style="height:1px;  background-color:  #000000 " />    
+
+                            <h:outputLabel for="username" value="   Usuario:" 
+                                            style="font-size: 25px; font-family:  Corbel Light;" />  
+                            
+                            <p:inputText value="#{loginBean.username}" id="username" required="true" label="username"
+                                         style="font-size: 20px !important ; width: 200px;  font-family:  Corbel Light; margin:  auto"
+                                         /> 
+
+                              <h:outputLabel for="password" value="   Contraseña:" 
+                                            style="font-size: 25px; font-family:  Corbel Light;" />  
+                              
+                            <p:password value="#{loginBean.password}" id="password" required="true" label="password" 
+                                        style="font-size: 20px !important ;font-family:  sans-serif; width: 200px "
+                                        />
+                            
+                            
+                            
+                          
+
+                            <f:facet name="footer">  
+                                <p:commandButton id="loginButton" value="Entrar" update=":growl"    
+                                                 actionListener="#{loginBean.login(actionEvent)}" 
+                                                 oncomplete="handleLoginRequest(xhr, status, args)"
+                                                 style=" background-color:  transparent; font-size:  20px !important; width: 220px;"
+                                                 />
+                                   
+                            </f:facet>    
+                            
+                           
+                           <p:separator  style="height:1px; color:#000000;" />    
+                            
+                                
+                              
+                        </h:panelGrid>  
+                        
+                        
+
+                              
+                          
+
+                    </h:panelGrid>    
+
+                    
+            <p:commandLink   value="¿Olvidaste tu contraseña?"  style="color:#000000 ;font-size:  15px !important; margin-left: 10%  "
+                                   onclick="PF('DialogoPassword').show()" 
+                                   />
+             
+                      
+                </p:panel>                
+            </h:form>            
+        </div> 
+
+        <p:dialog widgetVar="DialogoPassword" 
+                  header="Olvido de Contraseña" 
+                  style="font-size: 14px" height="350" width="550" resizable="false"
+                  modal="true">
+            <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+            <h:outputText value="GLDC SYSTEM" style="color: #E05206 ; font-size: 24px ; font-style: oblique; font-weight: bold" />  
+            <br></br>
+            <br></br>
+            <h:outputLabel value="Si olvidaste tu contrañesa, por favor escribe los campos solicitados" />  
+            <div class="conteiner">          
+                <h:form id ="loginForm1" >                              
+                    <p:panel id="panelPass" >
+                        <h:panelGrid columns="3" cellpadding="2">                          
+                            <h:outputLabel for="username1" value="Escribe tu usuario:" />  
+                            <p:inputText value="#{loginBean.usernamePass}" id="username1" required="true" requiredMessage="Es necesario escribas tu usuario" label="username" style="width: 200px" disabled="#{loginBean.campoUsername}"/> 
+                            <p:message for="username1" id="msgLastname" display="icon" />
+
+                            <h:outputLabel for="emailPass" value="Escribe tu Email:" />  
+                            <p:inputText value="#{loginBean.emailPass}" id="emailPass" required="true" requiredMessage="Es necesario escribas tu email" label="emailPass" style="width: 200px" disabled="#{loginBean.campoEmail}"/> 
+                            <p:message for="emailPass" id="msgLastname1" display="icon" />
+
+                            <f:facet name="footer">  
+                                <p:commandButton id="loginButton1" value="Enviar" update="panelPass,msgs"    
+                                                 actionListener="#{loginBean.LostPass(actionEvent)}" 
+                                                 oncomplete="handleLoginRequest(xhr, status, args)" 
+                                                 disabled="#{loginBean.botonDesac}">
+                                    <f:param name = "nombrepassword"  value= "holaMundo" />
+                                </p:commandButton>                 
+
+                            </f:facet>                   
+
+                        </h:panelGrid> 
+                        <p:messages id="msgs" 
+                                    closable="true"/>
+                    </p:panel>     
+
+                </h:form>            
+                <input type="hidden" name="variable1" value="valor1" />
+            </div> 
+        </p:dialog>    
+
+
+
+
+    </h:body>
+
+   <p:dialog modal="true" widgetVar="statusDialog"   
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      showHeader="false"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent; "  
+                      styleClass="estatusdiag"
+                      >  
+               <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+    </p:dialog> 
+
+        
+</html>
+
+
+

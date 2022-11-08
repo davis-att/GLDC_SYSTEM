@@ -1,0 +1,531 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+    <h:head>
+
+        <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+   
+    
+    <style type="text/css">
+
+        .hide
+        {
+            display:none;
+            visibility:hidden;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        PrimeFaces.locales["es"] = {
+            closeText: "Cerrar",
+            prevText: "Anterior",
+            nextText: "Siguiente",
+            monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+            dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+            dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+            weekHeader: "Semana",
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: "",
+            timeOnlyTitle: "Solo hora",
+            timeText: "Tiempo",
+            hourText: "Hora",
+            minuteText: "Minuto",
+            secondText: "Segundo",
+            currentText: "Fecha actual",
+            ampm: false,
+            month: "Mes",
+            week: "Semana",
+            day: "Día",
+            allDayText: "Todo el día"
+        };
+    </script>
+
+</h:head> 
+
+    <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+                <h:form id="form"> 
+
+                    <p:growl id="growl"  life="4000"  showDetail="true" />
+
+                    <p:panel  style="font-size: 15px; " >
+
+                        <p:panelGrid columns="3"  style=" margin:  auto; border: transparent; align-content:  center" >
+
+                            <img  id="fotoUsuario" src="../resources/images/Encabezado_ch.jpg" />
+
+                        </p:panelGrid>   
+
+                    </p:panel>  
+
+                    <br></br>
+
+                    <p:panelGrid columns="2"  style=" margin:  auto; border: transparent;" >
+
+                        <p:outputLabel for="checklistinicio" value="Ingresa Ticket RMS" style="font-weight:bolder; font-size: 20px" />
+
+                        <p:inputText value="#{gldcchecklistcalidad.no_solicitud}" id="checklistinicio" required="true" label="Solicitud"
+                                     style="font-size: 15px !important ;font-family:  sans-serif "
+                                     /> 
+
+                    </p:panelGrid>    
+                    
+                    <p:panelGrid columns="1"  style="margin: auto; border: transparent;  ">
+
+                        <p:commandButton  
+                            value="Validar Solicitud"
+                            action="#{gldcchecklistcalidad.consultaquery(loginBean.username)}" style="font-weight:bolder; font-size: 20px" 
+                            update="paneltabla02, paneltabla03, paneltabla04, panel2, panel7, growl, panel_Datos, registrado"  > 
+                           
+
+                        </p:commandButton>
+                         
+                        
+                    </p:panelGrid> 
+                    <br></br>
+                    <p:panelGrid columns="2"  style="margin: auto; border: transparent;  width: 500px; align-content:  center">
+                    
+                    <p:panel id="registrado" visible="#{gldcchecklistcalidad.visible}"    style=" margin:  auto; border: transparent; align-content:  center"  >
+
+                        <p:outputLabel value="La solicitud ya esta registrada &nbsp;" style="font-weight:bolder; font-size: 20px" />
+                        <br></br>
+                        <p:outputLabel value="por el usuario:&nbsp; #{gldcchecklistcalidad.ATTUID}" style="font-weight:bolder; font-size: 20px" />
+                        <br></br>
+                        <br></br>
+                        <p:commandButton
+                          
+                             value="Volver a registar"
+                             action="#{gldcchecklistcalidad.revisar()}" 
+                            update="paneltabla02, paneltabla03, paneltabla04, panel2, panel7, growl, panel_Datos, registrado"  > 
+                        </p:commandButton>
+                        <p:commandButton 
+                             value="Nueva solicitud "
+                              actionListener="#{gldcchecklistcalidad.reload()}" >
+                        </p:commandButton>
+        
+                    </p:panel> 
+                    </p:panelGrid>    
+
+                    <p:panel header="DATOS SOLICITUD / ATENCIÓN" style="font-size: 15px; size:  auto; margin: initial" visible="#{gldcchecklistcalidad.vpanel}" id="panel_Datos">                     
+                    
+                        <p:panelGrid columns="3"  style="width:  500px; border: transparent; margin: initial;" >
+                        
+                            <p:panelGrid columns="3"  style="width:  500px; border: transparent; margin: initial;" >
+
+                                                      
+                                <p:panelGrid columns="2"  style="width: 400px; margin: initial;  " >
+                                    <h:outputText  value="Tipo de solicitud: #{gldcchecklistcalidad.TIPO}"  style=" font-weight: bold"  />
+                                 
+                                </p:panelGrid> 
+
+                                <!-- Tipo evaluación panel grid -->  
+                                <p:panelGrid columns="2"  style="width: auto; margin: initial;  align-content:  center" >
+                                    <h:outputText value="Tipo de evaluación: "  />
+                                    <p:selectOneMenu id="ck_som02" value="#{gldcchecklistcalidad.tipo_evaluacion}" style="width: 300px" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                        <f:selectItem itemLabel="Post Cumplimiento" itemValue="4" />
+                                        <f:selectItem itemLabel="Previo a Cumplimiento" itemValue="3" />  
+                                    </p:selectOneMenu>
+                                </p:panelGrid> 
+
+                                 
+                                <p:panelGrid columns="2"  style="width: 400px; margin: initial; border: transparent; align-content:  center" >
+                                    <h:outputText value="Subsolicitud: #{gldcchecklistcalidad.SUB_TIPO}" style=" font-weight: bold" />
+                                </p:panelGrid>   
+
+                                <!-- Tercer panel grid -->  
+                                <p:panelGrid columns="2"  style="width: 400px; margin: initial; border: transparent; align-content:  center" >
+                                    <h:outputText value="Recepción:" />
+                                    <p:selectOneMenu id="ck_som3" value="#{gldcchecklistcalidad.recepcion}" style="width: 300px" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" 
+                                                     >
+                                        <f:selectItem itemLabel="Seleccionar"/> 
+                                        <f:selectItem itemLabel="Yessica Yahaira Toledo Delgado" itemValue="20" /> 
+                                        <f:selectItem itemLabel="Guillermo de la Fuente Ramírez" itemValue="21" />  
+                                        <f:selectItem itemLabel="Julio Silvestre Trejo Fuentes" itemValue="16" />
+                                        <f:selectItem itemLabel="Jonathan Contreras Arenas" itemValue="3" />
+                                       
+                                    </p:selectOneMenu>
+
+                                </p:panelGrid>   
+                                
+                                  
+                                <p:panelGrid columns="2"  style="width: 400px; margin: initial; border: transparent; align-content:  center" >
+                                    <h:outputText value="Analista de Calidad: #{loginBean.nombre}" style=" font-weight: bold" />
+                                   
+                                </p:panelGrid>   
+
+                                
+                                <!-- Cuarto panel grid -->  
+                                <p:panelGrid columns="2"  style="width: 400px; margin: initial; border: transparent; align-content:  center" >
+                                    <h:outputText value="Cumplimiento: " />
+                                    <p:selectOneMenu id="ck_som4" value="#{gldcchecklistcalidad.id_cumple}" style="width:20px" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" 
+                                                     >
+                                        <f:selectItem itemLabel="Seleccionar"/> 
+                                        <f:selectItem itemLabel="Yessica Yahaira Toledo Delgado" itemValue="20" /> 
+                                        <f:selectItem itemLabel="Guillermo de la Fuente Ramírez" itemValue="21" />  
+                                        <f:selectItem itemLabel="Julio Silvestre Trejo Fuentes" itemValue="16" />
+                                        <f:selectItem itemLabel="Jonathan Contreras Arenas" itemValue="3" />
+
+                                    </p:selectOneMenu>
+
+                                </p:panelGrid>   
+
+                            
+                            </p:panelGrid>  
+                            <!-- tabla -->
+                            <p:panelGrid columns="1"  style="width: 650px; margin: initial; border: transparent; align-content:  center" >
+                              
+                                    <p:dataTable id="dataTable"   
+                                     var="mostrarProcesados"  
+                                     value="#{gldcchecklistcalidad.mostrarProcesados}" 
+                                     rows="4"
+                                      
+                                     >  
+                                 <f:facet name="header">
+                                    Ultimos registros ingresados
+                                    </f:facet>
+
+                                <p:column headerText="TICKET">
+                                <h:outputText value="#{mostrarProcesados.TICKET_NUMBER}" />  
+                                 </p:column>
+                                        
+                                   <p:column headerText="Fecha">
+                                       <h:outputText value="#{mostrarProcesados.FECHA_REVISION}" />  
+                                 </p:column>
+                                        
+                                   <p:column headerText="Nombre">
+                                       <h:outputText value="#{mostrarProcesados.NOMBRE}" />  
+                                 </p:column>
+                                                                            
+                                        </p:dataTable> 
+
+                                     
+                                </p:panelGrid>   
+
+                            
+                          </p:panelGrid>   
+
+                    </p:panel>
+
+                    <p:separator style="width:800px;height:5px" />    
+
+
+                    <!-- RECEPCIÓN -->
+                    <p:panel id="paneltabla02" header="RECEPCIÓN" style="font-size: 15px; size:  auto; margin: auto"  visible="#{gldcchecklistcalidad.vpanel}">
+                        <p:panel id= "panel2" visible="#{gldcchecklistcalidad.vpanel}"> 
+                            <p:panelGrid columns="3"   >
+                                
+                                <h:outputText value=" Control "  style=" font-weight: bold"/>
+                                 <h:outputText value=" Check " style=" font-weight: bold"/>
+                                 <h:outputText value=" Hallazgos " style=" font-weight: bold"/>
+                                
+                                <h:outputText value=" Dictamen " />
+                                <p:selectBooleanButton id="two" value="#{gldcchecklistcalidad.check_a}" onLabel="0"
+                                                       offLabel="1"  onIcon="ui-icon-close" offIcon="ui-icon-check" />
+                        
+                                <p:selectOneMenu id="ck_som8" value="#{gldcchecklistcalidad.hallazgos_a}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL"/> 
+                                    <f:selectItem itemLabel="Dictamen Incorrecto" itemValue="201" />
+                                    <f:selectItem itemLabel="Notas incompletas de periodo de retención legal" itemValue="202" />
+                                    <f:selectItem itemLabel="Notas incompletas de búsqueda de titular, domicilio, líneas" itemValue="203" />
+                                    <f:selectItem itemLabel="Dictamen Procede, No envía para atención" itemValue="252" />
+                                </p:selectOneMenu>
+
+                                
+                                <h:outputText value=" Fundamento Legal Correcto " style="   " />
+                                <p:selectBooleanButton id="two_2" value="#{gldcchecklistcalidad.check_b}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som8_2" value="#{gldcchecklistcalidad.hallazgos_b}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="No plasma fundamentamentos principales al caso" itemValue="204" />
+
+                                </p:selectOneMenu>
+
+                              
+                                <h:outputText value=" Firma de R.L. "   />
+                                <p:selectBooleanButton id="two_3" value="#{gldcchecklistcalidad.check_c}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som8_3" value="#{gldcchecklistcalidad.hallazgos_c}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                 
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="No indica si requiere firma de RL" itemValue="205" />
+                                    <f:selectItem itemLabel="No indica correctamente si aplica firma RL" itemValue="239" />
+
+                                </p:selectOneMenu>
+
+                               
+                                <h:outputText value=" Clasificación Tipo de Solicitud"   />
+                                <p:selectBooleanButton id="two_4" value="#{gldcchecklistcalidad.check_d}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                  
+                                <p:selectOneMenu id="ck_som8_4" value="#{gldcchecklistcalidad.hallazgos_d}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="Clasificación incorrecta de tipo de requerimiento" itemValue="206" />
+                                    <f:selectItem itemLabel="Clasificación incompleta del tipo de requerimiento" itemValue="207" />                                
+                                </p:selectOneMenu>
+
+                               
+                                <h:outputText value=" Priorización "   />
+                                <p:selectBooleanButton id="two_5" value="#{gldcchecklistcalidad.check_e}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                   
+                                <p:selectOneMenu id="ck_som8_5" value="#{gldcchecklistcalidad.hallazgos_e}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="No asigna prioridad o es incorrecta" itemValue="208" />
+                                </p:selectOneMenu>
+
+                              
+                                <h:outputText value=" Término " style="   " />
+                                <p:selectBooleanButton id="two_6" value="#{gldcchecklistcalidad.check_f}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som8_6" value="#{gldcchecklistcalidad.hallazgos_f}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                   
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="No señala término" itemValue="209" />
+                                    <f:selectItem itemLabel="Término señalado incorrecto" itemValue="210" />
+
+                                </p:selectOneMenu>
+
+                                
+                                <h:outputText value=" Tipo de Envío " style="   " />
+                                <p:selectBooleanButton id="two_7" value="#{gldcchecklistcalidad.check_i}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som8_7" value="#{gldcchecklistcalidad.hallazgos_g}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                   
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="No indica tipo de envío" itemValue="240" />
+                                    <f:selectItem itemLabel="El tipo de envío es incorrecto" itemValue="241" />
+
+                                </p:selectOneMenu>
+
+                               
+                                <h:outputText value=" Abogado "  />
+                                <p:selectBooleanButton id="two_8" value="#{gldcchecklistcalidad.check_g}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som8_8" value="#{gldcchecklistcalidad.hallazgos_i}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="No indica abogado de envío responsable" itemValue="211" />
+
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>   
+                        </p:panel>  
+                    </p:panel>  
+
+                    <!-- CUMPLIMIENTO -->
+                    <p:panel id="paneltabla03" header="CUMPLIMIENTO" style="font-size: 15px; size:  auto; margin:  auto"  visible="#{gldcchecklistcalidad.vpanel}">
+                        <p:panel id= "panel7" visible="#{gldcchecklistcalidad.vpanel}"> 
+                            <p:panelGrid columns="3"  style=" margin: initial; border: transparent; align-content:  center" >
+                                
+                                 <h:outputText value=" Control " style=" font-weight: bold" />
+                                 <h:outputText value=" Check " style=" font-weight: bold" />
+                                 <h:outputText value=" Hallazgos " style=" font-weight: bold"/>
+                               
+                                <h:outputText value=" Direcciones Correo " style="   " />
+                                <p:selectBooleanButton id="three" value="#{gldcchecklistcalidad.check_a2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" />
+                                <p:selectOneMenu id="ck_som08_1" value="#{gldcchecklistcalidad.hallazgos_a2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                  
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="Correo de origen incorrecto" itemValue="212" />
+                                    <f:selectItem itemLabel="Correo destino incorrecto" itemValue="213" />
+                                    <f:selectItem itemLabel="Correo de Autoridad Incorrecto" itemValue="214" />
+                                    <f:selectItem itemLabel="Correo hacia autoridad rechazado sin evidencia de seguimiento" itemValue="215" />
+                                </p:selectOneMenu>
+
+                                
+                                <h:outputText value=" Formato Correo " style="   " />
+                                <p:selectBooleanButton id="three_2" value="#{gldcchecklistcalidad.check_b2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som08_2" value="#{gldcchecklistcalidad.hallazgos_b2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                     
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="Número oficio Incorrecto" itemValue="216" />
+                                    <f:selectItem itemLabel="Número oficio incompleto" itemValue="217" />
+                                    <f:selectItem itemLabel="Equipo en CC Incompleto" itemValue="218" />
+                                    <f:selectItem itemLabel="Número de caso Incorrecto" itemValue="219" />
+                                    <f:selectItem itemLabel="No agrega leyenda CASO dentro de email" itemValue="235" />
+                                </p:selectOneMenu>
+
+                               
+                                <h:outputText value=" Plantilla " style="   " />
+                                <p:selectBooleanButton id="three_3" value="#{gldcchecklistcalidad.check_c2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som08_3" value="#{gldcchecklistcalidad.hallazgos_c2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                   
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="Plantilla Incorrecta" itemValue="220" />
+                                    <f:selectItem itemLabel="No incluye plantilla" itemValue="221" />
+                                    <f:selectItem itemLabel="Datos Incompletos en platilla usada" itemValue="222" />
+                                </p:selectOneMenu>
+
+                               
+                                <h:outputText value=" Adjuntos " style="   " />
+                                <p:selectBooleanButton id="three_4" value="#{gldcchecklistcalidad.check_d2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som08_4" value="#{gldcchecklistcalidad.hallazgos_d2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="Adjuntos Incorrectos" itemValue="223" />
+                                    <f:selectItem itemLabel="No se anexan adjuntos" itemValue="224" />
+                                </p:selectOneMenu>
+
+                                
+                                <h:outputText value=" Encriptación " style="   " />
+                                <p:selectBooleanButton id="three_5" value="#{gldcchecklistcalidad.check_e2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som08_5" value="#{gldcchecklistcalidad.hallazgos_e2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="Correo encriptado No aplica" itemValue="225" />
+                                    <f:selectItem itemLabel="Envía correo sin encriptar" itemValue="226" />
+
+                                </p:selectOneMenu>
+
+                                <h:outputText value=" Asignación de Abogado " style="   " />
+                                <p:selectBooleanButton id="three_6" value="#{gldcchecklistcalidad.check_f2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som08_6" value="#{gldcchecklistcalidad.hallazgos_f2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                              
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="Se atiende sin tenerlo asignado" itemValue="227" />
+
+                                </p:selectOneMenu>
+                                <h:outputText value=" Evidencias RMS " style="   " />
+                                 <p:selectBooleanButton id="three_7" value="#{gldcchecklistcalidad.check_g2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som08_7" value="#{gldcchecklistcalidad.hallazgos_g2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="No adjunta evidencia de entrega RMS" itemValue="228" />
+                                    <f:selectItem itemLabel="Adjunta evidencia RMS con nomenclatura inválida" itemValue="229" />
+                                    <f:selectItem itemLabel="Evidencia adjunta no corresponde al caso" itemValue="242" />
+                                </p:selectOneMenu>
+
+                                <h:outputText value=" Escrito RL " style="   " />
+                                <p:selectBooleanButton id="three_8" value="#{gldcchecklistcalidad.check_i2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check"    /> 
+                                <p:selectOneMenu id="ck_som08_8" value="#{gldcchecklistcalidad.hallazgos_i2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="No se elabora escrito para firma de RL" itemValue="230" />
+                                    <f:selectItem itemLabel="No adjunta evidencia de entrega de escrito RL en RMS" itemValue="231" />
+                                    <f:selectItem itemLabel="Envío de escrito RL a correo Inválido" itemValue="232" />
+                                    <f:selectItem itemLabel="Recibe escrito firmado, no lo envía a la autoridad" itemValue="236" />
+                                    <f:selectItem itemLabel="Genera Escrito, No solicita firma al RL" itemValue="237" />
+                                    <f:selectItem itemLabel="No elabora escrito RL, autoridad lo solicita" itemValue="238" />
+                                    <f:selectItem itemLabel="Correo de solicitud de firma RL con formato incorrecto" itemValue="243" />
+                                    <f:selectItem itemLabel="Envía correo escrito RL, No anexa documento" itemValue="253" />
+
+                                </p:selectOneMenu>
+                                <h:outputText value=" Contenido del Escrito "  />
+                                <p:selectBooleanButton id="three_9" value="#{gldcchecklistcalidad.check_k2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som08_9" value="#{gldcchecklistcalidad.hallazgos_k2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud">                               
+                                   
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="Texto no justificado" itemValue="244" />
+                                    <f:selectItem itemLabel="Errores Ortográficos" itemValue="245" />
+                                    <f:selectItem itemLabel="Errores de Espacio y Distribución del Texto" itemValue="246" />
+                                    <f:selectItem itemLabel="Nombre de Autoridad incorrecto" itemValue="247" />
+                                    <f:selectItem itemLabel="No señala fecha de Oficio/Expediente TI" itemValue="248" />
+                                    <f:selectItem itemLabel="Parámetros no editados (línea, IMEI, Nombre(s))" itemValue="249" />
+                                    <f:selectItem itemLabel="Contenido del escrito no corresponde a cumplimiento (dn aprovisionado)" itemValue="250"  />
+                                    <f:selectItem itemLabel="No señala el motivo de rechazo por imposibilidad técnica" itemValue="251" />
+
+                                </p:selectOneMenu>
+                                <h:outputText value=" Entrega Información "  />
+                           
+                                <p:selectBooleanButton id="three_10" value="#{gldcchecklistcalidad.check_j2}" onLabel="0"
+                                                       offLabel="1" onIcon="ui-icon-close" offIcon="ui-icon-check" /> 
+                                <p:selectOneMenu id="ck_som08_10" value="#{gldcchecklistcalidad.hallazgos_j2}" style="width: 500px;" required="false" requiredMessage="Se requiere ingresar tipo de solicitud" >                               
+                                    <f:selectItem itemLabel="NULL" itemValue="NULL" /> 
+                                    <f:selectItem itemLabel="No envía información de cumplimiento a la autoridad" itemValue="233" />
+                                    <f:selectItem itemLabel="Correo de cumplimiento No enviado en término establecido" itemValue="234" />
+                                    <f:selectItem itemLabel="Se omite entrega información en cumplimiento" itemValue="254" />
+                                    <f:selectItem itemLabel="Se genera una aclaración de la autoridad por errores de cumplimiento" itemValue="255" />
+                                </p:selectOneMenu>
+
+                            </p:panelGrid>  
+                             <br></br>
+                            <p:panelGrid columns="2"  style=" margin:  initial; border: transparent;" >
+
+                                <p:outputLabel value="Observaciones: "  style=" font-weight:  bolder"/>
+                        <p:inputTextarea  value="#{gldcchecklistcalidad.observ}"  rows="1"  cols="79"
+                                      /> 
+
+                    </p:panelGrid>
+                        </p:panel>  
+                        
+                         
+                    </p:panel>  
+                    
+                      
+
+
+                    <!-- Botón confirmar datos -->
+                    <p:panel id="paneltabla04" style="font-size: 15px; size: A4; margin: auto"  visible="#{gldcchecklistcalidad.vpanel}">
+                        <p:panel>
+                            <p:panelGrid columns="3"  style="margin: auto; border: transparent; align-content:  center">
+                                <p:commandButton  
+                                    value="Guardar Registro"
+                                    actionListener="#{gldcchecklistcalidad.insertaquery(loginBean.username)}"
+                                    update=" panel2, panel7, growl" > 
+                                     
+                                    <p:ajaxStatus onstart="PF('statusDialog').show();" 
+                                                  onsuccess="PF('statusDialog').hide();"/>
+                                </p:commandButton>
+                                
+                    <!--    -->
+                     
+                        
+                                <p:commandButton  
+                                    value="Nueva solicitud "
+                                    actionListener="#{gldcchecklistcalidad.reload()}"
+                                     > 
+                                </p:commandButton>
+                                
+                                
+                                
+                                
+                            </p:panelGrid>
+                            
+                      </p:panel>
+                    </p:panel>
+                 
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+        <p:dialog modal="true" widgetVar="statusDialog"  
+                  closable="false"  
+                  resizable="false"
+                  showEffect="drop"
+                  hideEffect="drop"
+                  position="center"
+                  style="border: none; box-shadow: none;  background: transparent"
+                  styleClass="estatusdiag"
+                  >  
+            <p:graphicImage value="../resources/images/ajax-loading-bar.gif"  />   
+        </p:dialog> 
+
+    </body>
+</html>
+

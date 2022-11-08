@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../src/jquery.jqplot.js"></script>
+    <script type="text/javascript" src="../src/plugins/jqplot.barRenderer.js"></script>
+    <script type="text/javascript" src="../src/plugins/jqplot.categoryAxisRenderer.js"></script>
+    <script type="text/javascript" src="../src/plugins/jqplot.pointLabels.js"></script>
+    <link rel="stylesheet" type="text/css" href="../src/jquery.jqplot.css" />
+    <script type="text/javascript" src="plugins/jqplot.pointLabels.js"></script>
+    
+    
+    <h:head>
+
+        <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+       
+         
+     <style type="text/css">       
+            
+       .hide
+        {
+        display:none;
+        visibility:hidden;
+        }
+
+        </style>
+        
+         <style type="text/css">
+            .chart1 {
+                width: 40%;
+            }
+          
+            .chart2 {
+                width: 60%;
+            }
+            
+            #graf1 .jqplot-point-label {
+            font-size: 30pt;
+            }       
+            
+        </style>  
+        
+<style type="text/css">
+.jqplot-point-label {
+  border: 1.5px solid #aaaaaa;
+  padding: 1px 3px;
+  background-color: #0073e6;
+  font-size: 15pt !important;
+  font-family:  verdana;
+  color: white;
+}
+</style>        
+        
+        <script type="text/javascript">
+PrimeFaces.locales["es"] = {
+closeText: "Cerrar",
+prevText: "Anterior",
+nextText: "Siguiente",
+monthNames: ["Enero","Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+weekHeader: "Semana",
+firstDay: 0,
+isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: "",
+                timeOnlyTitle: "Solo hora",
+                timeText: "Tiempo",
+                hourText: "Hora",
+                minuteText: "Minuto",
+                secondText: "Segundo",
+                currentText: "Fecha actual",
+                ampm: false,
+                month: "Mes",
+                week: "Semana",
+                day: "Día",
+                allDayText: "Todo el día"
+            };
+        </script>
+
+             <script type="text/javascript">
+            function ext() {
+                //this = chart widget instance
+                this.cfg.seriesDefaults = {
+                    renderer: $.jqplot.BarRenderer,
+                    shadow: true,
+                    shadowAlpha: 0.9,
+                    shadowAngle: 135,
+                    background: 'transparent',
+                    borderColor: 'transparent',
+                    rendererOptions: {fillToZero: true, barDirection: 'vertical', barWidth: 20},
+                    pointLabels: {show: true, formatString: "%'.0f",  fontSize: '12pt', location: 'nw' }
+                    
+                    
+                },
+                        
+                this.cfg.grid = {
+                    drawGridLines: false, // wether to draw lines across the grid or not.
+                    gridLineColor: '#0073e6', // *Color of the grid lines.
+                    background: 'transparent',
+                    borderColor: 'transparent',
+                    borderWidth: 0.1, // pixel width of border around grid.
+                    shadow: false, // draw a shadow for grid.
+                    shadowAngle: 75, // angle of the shadow.  Clockwise from x axis.
+                    shadowOffset: 1.5, // offset from the line of the shadow.
+                    shadowWidth: 1, // width of the stroke for the shadow.
+                    shadowDepth: 1, // Number of strokes to make when drawing shadow.
+                    shadowAlpha: 0.5           // Opacity of the shadow
+                }, this.cfg.axesDefaults = {
+                  tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                tickOptions: {
+                  fontFamily: 'Verdana',
+                  fontSize: '13pt',
+                  textColor: 'black',
+                  angle: -90
+                }
+               
+   };
+            }
+        </script>
+    </h:head>
+    <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+
+<h:form id="formP">
+    
+            <p:growl id="growl"  life="4000"  showDetail="true" />
+     
+    <p:panel     id="panel56" header="Disponibilidad de Aplicaciones"  style="font-size:22px;  width: auto; font-family:  verdana; border: transparent;  text-align:  center">
+    
+         
+        
+        <p:chart type="bar"  id="gbarra"
+                              model="#{gdlc_ap.graficatraficobarra}" 
+                        style="width:100%;  height: 750px; font-size:12px ; font-family: verdana;"
+                        styleClass="ext,gbarra"                                           
+                    />   
+             
+          <p:separator style="width:800px;height:5px; background-color:  #F87D3A !important; border-color: #F87D3A "   />
+             
+                    <p:panelGrid columns="3"  style="margin: auto; border: transparent; align-content:  center">
+
+                        <h:outputText  value="Mes:"  style=" font-family:  verdana; " />    
+                            <p:selectOneMenu id="catmes"
+                                             value="#{gdlc_ap.cmes}" required="true"  filterMatchMode="contains"  filter="true" style=" font-family:  verdana; font-size:14px;">     
+                               
+                                <f:selectItems value="#{gdlc_ap.listaMes}" 
+                                               var="c" itemLabel="#{c.MES}" 
+                                               itemValue="#{c.MES}" />                                                    
+                            </p:selectOneMenu> 
+                        
+                              <p:commandButton  
+                                  value="Consultar" 
+                                  actionListener="#{gdlc_ap.Estadisticas()}"
+                                  update="formP,growl"  icon="pi pi-filter" styleClass="rounded-button ui-button-flat ui-button-plain" > 
+                              </p:commandButton>
+
+
+                    </p:panelGrid>      
+                     
+                                             
+                     
+             
+        <p:separator style="width:800px;height:5px; background-color:  #F87D3A !important; border-color: #F87D3A "   />
+
+   </p:panel> 
+    
+    
+                             <p:panel id="paneltabla" style="font-size: 20px; size:  auto;" >  
+
+                                 <p:panelGrid columns="2" style=" width:100%"  columnClasses="chart1 chart2" >
+                                 
+                         <p:dataTable   id="bitacoraTabla"  
+                                        
+                                       paginator="true" 
+                                       rows="10"
+                                       value="#{gdlc_ap.mostrarBitacora}" 
+                                       var="eventoBitacora" 
+                                       widgetVar="vargeneral"
+                                       emptyMessage="No hay registros" filteredValue="#{gdlc_ap.filteredBitacora}"
+                                       selection="#{gdlc_ap.selectBitacora}"
+                                       style="width:  60%; font-size: 19px !important;  font-family:  verdana; margin:  auto; background-color:  #F87D3A" 
+                                       resizableColumns="true"
+                                       liveResize="false"
+                                       resizeMode="expand"                                          
+                                       >
+                            <f:facet name="header"  >  
+                                <p:outputPanel >  
+                                    <h:outputText value="Busqueda" />  
+                                    <p:inputText id="globalFilter"  onkeyup="PF('vargeneral').filter()" style="width:150px" />  
+                                </p:outputPanel>  
+                            </f:facet>  
+
+                             
+                             <p:column id="DESCRIPCION" headerText="DESCRIPCION" filterStyleClass="hide" filterBy="#{eventoBitacora.DESCRIPCION}"  filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="DESCRIPCION" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.DESCRIPCION}"  style=" margin:  auto"/>  
+                            </p:column>  
+                             
+                             <p:column id="AÑO" headerText="AÑO" filterStyleClass="hide" filterBy="#{eventoBitacora.a_O}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="AÑO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.a_O}"  style=" margin:  auto"/>  
+                            </p:column>  
+
+                             <p:column id="MES" headerText="MES" filterStyleClass="hide" filterBy="#{eventoBitacora.MES}" filterMatchMode="contains" >  
+                                <f:facet name="header">
+                                    <h:outputText value="MES" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.MES}" style=" margin:  auto"/>  
+                            </p:column>  
+                            
+                             <p:column id="SLA" headerText="SLA" filterStyleClass="hide" filterBy="#{eventoBitacora.SLA}" filterMatchMode="contains"  >  
+                                <f:facet name="header">
+                                    <h:outputText value="SLA" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.SLA}" style=" margin:  auto"/>  
+                            </p:column>  
+                            
+                            
+                       
+
+
+                        </p:dataTable>
+                     
+                                     <p:graphicImage value="/resources/images/NEGLDC.png" width="80%"/>              
+                                     
+                                     
+                    </p:panelGrid>             
+                                     
+                      <p:separator style="width:800px;height:5px; background-color:  #F87D3A !important; border-color: #F87D3A "   />                          
+               
+                 
+                   <p:panelGrid  columns="2" style="  border-color:  #f47a20; border:  #FF626C;  width:  auto; margin: auto ">
+                       <h:commandLink>  
+                           <p:graphicImage   value="/resources/images/download.png" height="60px"/>  
+                                        <p:dataExporter type="xls"  target="bitacoraTabla" fileName="#{gdlc_ap.nombrearchivo}" postProcessor="#{gdlc_ap.postProcessXLS}" />  
+                                    </h:commandLink>  
+                       <h:outputText value="Descarga Reporte" style=" font-size: 18px; font-family:  verdana; "/>
+                    
+                    </p:panelGrid>  
+                              
+                   </p:panel>  
+    
+    
+    
+ </h:form>                    
+                     
+
+
+            </ui:define>
+
+        </ui:composition>
+        
+     <p:dialog modal="true" widgetVar="statusDialog"   
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      showHeader="false"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent; "  
+                      styleClass="estatusdiag"
+                      >  
+               <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+    </p:dialog> 
+    </body>
+</html>

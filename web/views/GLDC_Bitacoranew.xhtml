@@ -1,0 +1,2618 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+
+        <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+        <title>Sistema de incidentes GLDC</title>
+        <link rel="shortcut icon" href="../resources/images/ajax-loader.gif"/>
+
+        
+        <style type="text/css">   
+            
+            .old {
+             background-color: #fca752 !important;
+             background-image: none !important;
+             color: #000000 !important;
+            }
+            
+            .soporteabierto{
+                background-color: #52B4FC !important; 
+                color:  black !important; 
+                background-image: url('../resources/images/open.png') !important; 
+                background-repeat: no-repeat !important; 
+                border-color: #E74C3C !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-style:initial   !important;
+                font-family: Verdana !important; 
+               
+            }            
+            .soportecerrado{
+                background-color: #52B4FC !important;     
+                color:  black !important; 
+                background-image: url('../resources/images/close.png') !important; 
+                background-repeat: no-repeat !important; 
+                border-color: #58D68D !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-style:initial   !important;
+                font-family: Verdana !important; 
+            }            
+
+            .rmsabierto{
+                background-color: #BBD671 !important; 
+                color:  black !important; 
+                background-image: url('../resources/images/open.png') !important;
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-style:initial   !important;
+                font-family: Verdana !important; 
+                background-repeat: no-repeat !important;
+                border-color: #E74C3C !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+          
+            }            
+            .rmscerrado{
+                background-color: #BBD671 !important;     
+                color:  black !important; 
+                background-image: url('../resources/images/close.png') !important; 
+                background-repeat: no-repeat !important; 
+                border-color: #58D68D !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-style:initial   !important;
+                font-family: Verdana !important; 
+                
+            }    
+
+            .acsistemaabierto{
+                background-color: #FCF3CF !important; 
+                color:  black !important; 
+                background-image: url('../resources/images/open.png') !important; 
+                background-repeat: no-repeat !important; 
+                border-color: #E74C3C !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+                background-position:  right  !important;
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-family: Verdana !important; 
+
+               
+            }            
+            .acsistemacerrado{
+                background-color: #FCF3CF !important;     
+                color:  black !important; 
+                background-image: url('../resources/images/close.png') !important; 
+                background-repeat: no-repeat !important; 
+                border-color: #58D68D !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-style:initial   !important;
+                font-family: Verdana !important; 
+            }    
+
+            .ventanaabierto{
+                background-color: #E8DAEF !important; 
+                color:  black !important; 
+                background-image: url('../resources/images/open.png') !important; 
+                background-repeat: no-repeat !important; 
+                border-color: #E74C3C !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-style:initial   !important;
+                font-family: Verdana !important; 
+
+               
+            }            
+            .ventanacerrado{
+                background-color: #E8DAEF !important;     
+                color:  black !important; 
+                background-image: url('../resources/images/close.png') !important; 
+                background-repeat: no-repeat !important; 
+                border-color: #58D68D !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-style:initial   !important;
+                font-family: Verdana !important; 
+            }   
+            .ac911abierto{
+                background-color: #f5a142 !important; 
+                color:  black !important; 
+                background-image: url('../resources/images/open.png') !important; 
+                background-repeat: no-repeat !important; 
+                border-color: #E74C3C !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-style:initial   !important;
+                font-family: Verdana !important; 
+
+               
+            }            
+            .ac911cerrado{
+                background-color: #f5a142 !important;     
+                color:  black !important; 
+                background-image: url('../resources/images/close.png') !important; 
+                background-repeat: no-repeat !important; 
+                border-color: #58D68D !important; 
+                border-width: 2px !important;
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+                background-position:  left  !important;
+                background-size:  25px  !important;
+                font-style:initial   !important;
+                font-family: Verdana !important; 
+            }             
+            .ge-icon{
+            background: url('../resources/images/close.png') no-repeat !important;
+            height: 50px;
+            width: 50px;
+            }
+            
+            .piestyle{
+                background-color: #000000 !important; 
+                color:  black !important; 
+                background-image: url('../resources/images/proye2.png') !important; 
+                background-repeat: no-repeat !important; 
+                padding-left: 30px !important; ;  /* width of the image plus a little extra padding */
+                display: block !important; ;  /* may not need this, but I've found I do */
+            }           
+                                 
+            
+        </style>
+    
+
+        <style type="text/css">                           
+
+            .jqplot-title {
+                top: 0px;
+                left: 0px;
+                padding-bottom: 0.5em;
+                font-size: 1.2em;
+            }
+
+            .centered {
+                text-align: center;
+                margin-left: 50%;
+            }
+
+            .first-row {
+                background-color: #FF626C !important;
+                background-image: none !important;
+                color: #000000 !important;
+            }
+
+            .second-row {
+                background-color: #FFFB9C !important;
+                background-image: none !important;
+                color: #000000 !important;
+            }
+    
+            .ui-growl {
+                font-style: normal;
+                font-size: 80%!important;
+                width: 28em!important;
+
+            }
+ 
+        </style>
+
+        <style type="text/css">
+            .button {          
+             background-color: transparent !important;  /* Green */
+             border: 2px solid #4CAF50 !important; ;
+             color: white !important; ;
+             padding: 15px 32px !important; ;
+             text-align: center !important; ;
+             text-decoration: none !important; ;
+             display: inline-block !important; ;
+             font-size: 14px !important; ;
+             border-radius: 8px !important; ;
+            } 
+
+            .button2 {          
+             background-color: transparent !important;  /* Green */
+             border: 2px solid #4CAEAF !important; ;
+             color: white !important; ;
+             padding: 15px 32px !important; ;
+             text-align: center !important; ;
+             text-decoration: none !important; ;
+             display: inline-block !important; ;
+             font-size: 14px !important; ;
+             border-radius: 8px !important; ;
+            }             
+            
+            .button3 {          
+             background-color: transparent !important;  /* Green */
+             border: 2px solid #F6FC7C !important; ;
+             color: white !important; ;
+             padding: 15px 32px !important; ;
+             text-align: center !important; ;
+             text-decoration: none !important; ;
+             display: inline-block !important; ;
+             font-size: 14px !important; ;
+             border-radius: 8px !important; ;
+            }                
+        .button:hover {
+        background-color: #4CAF50 !important; ; /* Green */
+        }
+        
+        .button2:hover {
+        background-color: #4CAEAF !important; ; /* Green */
+        }
+
+        .button2:hover {
+        background-color: #F6FC7C !important; ; /* Green */
+        }
+        
+        </style>
+
+
+
+        <style type="text/css">
+            .value {
+                width: 1100px;
+                 
+            }
+        </style>
+
+        <style type="text/css">
+            .chart1 {
+                width: 60%;
+                height: 400px;
+            }
+            .chart3 {
+                width: 10%;
+                height: 400px;
+            }
+            .chart2 {
+                width: 50%;
+                height: 400px;
+            }
+            
+        </style>        
+        
+
+<style type="text/css">
+body .ui-steps .ui-steps-item {
+    width: 20%;
+}
+ 
+body .ui-state-highlight {
+    text-shadow: none !important;
+}
+ 
+body .ui-steps.custom {
+    margin-bottom: 30px;
+}
+ 
+body .ui-steps.custom .ui-steps-item .ui-menuitem-link {
+    height: 10px;
+    padding: 0 1em;
+    overflow: visible;
+    border: 1px solid #c8c8c8;
+    display: block;
+    background-color: #FFFFFF;
+}
+ 
+body .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-number {
+    background-color: #0081c2;
+    color: #FFFFFF;
+    display: inline-block;
+    width: 30px;
+    border-radius: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+    position: relative;
+    top: -3px;
+}
+ 
+body .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-title {
+    margin-top: -6px;
+}
+ 
+body .ui-steps.custom .ui-steps-item.ui-state-highlight .ui-menuitem-link .ui-steps-title {
+    color: #555;
+}
+</style>
+
+
+
+        
+        <script type="text/javascript">
+PrimeFaces.locales["es"] = {
+    closeText: "Cerrar",
+    prevText: "Anterior",
+    nextText: "Siguiente",
+    monthNames: ["Enero","Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+    dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+    weekHeader: "Semana",
+    firstDay: 0,
+    isRTL: false,
+    showMonthAfterYear: false,
+    yearSuffix: "",
+    timeOnlyTitle: "Solo hora",
+    timeText: "Tiempo",
+    hourText: "Hora",
+    minuteText: "Minuto",
+    secondText: "Segundo",
+    currentText: "Fecha actual",
+    ampm: false,
+    month: "Mes",
+    week: "Semana",
+    day: "Día",
+    allDayText : "Todo el día"
+};
+        </script>
+
+             <script type="text/javascript">
+            function ext() {
+                //this = chart widget instance
+                this.cfg.seriesDefaults = {
+                    renderer: $.jqplot.BarRenderer,
+                    shadow: true,
+                    shadowAlpha: 0.9,
+                    shadowAngle: 135,
+                    background: 'transparent',
+                    borderColor: 'transparent',
+                    rendererOptions: {fillToZero: true, barDirection: 'horizontal', barWidth: 6},
+                    pointLabels: {show: true, formatString: "%'.0f"}
+                },
+                this.cfg.grid = {
+                    drawGridLines: false, // wether to draw lines across the grid or not.
+                    gridLineColor: '#cccccc', // *Color of the grid lines.
+                    background: 'transparent',
+                    borderColor: 'transparent',
+                    borderWidth: 0.1, // pixel width of border around grid.
+                    shadow: false, // draw a shadow for grid.
+                    shadowAngle: 45, // angle of the shadow.  Clockwise from x axis.
+                    shadowOffset: 1.5, // offset from the line of the shadow.
+                    shadowWidth: 1, // width of the stroke for the shadow.
+                    shadowDepth: 1, // Number of strokes to make when drawing shadow.
+                    shadowAlpha: 0.5           // Opacity of the shadow
+                };
+            }
+        </script>
+
+            
+        
+<script>
+    
+function skinPie() {
+    this.cfg.shadow = false;   
+    this.cfg.grid = {
+        background: 'transparent' ,
+        borderColor: 'transparent',
+        gridLineColor: '#F5F5F5',
+        shadow: false
+    };
+    this.cfg.axesDefaults = {
+        rendererOptions: {
+            textColor: '#666F77'
+        }
+    };
+    this.cfg.seriesDefaults = {
+        renderer: $.jqplot.PieRenderer,
+        shadow: false,
+        lineWidth: 1,
+        markerOptions: {
+            shadow: false,
+            size: 10,
+            style: 'circle'
+        }
+    },
+    this.cfg.seriesDefaults.rendererOptions = {
+        showDataLabels: true
+    },
+    this.cfg.legend = {
+      show : true,
+        location : 's',
+        fontSize: '13px',           
+        background: 'transparent',
+        border : 'none',
+        placement : 'outsideGrid',
+        numberColumns : 4,
+        numberRows: 1
+         
+    };        
+            
+}
+</script>
+
+<script  type="text/javascript">
+    
+function skinBubble() {
+
+    this.cfg.seriesDefaults = 
+            {
+                    bubbleAlpha: 0.1,
+                    highlightAlpha: 0.1,
+                    background: 'transparent' ,
+                    borderColor: 'transparent' ,
+                    renderer: $.jqplot.BubbleRenderer,
+                    rendererOptions: {
+                    bubbleGradients: true 
+            }   
+                };
+    
+     this.cfg.grid = {
+        background: 'transparent' ,
+        borderColor: 'transparent',
+        gridLineColor: '#F5F5F5',
+        shadow: false
+    };
+}
+</script>        
+        
+        
+<script>        
+function closeDialog(){
+   widgetWarDialog.hide();
+}
+</script>
+        
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces"/>
+
+
+
+
+    </h:head>
+
+
+    <body>
+
+        <ui:include src="/templates/sessionTimeOut.xhtml" />
+        <ui:composition template="#{loginBean.template}">
+
+            <ui:define name="content">
+
+
+                <h:form id="forma2">  
+
+                    <p:growl id="msgs22"  />  
+
+      
+                     <p:panel  style="width: auto; text-align:  center; font-size: 18px" header="Sistema de Incidentes GLDC">  
+
+                         <p:accordionPanel id="tabsCarousel" multiple="true"    >
+
+                          <p:tab  id="Graficas" title="Estádisticas"    > 
+                              <p:panelGrid columns="3" style=" width:100%"  columnClasses="chart3 chart1 chart2" >
+                                  
+ 
+                                        <p:chart type="bar" 
+                                            model="#{gdlc_bitacora.graficatraficobarra}" 
+                                            style="width:100%;  height: 350px; font-size:12px ; font-family: Segoe UI;"
+                                            styleClass="ext"                                            
+                                            />   
+                                        <p:chart type="pie"
+                                               model="#{gdlc_bitacora.grafconcil}"
+                                            style="width:100%;height:350px; font-size: 13px;  font-family: Segoe UI; background-color:  transparent !important; text-align:  center; margin:  auto "
+                                            styleClass="skinPie"
+                                          />    
+                                        <p:chart type="bubble" 
+                                                 model="#{gdlc_bitacora.graficaburbujas}" 
+                                            style="width:100%;  height: 350px; font-size:12px ; font-family: Segoe UI;background-color:  transparent !important;"
+                                            styleClass="skinBubble"                                          
+                                            />   
+                              
+                          </p:panelGrid>    
+                          </p:tab>
+                          
+                          
+                          <p:tab  id="tabuno" title="Consulta"         > 
+                               
+                        <p:dataTable id="dataTable"   
+                                     var="mostrarProcesados"  
+                                     value="#{gdlc_bitacora.detBitacora}" 
+                                     widgetVar="procesadosTable"  
+                                     scrollRows="10"  
+                                     scrollable="true" 
+                                     liveScroll="true" 
+                                     emptyMessage="Sin registro" 
+                                     paginator="true"
+                                     rowStyleClass="#{mostrarProcesados.ESTATUS == 'Abierto' ? 'old' : null}"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15"
+                                     style=" font-size:8px; font-family:  Segoe UI; width: auto; margin:  auto;"
+                                     filteredValue="#{gdlc_bitacora.filteredProcesados}" 
+                                     
+                                     >  
+
+                            <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_finci" 
+                                      headerText="FECHA INCIDENTE"   
+                                      >    
+                                <h:outputText value="#{mostrarProcesados.FECHA_APERTURA}" />  
+                            </p:column>
+                            
+                            
+                            <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_nof" 
+                                      filterBy="#{mostrarProcesados.NOMBRE_OFICIO }"   
+                                      headerText="OFICIO"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      >    
+                                <h:outputText value="#{mostrarProcesados.NOMBRE_OFICIO}" />  
+                            </p:column>
+                            
+                             <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_tipo" 
+                                      filterBy="#{mostrarProcesados.TIPO_SOLICITUD }"   
+                                      headerText="TIPO_SOLICITUD"     
+                                      filterMatchMode="contains"  
+                                      filterStyle="width: 60px;"
+                                      >    
+                                <h:outputText value="#{mostrarProcesados.TIPO_SOLICITUD}" />  
+                            </p:column>
+
+                          <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_paramb" 
+                                      filterBy="#{mostrarProcesados.PARAMETRO_BUSQUEDA }"   
+                                      headerText="PARAMETRO"     
+                                      filterMatchMode="contains"  
+                                      filterStyle="width: 60px;"
+                                      >    
+                                <h:outputText value="#{mostrarProcesados.PARAMETRO_BUSQUEDA}" />  
+                            </p:column>
+
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="Descrid" 
+                                              headerText="Descripción"
+                                             >                        
+                                        <p:commandButton id="bot" 
+                                                         update=":form:display" 
+                                                         oncomplete="PF('bitacoraDialog').show()" 
+                                                         icon="ui-icon-comment" 
+                                                         title="Comentarios">  
+                                            <f:setPropertyActionListener 
+                                                value="#{mostrarProcesados}" 
+                                                target="#{gdlc_bitacora.selectedBitacora}" />  
+                                        </p:commandButton>  
+                                    </p:column>                               
+                            
+                           
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_FCC" 
+                                      filterBy="#{mostrarProcesados.ID_TICKET }"   
+                                      headerText="TICKET"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      >    
+                                <h:outputText value="#{mostrarProcesados.ID_TICKET}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_FPP" 
+                                      filterBy="#{mostrarProcesados.ID_CASO }"   
+                                      headerText="CASO"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      >    
+                                <h:outputText value="#{mostrarProcesados.ID_CASO}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_MSISDN" 
+                                      filterBy="#{mostrarProcesados.ESTATUS }"   
+                                      headerText="ESTATUS"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 90px;"
+                                      >    
+                                <h:outputText value="#{mostrarProcesados.ESTATUS}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_FUE" 
+                                      filterBy="#{mostrarProcesados.USUARIO }"   
+                                      headerText="USUARIO"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      >    
+                                            <h:outputText value="#{mostrarProcesados.USUARIO}" />  
+                            </p:column>
+                            
+
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_DIAS" 
+                                      filterBy="#{mostrarProcesados.DIAS }"   
+                                      headerText="DIAS ABIERTO"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      >    
+                                            <h:outputText value="#{mostrarProcesados.DIAS}" />  
+                            </p:column>
+                              
+                          
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_AA" 
+                                      filterBy="#{mostrarProcesados.ASIGNADOA }"   
+                                      headerText="ASIGNADO A:"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      >    
+                                            <h:outputText value="#{mostrarProcesados.ASIGNADOA}" />  
+                            </p:column>
+                            
+                                        
+                            
+                        </p:dataTable> 
+                      </p:tab>
+                         
+                          
+                    </p:accordionPanel>     
+                               
+                    </p:panel>
+
+                </h:form>                   
+                
+                
+                <h:form id="form">
+                    <p:growl 
+                        id="messages" 
+                        life="10000"
+                        showDetail="true" />
+
+                    <p:panel  style="width: auto; text-align:  center; font-size: 18px" header="Revisa y genera un nuevo Incidente">  
+                        <f:facet name="options"   >  
+                            
+                            <p:menu    >  
+                                                             
+                                <p:menuitem  icon="Bitacora/images/excel.png"  title="Proces" style="font-size: 18px" value="Consultar Incidentes" url="ConsultaBitacoraTabla.xhtml"/>                                      
+                                
+                            </p:menu>  
+                        </f:facet>  
+                        
+                        <h:panelGrid   columns="3" style="width: auto; margin: auto; background-color:  aqua ">
+
+                            <p:selectOneButton style=" font-size: 15px" value="#{gdlc_bitacora.selecttipoinc}">
+                                 <f:selectItem itemLabel="TODOS" itemValue="TODOS" />
+                                <f:selectItem itemLabel="RMS" itemValue="RMS" />
+                                <f:selectItem itemLabel="SOPORTE" itemValue="SOPORTE" />
+                                <f:selectItem itemLabel="SISTEMAS" itemValue="ACSISTEMA" />
+                                <f:selectItem itemLabel="VENTANA" itemValue="VENTANA" />
+                                 <p:ajax update=":form" 
+                                         listener="#{gdlc_bitacora.GLDC_BitacoraViewBean()}" />
+                            </p:selectOneButton>
+                            
+                            <p:selectOneButton style=" font-size: 15px" value="#{gdlc_bitacora.selecttipoinc}">
+                                <f:selectItem itemLabel="911" itemValue="AC911" />
+                                 <p:ajax update=":form" 
+                                         listener="#{gdlc_bitacora.GLDC_BitacoraViewBean()}" />
+                            </p:selectOneButton>
+                            
+                        
+                           
+                               
+                        </h:panelGrid>
+                              <p:separator style="width: auto;height:5px" />  
+                            
+                        
+                        
+
+                        <h:panelGrid columnClasses="value" style="width: auto; margin: auto">
+
+                            <p:schedule                                         
+                                        id="schedule" 
+                                        value="#{gdlc_bitacora.eventModel}" 
+                                        widgetVar="myschedule"
+                                        locale="es"
+                                        showHeader="true"  
+                                        style=" font-size: 14px; font-family:  cursive"
+                                        timeZone="America/Mexico_City"
+                                        tooltip="true"
+                                          
+                                         
+                                        >
+
+                                <p:ajax event="dateSelect" 
+                                        listener="#{gdlc_bitacora.onDateSelect}" 
+                                        update=":form3:bitacoraDetalleDlg" 
+                                        oncomplete="PF('tiposolicitudd').show();"
+                                        />
+                                <p:ajax event="eventSelect" 
+                                        listener="#{gdlc_bitacora.onEventSelect}" 
+                                        update=":form:dialgodetalle,:form:dialgodetalle_911, :form:eventDetails, :form:stepid, :form, :form:MostrarTabla" 
+                                        oncomplete="PF('#{gdlc_bitacora.selectdialogo}').show();"
+                                        
+                                        
+                                        />
+                                <p:ajax event="eventMove" 
+                                        listener="#{gdlc_bitacora.onEventMove}" 
+                                        update="messages" />
+
+                                <p:ajax event="eventResize" 
+                                        listener="#{gdlc_bitacora.onEventResize}" 
+                                        update="messages" />
+
+                            </p:schedule>
+
+                        </h:panelGrid>
+
+                        <p:dialog widgetVar="eventDialog" 
+                                  header="Información de detalle del evento #{gdlc_bitacora.selecttipoinc}" 
+                                  showEffect="clip" 
+                                  hideEffect="clip"  
+                                  height="500px" 
+                                  width="1400px"  
+                                  resizable="true"
+                                  id="dialgodetalle"
+                                  >
+
+                              <p:separator />   
+                              
+                            <h:panelGrid      cellpadding="15px" id="eventDetails" style=" width: 100%"> 
+                                
+                                   
+                                <p:steps  id="stepid" styleClass="custom"  activeIndex="#{gdlc_bitacora.id_step}">
+                                <p:menuitem value="Soporte RMS"   />
+                                <p:menuitem value="Soporte equipo computo" />
+                                <p:menuitem value="Soporte a sistemas" />
+                                <p:menuitem value="Ventanas de Mantenimiento" />
+                                 <p:menuitem value="911" />
+                                </p:steps>
+
+
+                                
+                                
+                               <p:separator />   
+                                
+                                <p:dataTable id="MostrarTabla"   
+                                             var="mostrarBitacora" 
+                                             value="#{gdlc_bitacora.mostrarBitacora}" 
+                                             widgetVar="bitacoraTable"  
+                                             emptyMessage="No existe registro" 
+                                             filteredValue="#{gdlc_bitacora.filteredBitacora}"  
+                                             >  
+
+                                    <p:ajax event="rowToggle" listener="#{gdlc_bitacora.onRowToggle}"  />    
+
+
+                                    <f:facet name="header" >
+
+                                        <p:outputPanel style="text-align: left; font-size:  smaller">
+
+                                            <h:outputLabel for="name" value="" style="font-size:  small ;  margin-right:  5%"/>  
+                                            <p:inputText id="name" value="#{gdlc_bitacora.up_idevento}" required="true" label="id_evento" style=" margin-right: auto; width: 3%; font-size:  small"/>  
+
+                                            <p:commandButton  id="boton" 
+                                                              value="Corregir algún valor" 
+                                                              action="#{gdlc_bitacora.ConsultaBean(actionEvent)}" 
+                                                              update=":form4, :form4:uppanel, :form4:updialog, :form4:uppanelgrid"
+                                                              oncomplete="PF('updialog').show();"
+                                                              style=" font-size:  small">
+                                            </p:commandButton>
+
+
+
+
+                                        </p:outputPanel>
+                                    </f:facet>  
+                                    
+                                    <p:column headerText="Comentarios"
+                                              style="text-align:center ;  font-size:    small;  width:5%" 
+                                              >  
+                                        <p:rowToggler />  
+                                        <h:outputText value="#{mostrarBitacora.items}" />  
+                                    </p:column>  
+
+
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="IdColumn" 
+                                               headerText="Id_evento"   
+                                               >    
+                                        <h:outputText value="#{mostrarBitacora.ID_EVENT}" />  
+                                    </p:column>
+
+                                    
+                                    
+                                     <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="ClasColumn" 
+                                               headerText="Clasificación"   >
+                                        <h:outputText value="#{mostrarBitacora.CLASIFICACION}" />  
+                                    </p:column> 
+                                    
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="MedidaColumn" 
+                                               headerText="Estatus"   >
+                                        <h:outputText value="#{mostrarBitacora.ESTATUS}" />  
+                                    </p:column> 
+
+ 
+                                     <p:column style="text-align:center ;  font-size:    small;  " 
+                                              id="ServiceColumn" 
+                                              headerText="Titulo Oficio"   
+                                              >    
+                                        <h:outputText value="#{mostrarBitacora.NOMBRE_OFICIO}" />  
+                                    </p:column>
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="IncidenteColumn" 
+                                              headerText="Ticket RMS"   
+                                              visible="#{gdlc_bitacora.dlg_rms}"
+                                              >
+                                        <h:outputText value="#{mostrarBitacora.ID_TICKET}" />  
+                                    </p:column>
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="FechaColumn"  
+                                              headerText="Caso RMS"  
+                                              visible="#{gdlc_bitacora.dlg_rms}"
+                                              >
+                                        <h:outputText value="#{mostrarBitacora.ID_CASO}" />  
+                                    </p:column>
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="FechaFinColumn"  
+                                              headerText="Tipo Solicitud" 
+                                              visible="#{gdlc_bitacora.dlg_rms}"
+                                              >
+                                        <h:outputText value="#{mostrarBitacora.TIPO_SOLICITUD}" />  
+                                    </p:column>
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="ResponsableColumn"    
+                                              headerText="Usuario"   >
+                                        <h:outputText value="#{mostrarBitacora.USUARIO}" />  
+                                    </p:column>
+
+                                    
+                                        <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="NomeqColumn" 
+                                               headerText="Nombre equipo"  
+                                               visible="#{gdlc_bitacora.dlg_soporte}"
+                                               >
+                                        <h:outputText value="#{mostrarBitacora.NOMBRE_EQUIPO}" />  
+                                    </p:column>                                     
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="SerieeColumn" 
+                                               headerText="Serie equipo" 
+                                               visible="#{gdlc_bitacora.dlg_soporte}"
+                                               >
+                                        <h:outputText value="#{mostrarBitacora.NO_SERIE_EQUIPO}" />  
+                                    </p:column>                                     
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="ipColumn" 
+                                               headerText="IP/MAC"
+                                               visible="#{gdlc_bitacora.dlg_soporte}"
+                                               >
+                                        <h:outputText value="#{mostrarBitacora.MAC_ADDRESS}" />  
+                                    </p:column> 
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="EquipeColumn" 
+                                               headerText="Equipo que ejecuta"  
+                                               visible="#{gdlc_bitacora.dlg_ventana}"
+                                               >
+                                        <h:outputText value="#{mostrarBitacora.EQUIPO_EJECUTA}" />  
+                                    </p:column>                                     
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="ImpactoColumn" 
+                                               headerText="Impacto" 
+                                               visible="#{gdlc_bitacora.dlg_ventana}"
+                                               >
+                                        <h:outputText value="#{mostrarBitacora.AFECTACION}" />  
+                                    </p:column>                                     
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="DuracvColumn" 
+                                               headerText="Duración" 
+                                               visible="#{gdlc_bitacora.dlg_ventana}"
+                                               >
+                                        <h:outputText value="#{mostrarBitacora.DURACION_VENTANA}" />  
+                                    </p:column>                                     
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="SisteAColumn" 
+                                               headerText="Sistema Afectado"  
+                                               visible="#{gdlc_bitacora.dlg_ventana or gdlc_bitacora.dlg_acsistema}"
+                                               >
+                                        <h:outputText value="#{mostrarBitacora.SISTEMA_AFECTADO}" />  
+                                    </p:column>                                     
+                                    
+                                    
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="InsertDetalle"    
+                                              headerText="Agregar Nota"
+                                              >                        
+                                        <p:commandButton id="buttomdetalle" update=":form2:dialog_2"  
+                                                         onclick="PF('bitacoraDetalleDialog').show()" 
+                                                         icon="ui-icon-pencil"
+                                                         title="Agregar Detalle"
+                                                         action="#{gdlc_bitacora.mostrarvalor(actionEvent)}">  
+                                            <f:setPropertyActionListener 
+                                                value="#{mostrarBitacora}"
+                                                target="#{gdlc_bitacora.selectedBitacora}" />  
+
+
+                                            <f:param name="idbita" value="#{mostrarBitacora.ID_EVENT}" />
+                                        </p:commandButton>  
+                                    </p:column>   
+
+  
+                                    
+                                   
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="AreaColumn" 
+                                              headerText="Fecha inicio"  
+                                              visible="#{gdlc_bitacora.dlg_rms or gdlc_bitacora.dlg_acsistema}"
+                                              >
+                                        <h:outputText value="#{mostrarBitacora.FECHA_INICIO}" />  
+                                    </p:column>
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="TicketColumn" 
+                                              headerText="Fecha final"  
+                                              visible="#{gdlc_bitacora.dlg_rms or gdlc_bitacora.dlg_acsistema}"
+                                              >
+                                        <h:outputText value="#{mostrarBitacora.FECHA_FIN}" />  
+                                    </p:column>
+
+                                        
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="idlocalidadc" 
+                                               headerText="Localidad"  
+                                               visible="#{gdlc_bitacora.dlg_acsistema}"
+                                               >
+                                        <h:outputText value="#{mostrarBitacora.LOCALIDAD}" />  
+                                    </p:column> 
+                                    
+                                    
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="MedidaPerColumn" 
+                                               headerText="Parametro Busqueda"  
+                                               visible="#{gdlc_bitacora.dlg_rms}"
+                                               >
+                                        <h:outputText value="#{mostrarBitacora.PARAMETRO_BUSQUEDA}" />  
+                                    </p:column> 
+                                    
+
+
+        
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="JustificacionColumn" 
+                                              headerText="Descripción"
+                                             >                        
+                                        <p:commandButton id="selectButton" 
+                                                         update=":form:display" 
+                                                         oncomplete="PF('bitacoraDialog').show()" 
+                                                         icon="ui-icon-comment" 
+                                                         title="Comentarios">  
+                                            <f:setPropertyActionListener 
+                                                value="#{mostrarBitacora}" 
+                                                target="#{gdlc_bitacora.selectedBitacora}" />  
+                                        </p:commandButton>  
+                                    </p:column>   
+
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="DocumentacionColumn" 
+                                              headerText="Evidencia"   
+                                              >
+                                        <h:outputLink value="#{mostrarBitacora.DOCUMENTATION}" title="Ver"  disabled="#{mostrarBitacora.estEvidencia}">
+                                            <p:commandButton type="button" icon="ui-icon-circle-triangle-s" disabled="#{mostrarBitacora.estEvidencia}"/>    
+                                        </h:outputLink>   
+                                    </p:column>   
+
+                                   
+                                
+                                    <p:rowExpansion >  
+                                        <h:panelGrid id="display" columns="2" cellpadding="4" style="width:100%;" 
+                                                      >  
+
+                                            <p:dataTable   var="subtable" value="#{mostrarBitacora.myList}"          
+                                             paginator="true" 
+                                             rows="2" 
+                                             style="margin-bottom:20px" scrollable="true"  draggableRows="false"  cellSeparator="true"     
+                                             tableStyle="font-family: sans-serif; font-size:12px ;padding:1px;
+                                             border: 2px solid #4CAF50 !important; 
+                                             color: white !important; ;
+                                             text-align: center !important; ;
+                                             border-radius: 8px !important; ; " 
+                                                         >  
+                                                <p:column headerText="Evento" >  
+                                                    <h:outputText value="#{subtable.dt_ID_EVENT}" />  
+                                                </p:column>  
+
+                                                <p:column headerText="Usuario">  
+                                                    <h:outputText value="#{subtable.dt_USUARIO}" />  
+                                                </p:column>  
+
+                                                <p:column headerText="Comentarios">  
+                                                    <h:outputText value="#{subtable.dt_DESCRIPCION}" />  
+                                                </p:column>  
+
+                                                <p:column headerText="Fecha actualización">  
+                                                    <h:outputText value="#{subtable.dt_FECHA}" />  
+                                                </p:column>  
+
+                                                <p:column headerText="Evidencia">
+                                                    <h:outputLink value="#{subtable.dt_DOCUMENTATION}" title="Ver" disabled="#{subtable.dt_ESTATUS}">
+                                                        <p:commandButton type="button" icon="ui-icon-circle-triangle-s" disabled="#{subtable.dt_ESTATUS}" />    
+                                                    </h:outputLink>   
+                                                </p:column>  
+
+
+                                            </p:dataTable>  
+
+                                        </h:panelGrid>  
+
+                                    </p:rowExpansion>  
+
+
+
+                                </p:dataTable> 
+                            </h:panelGrid> 
+                        </p:dialog>    
+
+
+                              
+
+
+                         <p:dialog widgetVar="eventDialog_911" 
+                                  header="Información de detalle del evento" 
+                                  showEffect="clip" 
+                                  hideEffect="clip"  
+                                  height="500px" 
+                                  width="1400px"  
+                                  resizable="true"
+                                  id="dialgodetalle_911"
+                                  >
+
+                              <p:separator />   
+                              
+                            <h:panelGrid      cellpadding="15px" id="eventDetails_911" style=" width: 100%"> 
+                                
+                                   
+                                <p:steps  id="stepid_911" styleClass="custom"  activeIndex="#{gdlc_bitacora.id_step}">
+                                <p:menuitem value="Soporte RMS"   />
+                                <p:menuitem value="Soporte equipo computo" />
+                                <p:menuitem value="Soporte a sistemas" />
+                                <p:menuitem value="Ventanas de Mantenimiento" />
+                                 <p:menuitem value="911" />
+                                </p:steps>
+
+
+                                
+                                
+                               <p:separator />   
+                                
+                                <p:dataTable id="MostrarTabla_911"   
+                                             var="mostrarBitacora" 
+                                             value="#{gdlc_bitacora.mostrarBitacora}" 
+                                             widgetVar="bitacoraTable"  
+                                             emptyMessage="No existe registro" 
+                                             filteredValue="#{gdlc_bitacora.filteredBitacora}"  
+                                             >  
+
+                                    <p:ajax event="rowToggle" listener="#{gdlc_bitacora.onRowToggle}"  />    
+
+
+      
+                                    <p:column headerText="Comentarios"
+                                              style="text-align:center ;  font-size:    small;  width:5%" 
+                                              >  
+                                        <p:rowToggler />  
+                                        <h:outputText value="#{mostrarBitacora.items}" />  
+                                    </p:column>  
+
+
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="IdColumn_911" 
+                                               headerText="Id_evento"   
+                                               >    
+                                        <h:outputText value="#{mostrarBitacora.ID_EVENT}" />  
+                                    </p:column>
+
+                                    
+                                    
+                                     <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="ClasColumn_911" 
+                                               headerText="Clasificación"   >
+                                        <h:outputText value="#{mostrarBitacora.CLASIFICACION}" />  
+                                    </p:column> 
+                                    
+                                    <p:column  style="text-align:center ;  font-size:    small;  "
+                                               id="MedidaColumn_911" 
+                                               headerText="Estatus"   >
+                                        <h:outputText value="#{mostrarBitacora.ESTATUS}" />  
+                                    </p:column> 
+
+ 
+                                     <p:column style="text-align:center ;  font-size:    small;  " 
+                                              id="ServiceColumn_911" 
+                                              headerText="Titulo Oficio"   
+                                              >    
+                                        <h:outputText value="#{mostrarBitacora.NOMBRE_OFICIO}" />  
+                                    </p:column>
+
+                                  
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="ResponsableColumn_911"    
+                                              headerText="Usuario"   >
+                                        <h:outputText value="#{mostrarBitacora.USUARIO}" />  
+                                    </p:column>
+
+                                    
+                                    
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="InsertDetalle_911"    
+                                              headerText="Agregar Nota"
+                                              >                        
+                                        <p:commandButton id="buttomdetalle_911" update=":form2:dialog_2"  
+                                                         onclick="PF('bitacoraDetalleDialog').show()" 
+                                                         icon="ui-icon-pencil"
+                                                         title="Agregar Detalle"
+                                                         action="#{gdlc_bitacora.mostrarvalor(actionEvent)}">  
+                                            <f:setPropertyActionListener 
+                                                value="#{mostrarBitacora}"
+                                                target="#{gdlc_bitacora.selectedBitacora}" />  
+
+
+                                            <f:param name="idbita_911" value="#{mostrarBitacora.ID_EVENT}" />
+                                        </p:commandButton>  
+                                    </p:column>   
+
+  
+      
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="JustificacionColumn_911" 
+                                              headerText="Descripción"
+                                             >                        
+                                        <p:commandButton id="selectButton_911" 
+                                                         update=":form:display" 
+                                                         oncomplete="PF('bitacoraDialog').show()" 
+                                                         icon="ui-icon-comment" 
+                                                         title="Comentarios">  
+                                            <f:setPropertyActionListener 
+                                                value="#{mostrarBitacora}" 
+                                                target="#{gdlc_bitacora.selectedBitacora}" />  
+                                        </p:commandButton>  
+                                    </p:column>   
+
+
+                                    <p:column style="text-align:center ;  font-size:    small;  "
+                                              id="DocumentacionColumn_911" 
+                                              headerText="Evidencia"   
+                                              >
+                                        <h:outputLink value="#{mostrarBitacora.DOCUMENTATION}" title="Ver"  disabled="#{mostrarBitacora.estEvidencia}">
+                                            <p:commandButton type="button" icon="ui-icon-circle-triangle-s" disabled="#{mostrarBitacora.estEvidencia}"/>    
+                                        </h:outputLink>   
+                                    </p:column>   
+
+                                   
+                                
+                                    <p:rowExpansion >  
+                                        <h:panelGrid id="display" columns="2" cellpadding="4" style="width:100%;" 
+                                                      >  
+
+                                            <p:dataTable   var="subtable" value="#{mostrarBitacora.myList}"          
+                                             paginator="true" 
+                                             rows="2" 
+                                             style="margin-bottom:20px" scrollable="true"  draggableRows="false"  cellSeparator="true"     
+                                             tableStyle="font-family: sans-serif; font-size:12px ;padding:1px;
+                                             border: 2px solid #4CAF50 !important; 
+                                             color: white !important; ;
+                                             text-align: center !important; ;
+                                             border-radius: 8px !important; ; " 
+                                                         >  
+                                                <p:column headerText="Evento" >  
+                                                    <h:outputText value="#{subtable.dt_ID_EVENT}" />  
+                                                </p:column>  
+
+                                                <p:column headerText="Usuario">  
+                                                    <h:outputText value="#{subtable.dt_USUARIO}" />  
+                                                </p:column>  
+
+                                                <p:column headerText="Comentarios">  
+                                                    <h:outputText value="#{subtable.dt_DESCRIPCION}" />  
+                                                </p:column>  
+
+                                                <p:column headerText="Fecha actualización">  
+                                                    <h:outputText value="#{subtable.dt_FECHA}" />  
+                                                </p:column>  
+
+                                                <p:column headerText="Evidencia">
+                                                    <h:outputLink value="#{subtable.dt_DOCUMENTATION}" title="Ver" disabled="#{subtable.dt_ESTATUS}">
+                                                        <p:commandButton type="button" icon="ui-icon-circle-triangle-s" disabled="#{subtable.dt_ESTATUS}" />    
+                                                    </h:outputLink>   
+                                                </p:column>  
+
+
+                                            </p:dataTable>  
+
+                                        </h:panelGrid>  
+
+                                    </p:rowExpansion>  
+
+
+
+                                </p:dataTable> 
+                            </h:panelGrid> 
+                        </p:dialog>    
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+                              
+
+                        <p:dialog header="Detalle Justificacion" 
+                                  widgetVar="bitacoraDialog" 
+                                  resizable="true" 
+                                  id="bitacoraDlg"  
+                                  showEffect="fade" 
+                                  hideEffect="explode" 
+                                  height="250px" 
+                                  width="500px" 
+                                  appendTo="@(body)"                              
+                                  modal="true"   >  
+
+                            <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  
+
+                                <f:facet name="header">  
+                                    <p:graphicImage value="../resources/images/nextel_2.png"/>  
+                                </f:facet>  
+
+                                <h:outputText value="Comentarios:" />   
+                                <h:outputText value="#{gdlc_bitacora.selectedBitacora.DESCRIPCION}" 
+                                              style="font-weight:bold" />  
+
+
+                            </h:panelGrid>  
+
+                        </p:dialog>  
+
+                    </p:panel>  
+
+                </h:form>
+
+                <h:form  id="form2" enctype="multipart/form-data">   
+
+                    <p:dialog header="Insertar Comentario" 
+                              widgetVar="bitacoraDetalleDialog" 
+                              resizable="true" 
+                              id="bitacoraDetalleDlg"  
+                              showEffect="size" 
+                              hideEffect="explode" 
+                               >  
+
+                        <h:panelGrid id="dialog_2" columns="1" cellpadding="4" style="margin:0 auto;">  
+
+                            <f:facet name="header">  
+                                <p:graphicImage value="../resources/images/nextel_2.png"/>  
+                            </f:facet>  
+
+                            <h:outputText value="Id ha modificar: #{gdlc_bitacora.selectedBitacora.ID_EVENT}" style="font-weight:bold" />  
+
+                            <h:outputText  value="Responsable:"  />
+                            <p:selectOneMenu id="instr_responsable" value="#{gdlc_bitacora.usuario}" required="true" requiredMessage="Se requiere ingresar usuario" >                               
+                                <f:selectItem itemLabel="Escoger Usuario" />  
+                                <f:selectItems id="selectMenu" 
+                                               value="#{catalogoUsuarios.listaUsuarios}"
+                                               var="c" itemLabel="#{c.usuarios}" 
+                                               itemValue="#{c.usuarios}"/>                                                   
+                            </p:selectOneMenu>
+
+                             <h:outputText  value="Deseas cerrar el ticket"  />
+                            <p:selectOneMenu id="instr_cierre" value="#{gdlc_bitacora.estatusotrodetalle}" required="true" requiredMessage="Se requiere ingresar estatus del ticket" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Si" itemValue="Cerrado" />  
+                                    <f:selectItem itemLabel="No" itemValue="Abierto" />                                                                              
+                          </p:selectOneMenu>
+
+   
+                            <h:outputText  value="Comentario:"  />
+                            <p:inputText id="instr_incidente" value="#{gdlc_bitacora.comentario}" required="true" label="instr_incidente" requiredMessage="Se requiere ingresar un comentario"/>      
+
+                            
+                            <h:outputText value="Evidencia:" />   
+
+                            <p:fileUpload   fileUploadListener="#{gdlc_bitacora.upload}" label="Buscar" 
+                                            uploadLabel="Carga" cancelLabel="Cancel" auto="FALSE" />
+
+                        </h:panelGrid>  
+
+                        <p:separator />             
+
+                        <p:commandButton 
+                                         value="Insertar"  action="#{gdlc_bitacora.IngresarBitacoraPV(actionEvent)}" 
+                                         oncomplete="if (args &amp;&amp; !args.validationFailed) PF('bitacoraDetalleDialog').hide()"
+                                         update=":form" /> 
+
+
+                    </p:dialog>  
+                </h:form>   
+
+                 <h:form  id="formx" enctype="multipart/form-data">   
+
+                    <p:dialog header="Selecciona el tipo de solicitud" 
+                              widgetVar="tiposolicitudd" 
+                              resizable="false" 
+                              id="tiposolicitudd"  
+                              showEffect="fade" 
+                              hideEffect="fade"   
+                              appendTo="@(body)"                              
+                              modal="true"    
+                              style="width:100% !important; height:100% !important;" >  
+                        
+                    <h:panelGrid  id="dialog_xg" columns="3"  cellpadding="2"   cellspacing="5" >  
+                         <p:row>     
+                         <p:column>  
+                        <h:panelGrid  id="dialog_x1" columns="1"  cellpadding="3"   cellspacing="5" >  
+                                <f:facet name="header">  
+                                    <p:graphicImage value="../resources/images/soporte1.png"/>  
+                                </f:facet>  
+                            <p:commandButton  styleClass="button" icon="ui-icon-plusthick" value="Soporte a casos de RMS" type="button" onclick="PF('insrdialog').show();PF('tiposolicitudd').hide();"   />  
+                        </h:panelGrid>  
+                        </p:column>
+                        <p:column>
+                        <h:panelGrid  id="dialog_x2" columns="1"  cellpadding="2"   cellspacing="5" >                        
+                                <f:facet name="header">  
+                                    <p:graphicImage value="../resources/images/soporte2.png"/>  
+                                </f:facet>  
+                        <p:commandButton styleClass="button2"  icon="ui-icon-person" value="Problemas con tu computadora" type="button" onclick="PF('insrdialogsopsis').show();PF('tiposolicitudd').hide();"  />
+                        
+               
+                       </h:panelGrid>  
+                        </p:column>
+                        </p:row>     
+                             
+                        <p:row>     
+                        <p:column colspan="2">
+                        <h:panelGrid  id="dialog_x5" columns="1"   cellpadding="2"   cellspacing="5" >  
+                                <f:facet name="header">  
+                                    <p:graphicImage value="../resources/images/soporte5.png"/>  
+                                </f:facet>  
+                                    <p:commandButton styleClass="button3"  icon="ui-icon-person" value="Folios 911" type="button" onclick="PF('insrdialog911').show();PF('tiposolicitudd').hide();" />               
+                       </h:panelGrid>                          
+                       </p:column>        
+                       </p:row>
+                            
+                       <p:row>     
+                       <p:column>
+                        <h:panelGrid  id="dialog_x3" columns="1"  cellpadding="2"   cellspacing="5" >  
+                                <f:facet name="header">  
+                                    <p:graphicImage value="../resources/images/soporte3.png"/>  
+                                </f:facet>  
+                                    <p:commandButton styleClass="button3"  icon="ui-icon-circle-plus" value="Problema en Aplicaciones" type="button" 
+                                                     actionListener="#{gdlc_bitacora.showInfo}" update="form:growl"
+                                                     onclick="PF('insrdialogsopacc').show();PF('tiposolicitudd').hide();"
+                                                     
+                                                     />               
+                       </h:panelGrid>  
+                        </p:column>  
+                        
+                       <p:column>
+                        <h:panelGrid  id="dialog_x4" columns="1"  cellpadding="2"   cellspacing="5" >  
+                                <f:facet name="header">  
+                                    <p:graphicImage value="../resources/images/soporte4.png"/>  
+                                </f:facet>  
+                                   <p:commandButton  styleClass="button2"  icon="ui-icon-gear" value="Ventanas de mantenimiento" type="button" onclick="PF('insrdialogsopven').show();PF('tiposolicitudd').hide();" />
+                       </h:panelGrid>                           
+                        </p:column>  
+                        </p:row>     
+                     </h:panelGrid>     
+
+                    </p:dialog>  
+                </h:form>   
+               
+                
+                
+
+ <h:form  id="form3" enctype="multipart/form-data">   
+
+                    <p:dialog header="Soporte a casos de RMS!!!" 
+                              widgetVar="insrdialog" 
+                              resizable="true"
+                              id="bitacoraDetalleDlg"  
+                              showEffect="fade" 
+                              hideEffect="explode" 
+                              height="670px" 
+                              width="900px"                                  
+                              modal="false"  
+                              style="font-size: medium; margin:  auto">  
+                        <p:panel header="Captura de datos:" 
+                                 style="font-size:  small" 
+                                 id="insrpanel"
+                                 >  
+                            
+                            <h:panelGrid  columns="2" style="margin:  auto; text-align:  left">
+                                
+                                <f:facet name="header">  
+                                    <p:graphicImage style=" height: 40%; border-right:  #52B4FC; " value="../resources/images/soporte1.png"/>  
+                                </f:facet>  
+                                
+                               <f:facet name="header">   
+                                <h:outputText
+                    value="  En este apartado podrás capturar incidentes relacionados con la operación diaria de RMS, problemas de consulta en escenarios de información histórica, detalles de suscriptor, intervenciones, etc. " />
+                                </f:facet>
+                                
+                            </h:panelGrid>
+                            
+                             <h:panelGrid  columns="1" style="margin:  auto">                                
+                                 <p:commandButton  id="botonlimpia1" 
+                                                   value="Limpiar" 
+                                                   action="#{gdlc_bitacora.limpiatodo(':form3:bitacoraDetalleDlg')}" 
+                                                   update=":form3:bitacoraDetalleDlg"
+                                                   oncomplete="PF('insrdialog').show();"
+                                                   style=" font-size:  small">
+                                 </p:commandButton>
+                             </h:panelGrid>  
+                             
+                            
+                     <p:separator />       
+                            
+                            <h:panelGrid  style="margin:  auto">
+                                
+                                    
+                                <h:outputText  value="Título Incidente: "  style=" font-size:  small" />
+                                <p:inputText id="instr_incidente" value="#{gdlc_bitacora.instr_incidente}" label="instr_incidente" style=" font-size:  small; width: 600px"
+                                             required="true"
+                                             requiredMessage="Por favor ingresa el Título Incidente, regresa dando click sobre el calendario"
+                                              />      
+                                
+                                <h:outputText  value="No.Ticket (RMS): "  style=" font-size:  small"/>
+                                <p:inputText id="instr_ticket" value="#{gdlc_bitacora.instr_ticket}" required="true" requiredMessage="Por favor ingresa el No.Ticket (RMS), regresa dando click sobre el calendario" label="instr_ticket" style=" font-size:  small"/>    
+                                
+                                <h:outputText  value="No.Caso (RMS): "  style=" font-size:  small"/>
+                                <p:inputText id="instr_caso" value="#{gdlc_bitacora.instr_caso}" required="true" requiredMessage="Por favor ingresa el No.Caso (RMS), regresa dando click sobre el calendario" label="instr_caso" style=" font-size:  small"/>    
+
+
+                                <p:outputLabel   value="Inicio periodo:" />
+                                <p:calendar id="fechainicio"
+                                            value="#{gdlc_bitacora.instr_fecha}" 
+                                            pages="1" 
+                                            timeZone="GMT"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa Fecha inicio, regresa dando click sobre el calendario"
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"
+
+                                            
+                                             
+                                             
+                                            />  
+                                <h:outputText value="#{gdlc_bitacora.instr_fecha}" id="instr_fecha">  
+                                </h:outputText>  
+
+                                <b></b>
+
+                                <h:outputText value="Fin Periodo:"  style=" font-size:  small"/>  
+                                <p:calendar value="#{gdlc_bitacora.instr_fecha_fin}" 
+                                             pages="1" 
+                                            timeZone="GMT"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa Fecha final, regresa dando click sobre el calendario"
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"
+                                            
+                                            />  
+                                <h:outputText value="#{gdlc_bitacora.instr_fecha_fin}" id="instr_fecha_fin">  
+                                </h:outputText>  
+
+                                <b></b>
+            
+                                <h:outputLabel for="instr_tiposolicitud" value="Tipo Solicitud"  style=" font-size:  small" />                            
+                                <p:selectOneMenu id="instr_tiposolicitud" required="true"  requiredMessage="Por favor ingresa el tipo de solicitud"
+                                                 onchange="$('#tabform').submit();" value="#{gdlc_bitacora.instr_tiposolicitud}"  style=" font-size:  small">  
+                                    <f:selectItem itemLabel="Escoger tipoSolicitud"  itemValue="OTRO"  />  
+                                    <f:selectItem itemLabel="Otro Motivo" itemValue="Otro Motivo" />  
+                                    <f:selectItems id="selectMenu2" 
+                                                   value="#{catalogoTipoSolicitud.listaTipoSolicitud}"
+                                                   var="c" itemLabel="#{c.tipo_solicitud}" 
+                                                   itemValue="#{c.tipo_solicitud}"/>                                         
+                                </p:selectOneMenu>
+                                
+                                       <b></b>
+                                       
+                                      <h:outputLabel for="instr_responsable" value="Usuario"  style=" font-size:  small" />                            
+                                      <p:selectOneMenu id="instr_responsable"  required="true"  requiredMessage="Por favor ingresa el usuario, regresa dando click sobre el calendario"
+                                                       onchange="$('#tabform').submit();" value="#{gdlc_bitacora.instr_responsable}"  style=" font-size:  small">  
+                                    <f:selectItem itemLabel="Escoger Usuario"   />  
+                                    <f:selectItems id="selectMenu22" 
+                                                   value="#{catalogoUsuarios.listaUsuarios}"
+                                                   var="c" itemLabel="#{c.usuarios}" 
+                                                   itemValue="#{c.usuarios}"/>                                         
+                                </p:selectOneMenu>
+                                
+  
+                                <h:outputText  value="Parametro de busqueda:" style=" font-size:  small" />
+                                <p:inputTextarea id="instr_parametros" value="#{gdlc_bitacora.instr_parametros}" required="true"  requiredMessage="Ingresa parametro busqueda:" label="instr_parametros" style=" font-size:  small;width: 400px"/>  
+                                
+                                <h:outputText  value="Descripción del problema: "  style=" font-size:  small"/>
+                                <p:inputTextarea id="instr_justificacion" value="#{gdlc_bitacora.instr_justificacion}" required="true" requiredMessage="Ingresa descripción del problema" label="instr_justificacion" style=" font-size:  small; width: 600px"/> 
+
+                                <h:outputText   value="Cargar Evidencia: (no olvides dar click en Cargar Evidencia) "  style=" font-size:  small"/>
+                                <p:fileUpload   fileUploadListener="#{gdlc_bitacora.upload}" label="Buscar Evidencia" 
+                                                uploadLabel="Carga Evidencia" cancelLabel="Cancelar" auto="FALSE" update=":form:messages"  style=" font-size:  small"/>
+
+                            </h:panelGrid>   
+                            <p:separator />             
+                   
+                            <p:commandButton 
+
+                                             style=" font-size:  small"
+                                             value="Finalizar y crear incidente"  
+                                             action="#{gdlc_bitacora.IngresarBitacora(actionEvent,'RMS')}"  
+                                             resetValues="true" 
+                                             update=":form:messages, :form"      
+                                             oncomplete="if (args &amp;&amp; !args.validationFailed) PF('insrdialog').hide()"
+                                             /> 
+                           
+                        </p:panel>    
+                    </p:dialog>  
+                </h:form>   
+
+
+                <h:form  id="form4" enctype="multipart/form-data">   
+
+                    <p:dialog header="Actualizar Registro" 
+                              widgetVar="updialog" 
+                              resizable="true" 
+                              id="updialog"  
+                              showEffect="fade" 
+                              hideEffect="explode" 
+                              height="450px" 
+                              width="600px"    
+
+                              style="font-size: medium; margin:  auto">  
+                        <p:panel id="uppanel" header="Editor Incidentes" 
+                                 style="margin:auto; font-size:  small; margin:  auto" 
+                                 
+                                 >  
+
+                            <h:panelGrid id="uppanelgrid" columns="2" cellpadding="5" cellspacing="5" border="1">  
+                                
+                                <p:column >
+                                <h:outputText value="Id_Evento:"  />  
+                                </p:column>
+                                <p:column  style=" text-align:  left">
+                                <h:outputText value="#{gdlc_bitacora.up_idevento}" />  
+                                 </p:column>
+                                
+                                 <p:column>
+                                <h:outputText value="Título Evento:" />  
+                                </p:column>
+                                <p:column>
+                                <p:inplace id="ajaxInplace2" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_tituloevento}"  
+                                                 label="up_tituloevento "/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                
+                                <p:column visible="#{gdlc_bitacora.dlg_soporte}">
+                                <h:outputText value="Nombre de equipo:" />  
+                                </p:column>
+                                <p:column visible="#{gdlc_bitacora.dlg_soporte}">
+                                <p:inplace id="ajaxInplace51" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_nombre_equipo}"  
+                                                 label="up_nombre_equipo"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column visible="#{gdlc_bitacora.dlg_soporte}">
+                                <h:outputText value="No serie equipo:" />  
+                                </p:column>
+                                <p:column visible="#{gdlc_bitacora.dlg_soporte}">
+                                <p:inplace id="ajaxInplace20" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_no_serie}"  
+                                                 label="up_no_serie"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column visible="#{gdlc_bitacora.dlg_soporte}">
+                                <h:outputText value="IP/MAC:" />  
+                                </p:column>
+                                <p:column visible="#{gdlc_bitacora.dlg_soporte}">
+                                <p:inplace id="ajaxInplace21" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_mac_address}"  
+                                                 label="up_mac_address"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column  visible="#{gdlc_bitacora.dlg_ventana}">
+                                <h:outputText value="Equipo Ejecuta:" />  
+                                </p:column>
+                                <p:column  visible="#{gdlc_bitacora.dlg_ventana}">
+                                <p:inplace id="ajaxInplace22" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_equipo_ejecuta}"  
+                                                 label="up_equipo_ejecuta"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column  visible="#{gdlc_bitacora.dlg_ventana}">
+                                <h:outputText value="RFC:" />  
+                                </p:column>
+                                <p:column  visible="#{gdlc_bitacora.dlg_ventana}">
+                                <p:inplace id="ajaxInplaceRFC" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_rfc}"  
+                                                 label="up_rfc"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column  visible="#{gdlc_bitacora.dlg_ventana}" >
+                                <h:outputText value="Afectación:" />  
+                                </p:column>
+                                <p:column  visible="#{gdlc_bitacora.dlg_ventana}" >
+                                <p:inplace id="ajaxInplace23" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_afectacion}"  
+                                                 label="up_afectacion"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column  visible="#{gdlc_bitacora.dlg_ventana}">
+                                <h:outputText value="Duración de la Ventana:" />  
+                                </p:column>
+                                <p:column  visible="#{gdlc_bitacora.dlg_ventana}">
+                                <p:inplace id="ajaxInplace24" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_duracion_ventana}"  
+                                                  label="up_duracion_ventana"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                   
+                                 <p:column visible="#{gdlc_bitacora.dlg_ventana or gdlc_bitacora.dlg_acsistema}">
+                                <h:outputText value="Sistema afectado:" />  
+                                </p:column>
+                                
+                                <p:column   visible="#{gdlc_bitacora.dlg_ventana or gdlc_bitacora.dlg_acsistema}">
+                                 <p:inplace id="ajaxInplace3333" editor="true">      
+                                    <p:selectCheckboxMenu  id="ajaxInplace555"  label="Aplicación"
+                                                           filter="true" filterMatchMode="startsWith" updateLabel="true"
+                                                      onchange="$('#tabform').submit();" value="#{gdlc_bitacora.laplicaciones}"  style=" font-size:   smaller">  
+                                    <f:selectItems id="selectMenu333" 
+                                                   value="#{cataplicgldc.listaAplicaciones}"
+                                                   var="ddd" itemLabel="#{ddd.aplicacion}" 
+                                                   itemValue="#{ddd.aplicacion}"/>                                         
+                                </p:selectCheckboxMenu>    
+                                </p:inplace>      
+                                     </p:column>
+                                    
+                                
+                                <p:column visible="#{gdlc_bitacora.dlg_rms}"  >
+                                <h:outputText value="Tickets RMS:" />  
+                                </p:column>
+                                <p:column visible="#{gdlc_bitacora.dlg_rms}" >
+                                <p:inplace id="ajaxInplace3" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_ticketrms}"  
+                                                 label="up_ticketrms"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column visible="#{gdlc_bitacora.dlg_rms}">
+                                <h:outputText value="Caso RMS:" />  
+                                </p:column>
+                                <p:column visible="#{gdlc_bitacora.dlg_rms}">
+                                <p:inplace id="ajaxInplace4" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_casorms}"  
+                                                 label="up_casorms"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                 
+                                <p:column visible="#{gdlc_bitacora.dlg_rms}">
+                                <h:outputText value="Tipo Solicitud:" />  
+                                </p:column>
+                                <p:column visible="#{gdlc_bitacora.dlg_rms}">
+                                <p:inplace id="ajaxInplace5" label="#{gdlc_bitacora.up_tiposolicitud}" effectSpeed="fast">  
+                                <p:selectOneMenu id="ajaxInplace55" onchange="$('#tabform').submit();" value="#{gdlc_bitacora.up_tiposolicitud}" >  
+                                    <f:selectItems id="selectMenu20" 
+                                                   value="#{catalogoTipoSolicitud.listaTipoSolicitud}"
+                                                   var="c" itemLabel="#{c.tipo_solicitud}" 
+                                                   itemValue="#{c.tipo_solicitud}"/>                                         
+                                </p:selectOneMenu>
+                                </p:inplace>  
+                                </p:column>
+                                 
+                                 
+                                <p:column>
+                                <h:outputText value="Usuario: " />  
+                                </p:column>
+                                <p:column>
+                                <p:inplace id="ajaxInplace6" label="#{gdlc_bitacora.up_usuario}" effectSpeed="fast">  
+                                    <p:selectOneMenu id="ajaxInplace66" onchange="$('#tabform').submit();" value="#{gdlc_bitacora.up_usuario}" >  
+                                    <f:selectItems id="selectMenu66" 
+                                                   value="#{catalogoUsuarios.listaUsuarios}"
+                                                   var="c" itemLabel="#{c.usuarios}" 
+                                                   itemValue="#{c.usuarios}"/>                                         
+                                </p:selectOneMenu>
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column visible="#{gdlc_bitacora.dlg_rms or ( gdlc_bitacora.dlg_ventana or gdlc_bitacora.dlg_911)}">
+                                <h:outputText value="Fecha Inicio:" />  
+                                </p:column>
+                                <p:column visible="#{gdlc_bitacora.dlg_rms  or (gdlc_bitacora.dlg_ventana or gdlc_bitacora.dlg_911)}">
+                                <p:inplace id="up_fechainicio" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_fechainicio}"  
+                                                 label="up_fechainicio"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column visible="#{gdlc_bitacora.dlg_rms  or (gdlc_bitacora.dlg_ventana or gdlc_bitacora.dlg_911)}">
+                                <h:outputText value="Fecha Fin:" />  
+                                </p:column>
+                                <p:column visible="#{gdlc_bitacora.dlg_rms  or (gdlc_bitacora.dlg_ventana or gdlc_bitacora.dlg_911)}">
+                                <p:inplace id="up_fechafinal" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_fechafinal}"  
+                                                 label="up_fechafinal"/>  
+                                </p:inplace>  
+                                 </p:column>
+                                
+                                <p:column visible="#{gdlc_bitacora.dlg_rms}">
+                                <h:outputText value="Parametros" /> 
+                                </p:column>
+                                <p:column visible="#{gdlc_bitacora.dlg_rms}">
+                                <p:inplace id="up_parametros" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_parametros}"  
+                                                 label="up_parametros"/>  
+                                </p:inplace> 
+                                 </p:column>
+
+                                <p:column>
+                                <h:outputText value="Descripcion" />  
+                                </p:column>
+                                <p:column>
+                                <p:inplace id="up_descripcion" editor="true">  
+                                    <p:inputText value="#{gdlc_bitacora.up_descripcion}"  
+                                                 label="up_descripcion"/>  
+                                </p:inplace>  
+                               </p:column>    
+                                
+                                             
+                            <p:column visible="#{gdlc_bitacora.dlg_911}">                            
+                            <h:outputText  value="Servicios afectados:"  />
+                            </p:column>
+                            <p:column visible="#{gdlc_bitacora.dlg_911}">   
+                            <p:inplace id="up_servafectados" editor="true">  
+                            <p:selectOneMenu id="instr_servafectados" value="#{gdlc_bitacora.up_serv_afec_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar los servicios afectados" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Voz/LGTR" itemValue="Voz/LGTR" />  
+                                    <f:selectItem itemLabel="Voz" itemValue="Voz" />   
+                                    <f:selectItem itemLabel="LGTR" itemValue="LGTR" />   
+                          </p:selectOneMenu>    
+                                </p:inplace>  
+                                 </p:column>   
+
+
+                            <p:column visible="#{gdlc_bitacora.dlg_911}">
+                            	
+                            <h:outputText  value="Usuario BO 911:"  />
+                            </p:column>
+                            <p:column visible="#{gdlc_bitacora.dlg_911}">   
+                            <p:inplace id="up_usuariosbo" editor="true">  	    
+                            <p:selectOneMenu id="instr_usuarios_BO" value="#{gdlc_bitacora.up_usuario_bo_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar los USUARIOS BO 911" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="CASTELAN ESTRADA JUANA KAREN" itemValue="CASTELAN ESTRADA JUANA KAREN" />  
+                                    <f:selectItem itemLabel="CARRILLO JAIMES SUSANA" itemValue="CARRILLO JAIMES SUSANA" />   
+                                    <f:selectItem itemLabel="CORONA HERNANDEZ KARINA" itemValue="CORONA HERNANDEZ KARINA" />
+                                    <f:selectItem itemLabel="GARDUNO HERNANDEZ CARLOS CESAR" itemValue="GARDUNO HERNANDEZ CARLOS CESAR" />
+                                    <f:selectItem itemLabel="GUERRERO CAPORAL JESUS GERARDO" itemValue="GUERRERO CAPORAL JESUS GERARDO" /> 
+                                    <f:selectItem itemLabel="LOPEZ SANCHEZ ARTURO" itemValue="LOPEZ SANCHEZ ARTURO" />
+                                    <f:selectItem itemLabel="MARTÍNEZ CORTÉS EDGAR" itemValue="MARTÍNEZ CORTÉS EDGAR" /> 
+                                    <f:selectItem itemLabel="MINOR IBARRA ALINE GUADALUPE" itemValue="MINOR IBARRA ALINE GUADALUPEAR" /> 
+                                    <f:selectItem itemLabel="OLVERA MEJIA OCTAVIO" itemValue="OLVERA MEJIA OCTAVIO" /> 
+                                    <f:selectItem itemLabel="SUAREZ REYES CARLOS ESTEBAN" itemValue="SUAREZ REYES CARLOS ESTEBAN" />
+                                   
+                          </p:selectOneMenu> 
+                                </p:inplace>  
+                                 </p:column>
+
+                           <p:column visible="#{gdlc_bitacora.dlg_911}">
+                                                            
+                           <h:outputText  value="Prioridad:"  />
+                           </p:column>
+                           <p:column visible="#{gdlc_bitacora.dlg_911}">     
+                               <p:inplace id="up_prioridad" editor="true">      
+                           <p:selectOneMenu id="instr_prioridad" value="#{gdlc_bitacora.up_prioridad_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar la prioridad" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Alta" itemValue="Alta" />  
+                                    <f:selectItem itemLabel="Normal" itemValue="Normal" />  
+                                    <f:selectItem itemLabel="Baja" itemValue="Baja" />    
+                          </p:selectOneMenu>
+                                </p:inplace>  
+                                 </p:column>
+   
+                            <p:column visible="#{gdlc_bitacora.dlg_911}">
+                                                     
+                           <h:outputText  value="Tipo de Falla"  />
+                           </p:column>
+                           <p:column visible="#{gdlc_bitacora.dlg_911}">    
+                               <p:inplace id="up_tipofalla" editor="true">        
+                           <p:selectOneMenu id="instr_tipofalla" value="#{gdlc_bitacora.up_tipofalla_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar el tipo de falla" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Marcaciones especiales" itemValue="Marcaciones especiales" />  
+                                    <f:selectItem itemLabel="Baja completacion de llamadas en Calle" itemValue="Baja completacion de llamadas en Calle" />  
+                                    <f:selectItem itemLabel="No se recibe LGTR (Fase II)" itemValue="No se recibe LGTR (Fase II)" />   
+                                    <f:selectItem itemLabel="No se están recibiendo llamadas" itemValue="No se están recibiendo llamadas" />  
+                                    <f:selectItem itemLabel="Tono de ocupado" itemValue="Tono de ocupado" />  
+                                    <f:selectItem itemLabel="Grabación de saldo" itemValue="Grabación de saldo" />   
+                                    <f:selectItem itemLabel="Errores Push" itemValue="Errores Push" />  
+                                    <f:selectItem itemLabel="Alarmas" itemValue="Alarmas" />  
+                          </p:selectOneMenu>        
+                                </p:inplace>  
+                                 </p:column>                      
+                                
+                        <p:column visible="#{gdlc_bitacora.dlg_911}">
+                                                                
+                          <h:outputText  value="Incidente Remedy: "  style=" font-size:  small"/>
+                          </p:column>
+                          <p:column visible="#{gdlc_bitacora.dlg_911}">     
+                          <p:inplace id="up_inc_remedy" editor="true">      
+                          <p:inputText id="instr_remedy" value="#{gdlc_bitacora.up_incremedy_911}" label="instr_remedy" style=" font-size:  small"/>    
+                                </p:inplace>  
+                        </p:column>
+                          
+  
+                        <p:column visible="#{gdlc_bitacora.dlg_911}">
+                                                          
+                            <h:outputText  value="Entidad Gubernamental:"  />
+                         </p:column>
+                          <p:column visible="#{gdlc_bitacora.dlg_911}">      
+                              <p:inplace id="up_entgob" editor="true">  
+                            <p:selectOneMenu id="instr_entidadgob" value="#{gdlc_bitacora.up_entidad_gob_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar la entidad gubernamental" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Secretariado" itemValue="Secretariado" />  
+                                    <f:selectItem itemLabel="CALLE" itemValue="CALLE" />   
+                          </p:selectOneMenu>      
+                                </p:inplace>  
+                        </p:column>                         
+
+                        <p:column visible="#{gdlc_bitacora.dlg_911}">
+                                                             
+                         <h:outputText  value="Estado:"  />           
+                         </p:column>
+                        <p:column visible="#{gdlc_bitacora.dlg_911}">   
+                            <p:inplace id="up_estadosmun" editor="true"> 
+                         <p:selectOneMenu id="seleccionaestado" 
+                                          value="#{gdlc_bitacora.up_estado_911}" filterMatchMode="contains" filter="true"
+                                          required="true" requiredMessage="Se requiere ingresar la entidad gubernamental"
+                                             >                               
+                                <f:selectItem itemLabel="Selecciona ....." itemValue="" /> 
+                                <f:selectItems id="selectMenucore" 
+                                               value="#{catalogosenrutamiento.listaEnrutamientoEdo}"
+                                               var="c" itemLabel="#{c.estado}" 
+                                               itemValue="#{c.estado}"/>  
+                                 <p:ajax update=":form4:upcatalogmuni,up_municipio" 
+                                         listener="#{gdlc_bitacora.catalogosMunicipios('act')}" />    
+                            </p:selectOneMenu>       
+                                </p:inplace>  
+                    </p:column>                  
+
+                        <p:column visible="#{gdlc_bitacora.dlg_911}">
+                                 
+                         <h:outputText  value="Municipio:"  />  
+                       </p:column>
+                        <p:column visible="#{gdlc_bitacora.dlg_911}">       
+                            <p:inplace id="up_municipio" editor="true"> 
+                            <p:selectOneMenu id="upcatalogmuni"
+                                             value="#{gdlc_bitacora.up_municipio_911}"  filterMatchMode="contains"  filter="true"
+                                             required="true" requiredMessage="Se requiere ingresar la entidad gubernamental">     
+                                <f:selectItem itemLabel="Selecciona ...." itemValue="" />
+                                <f:selectItems value="#{gdlc_bitacora.listaEnruMunicipio}"
+                                               var="c" itemLabel="#{c.municipio}" 
+                                               itemValue="#{c.municipio}" />                                                    
+                            </p:selectOneMenu>          
+                                </p:inplace>  
+                        </p:column>       
+
+                                <p:fileUpload   fileUploadListener="#{gdlc_bitacora.upload}" label="Cargar Nuevamente Evidencia" 
+                                                uploadLabel="Cargar" cancelLabel="Cancelar" auto="FALSE" update=":form:messages" />
+
+                            </h:panelGrid>  
+
+                            <p:commandButton ajax="false" 
+                                             value="Actualizar Registro"  
+                                             oncomplete="if (args &amp;&amp; !args.validationFailed) PF('updialog').hide()"
+                                             action="#{gdlc_bitacora.UpdateBitacora(actionEvent)}"  update=":form:messages"/> 
+
+
+
+                        </p:panel>    
+                    </p:dialog>  
+                    
+
+                    
+                </h:form>   
+
+                <h:form  id="form5" enctype="multipart/form-data">   
+
+                    <p:dialog header="Soporte a equipo de computo!!!" 
+                              widgetVar="insrdialogsopsis" 
+                              resizable="true"
+                              id="DlgSoporteComputo"  
+                              showEffect="fade" 
+                              hideEffect="explode" 
+                              height="500px" 
+                              width="900px"                                    
+                              style="font-size: medium; margin:  auto">  
+                        <p:panel header="Captura de datos:" 
+                                 style="font-size:  small" 
+                                 id="insrpanelsisop"
+                                 >  
+                            
+                                 
+                        <h:panelGrid  columns="2" style="margin:  auto; text-align:  left">
+                                
+                                <f:facet name="header">  
+                                    <p:graphicImage style=" height: 40%; border-right:  #52B4FC; " value="../resources/images/soporte2.png"/>  
+                                </f:facet>  
+                                
+                               <f:facet name="header">   
+                                <h:outputText
+                                         value="  En este apartado podrás capturar incidentes relacionados con problemas de tu equipo de cómputo tanto de software como de hadware." />
+                                </f:facet>
+                                
+                            </h:panelGrid>
+                            
+                                 <h:panelGrid  columns="1" style="margin:  auto">                                
+                                 <p:commandButton  id="botonlimpia2" 
+                                                   value="Limpiar" 
+                                                   action="#{gdlc_bitacora.limpiatodo(':form5:DlgSoporteComputo')}" 
+                                                   update=":form5:DlgSoporteComputo"
+                                                   oncomplete="PF('insrdialogsopsis').show();"
+                                                   style=" font-size:  small">
+                                 </p:commandButton>
+                             </h:panelGrid>  
+                             
+                            
+                            <p:separator />
+                            
+                            <h:panelGrid  style="margin:  auto">
+                                
+                                    
+                                <h:outputText  value="Título Incidente: "  style=" font-size:  small" />
+                                <p:inputText id="instr_incidente" value="#{gdlc_bitacora.instr_incidente}" label="instr_incidente" style=" font-size:  small; width: 600px"
+                                             required="true"
+                                             requiredMessage="Por favor ingresa el Título Incidente, regresa dando click sobre el calendario"
+                                              />      
+                                                                       
+                                      <h:outputLabel for="instr_responsable" value="Usuario"  style=" font-size:  small" />                            
+                                      <p:selectOneMenu id="instr_responsable"  required="true"  requiredMessage="Por favor ingresa el usuario, regresa dando click sobre el calendario"
+                                                       onchange="$('#tabform').submit();" value="#{gdlc_bitacora.instr_responsable}"  style=" font-size:  small">  
+                                    <f:selectItem itemLabel="Escoger Usuario"   />  
+                                    <f:selectItems id="selectMenu22" 
+                                                   value="#{catalogoUsuarios.listaUsuarios}"
+                                                   var="c" itemLabel="#{c.usuarios}" 
+                                                   itemValue="#{c.usuarios}"/>                                         
+                                </p:selectOneMenu>
+                                      
+                                <h:outputText  value="Nombre equipo Computo: "  style=" font-size:  small"/>
+                                <p:inputText id="instr_nomequipo" value="#{gdlc_bitacora.NOMBRE_EQUIPO}" required="true" requiredMessage="Por favor ingresa el Nombre del equipo" label="instr_nomequipo" style=" font-size:  small"/>    
+                                
+                                <h:outputText  value="Número serie del equipo Computo: "  style=" font-size:  small"/>
+                                <p:inputText id="instr_seriequipo" value="#{gdlc_bitacora.NO_SERIE_EQUIPO}" required="true" requiredMessage="Por favor ingresa el Número de serie del equipo" label="instr_seriequipo" style=" font-size:  small"/>    
+                                       
+                                <h:outputText  value="IP equipo: "  style=" font-size:  small"/>
+                                <p:inputText id="instr_ipequipo" value="#{gdlc_bitacora.MAC_ADDRESS}" required="true" requiredMessage="Por favor ingresa la ip del equipo" label="instr_ipequipo" style=" font-size:  small"/>    
+                                                                     
+                                <h:outputText  value="Descripción del problema: "  style=" font-size:  small"/>
+                                <p:inputTextarea id="instr_justificacion" value="#{gdlc_bitacora.instr_justificacion}" required="true" requiredMessage="Ingresa descripción del problema" label="instr_justificacion" style=" font-size:  small; width: 600px"/> 
+
+                                <h:outputText   value="Cargar Evidencia: (no olvides dar click en Cargar Evidencia) "  style=" font-size:  small"/>
+                                <p:fileUpload   fileUploadListener="#{gdlc_bitacora.upload}" label="Buscar Evidencia" 
+                                                uploadLabel="Carga Evidencia" cancelLabel="Cancelar" auto="FALSE" update=":form:messages"  style=" font-size:  small"/>
+
+                            </h:panelGrid>   
+                            <p:separator />             
+
+                            <p:commandButton 
+                                            style=" font-size:  small"
+                                             value="Finalizar y crear incidente"  
+                                             action="#{gdlc_bitacora.IngresarBitacora(actionEvent,'SOPORTE')}"  
+                                             resetValues="true" 
+                                             update=":form:messages, :form"           
+                                             oncomplete="if (args &amp;&amp; !args.validationFailed) PF('insrdialogsopsis').hide()"
+                                             /> 
+
+                        </p:panel>    
+                    </p:dialog>  
+                </h:form>   
+
+   <h:form  id="form6" enctype="multipart/form-data">   
+
+                    <p:dialog header="Soporte de acceso a sistemas!!!" 
+                              widgetVar="insrdialogsopacc" 
+                              resizable="true"
+                              id="DlgSoporteAccesos"  
+                              showEffect="fade" 
+                              hideEffect="explode" 
+                              height="500px" 
+                              width="900px"                                   
+                              style="font-size: medium; margin:  auto">  
+                        <p:panel header="Captura de datos:" 
+                                 style="font-size:  small" 
+                                 id="insrpanelsisop"
+                                 >  
+                        
+                             <h:panelGrid  columns="2" style="margin:  auto; text-align:  left">
+                                
+                                <f:facet name="header">  
+                                    <p:graphicImage style=" height: 40%; border-right:  #52B4FC; " value="../resources/images/soporte3.png"/>  
+                                </f:facet>  
+                                
+                               <f:facet name="header">   
+                                <h:outputText
+                                         value="  En este apartado podrás capturar incidentes relacionados con problemas de acceso a algún sistema, no disponibilidad, problemas de bloqueo de usuario." />
+                                </f:facet>
+                                
+                            </h:panelGrid>  
+                            
+                                     
+                             <h:panelGrid  columns="1" style="margin:  auto">                                
+                                 <p:commandButton  id="botonlimpia3" 
+                                                   value="Limpiar" 
+                                                   action="#{gdlc_bitacora.limpiatodo(':form6:DlgSoporteAccesos')}" 
+                                                   update=":form6:DlgSoporteAccesos"
+                                                   oncomplete="PF('insrdialogsopacc').show();"
+                                                   style=" font-size:  small">
+                                 </p:commandButton>
+                             </h:panelGrid>  
+                             
+                             
+                            <p:separator />
+                            
+                            
+                            <h:panelGrid  style="margin:  auto">
+                                
+                                    
+                                <h:outputText  value="Título Incidente: "  style=" font-size:  small" />
+                                <p:inputText id="instr_incidente" value="#{gdlc_bitacora.instr_incidente}" label="instr_incidente" style=" font-size:  small; width: 600px"
+                                             required="true"
+                                             requiredMessage="Por favor ingresa el Título Incidente, regresa dando click sobre el calendario"
+                                              />      
+                                                                       
+                                      <h:outputLabel for="instr_responsable" value="Usuario"  style=" font-size:  small" />                            
+                                      <p:selectOneMenu id="instr_responsable"  required="true"  requiredMessage="Por favor ingresa el usuario, regresa dando click sobre el calendario"
+                                                       onchange="$('#tabform').submit();" value="#{gdlc_bitacora.instr_responsable}"  style=" font-size:  small">  
+                                    <f:selectItem itemLabel="Escoger Usuario"   />  
+                                    <f:selectItems id="selectMenu22" 
+                                                   value="#{catalogoUsuarios.listaUsuarios}"
+                                                   var="c" itemLabel="#{c.usuarios}" 
+                                                   itemValue="#{c.usuarios}"/>                                         
+                                </p:selectOneMenu>
+                                      
+                                   
+                                      <h:outputText   value="Aplicación Impactada: "  style=" font-size:  small"   />
+                                      <p:selectCheckboxMenu  id="instr_nomsistema2"  required="true"  label="Selecciona"   
+                                                      requiredMessage="Por favor ingresa el nombre de la aplicación, regresa dando click sobre el calendario"
+                                                      filter="true" filterMatchMode="startsWith"  updateLabel="true"
+                                                      onchange="$('#tabform').submit();" value="#{gdlc_bitacora.laplicaciones}"  style=" font-size:   smaller">  
+                                    <f:selectItems id="selectMenu33" 
+                                                   value="#{cataplicgldc.listaAplicaciones}"
+                                                   var="dd" itemLabel="#{dd.aplicacion}" 
+                                                   itemValue="#{dd.aplicacion}"/>                                         
+                                </p:selectCheckboxMenu>
+                                
+                                
+                                   <p:outputLabel   value="Inicio de Afectación:" />
+                                <p:calendar id="fechainicioacs"
+                                            value="#{gdlc_bitacora.instr_fecha}" 
+                                            pages="1" 
+                                            timeZone="GMT"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa Inicio de Afectación, regresa dando click sobre el calendario"
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"
+
+                                            
+                                             
+                                             
+                                            />  
+                                <h:outputText value="#{gdlc_bitacora.instr_fecha}" id="instr_fecha">  
+                                </h:outputText>  
+
+                                <b></b>
+
+                                <h:outputText value="Fin de Afectación"  style=" font-size:  small"/>  
+                                <p:calendar value="#{gdlc_bitacora.instr_fecha_fin}" 
+                                             pages="1" 
+                                            timeZone="GMT"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa Fin de Afectación, regresa dando click sobre el calendario"
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"
+                                            
+                                            />  
+                                <h:outputText value="#{gdlc_bitacora.instr_fecha_fin}" id="instr_fecha_fin">  
+                                </h:outputText>  
+
+                                <b></b>     
+
+                                
+                            <h:outputText  value="Entidad Localidad:"  />
+                            <p:selectOneMenu id="instr_localidad" value="#{gdlc_bitacora.LOCALIDAD}" 
+                                   required="true" requiredMessage="Se requiere ingresar la localidad" >                               
+                                    <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Todas" itemValue="Todas" />  
+                                    <f:selectItem itemLabel="HomeOffice" itemValue="HomeOffice" />   
+                                    <f:selectItem itemLabel="Torre Diana" itemValue="Torre Diana" />  
+                                    <f:selectItem itemLabel="Megacentro" itemValue="Megacentro" />   
+                                    <f:selectItem itemLabel="Toreo" itemValue="Toreo" />   
+                          </p:selectOneMenu>    
+                                
+                                                              
+                                <h:outputText  value="Descripción del problema: "  style=" font-size:  small"/>
+                                <p:inputTextarea id="instr_justificacion" value="#{gdlc_bitacora.instr_justificacion}" required="true" requiredMessage="Ingresa descripción del problema" label="instr_justificacion" style=" font-size:  small; width: 600px;"/> 
+                                
+                                <h:outputText   value="Cargar Evidencia: (no olvides dar click en Cargar Evidencia) "  style=" font-size:  small"/>
+                                <p:fileUpload   fileUploadListener="#{gdlc_bitacora.upload}" label="Buscar Evidencia" 
+                                                uploadLabel="Carga Evidencia" cancelLabel="Cancelar" auto="FALSE" update=":form:messages"  style=" font-size:  small"/>
+
+                            </h:panelGrid>   
+                            <p:separator />             
+
+                            <p:commandButton 
+                                             style=" font-size:  small"
+                                             value="Finalizar y crear solicitud"  
+                                             action="#{gdlc_bitacora.IngresarBitacora(actionEvent,'ACSISTEMA')}"  
+                                             resetValues="true" 
+                                             update=":form:messages, :form"      
+                                             oncomplete="if (args &amp;&amp; !args.validationFailed) PF('insrdialogsopacc').hide()"
+                                             /> 
+
+                        </p:panel>    
+                    </p:dialog>  
+                </h:form>   
+               
+  <h:form  id="form7" enctype="multipart/form-data">   
+
+                    <p:dialog header="Registro de ventanas de mantenimiento!!!" 
+                              widgetVar="insrdialogsopven" 
+                              resizable="true"
+                              id="DlgSoporteVentanas"  
+                              showEffect="fade" 
+                              hideEffect="explode" 
+                              height="600px" 
+                              width="900px"                                   
+                              style="font-size: medium; margin:  auto">  
+                        <p:panel header="Captura de datos:" 
+                                 style="font-size:  small" 
+                                 id="insrpanel911"
+                                 >  
+                            
+                        <h:panelGrid  columns="2" style="margin:  auto; text-align:  left">
+                                
+                                <f:facet name="header">  
+                                    <p:graphicImage style=" height: 40%; border-right:  #52B4FC; " value="../resources/images/soporte5.png"/>  
+                                </f:facet>  
+                                
+                               <f:facet name="header">   
+                                <h:outputText
+                                         value="En este apartado podrás registrar las ventanas de mantenimiento de afectación hacia el área." />
+                                </f:facet>
+                                
+                            </h:panelGrid>    
+                            
+           
+                             <h:panelGrid  columns="1" style="margin:  auto">                                
+                                 <p:commandButton  id="botonlimpia4" 
+                                                   value="Limpiar" 
+                                                   action="#{gdlc_bitacora.limpiatodo(':form7:DlgSoporteVentanas')}" 
+                                                   update=":form7:DlgSoporteVentanas"
+                                                   oncomplete="PF('insrdialogsopven').show();"
+                                                   style=" font-size:  small">
+                                 </p:commandButton>
+                             </h:panelGrid>    
+                            
+                            <p:separator />
+                            
+                            <h:panelGrid   cellpadding="4" style="margin:  auto">
+                                
+                                    
+                                <h:outputText  value="Título Ventana: "  style=" font-size:  small" />
+                                <p:inputText id="instr_incidente" value="#{gdlc_bitacora.instr_incidente}" label="instr_incidente" style=" font-size:  small; width: 600px"
+                                             required="true"
+                                             requiredMessage="Por favor ingresa el Título Ventana, regresa dando click sobre el calendario"
+                                              />      
+                                                                       
+                                      <h:outputLabel for="instr_responsable" value="Usuario"  style=" font-size:  small" />                            
+                                      <p:selectOneMenu id="instr_responsable"  required="true"  requiredMessage="Por favor ingresa el usuario, regresa dando click sobre el calendario"
+                                                       onchange="$('#tabform').submit();" value="#{gdlc_bitacora.instr_responsable}"  style=" font-size:  small">  
+                                    <f:selectItem itemLabel="Escoger Usuario"   />  
+                                    <f:selectItems id="selectMenu22" 
+                                                   value="#{catalogoUsuarios.listaUsuarios}"
+                                                   var="c" itemLabel="#{c.usuarios}" 
+                                                   itemValue="#{c.usuarios}"/>                                         
+                                </p:selectOneMenu>
+                                      
+                                <h:outputText  value="Aplicación Impactada: "  style=" font-size:  small" />
+                                <p:selectCheckboxMenu  id="instr_nomsistema2"  required="true"  label="Selecciona"  
+                                                      requiredMessage="Por favor ingresa el nombre de la aplicación, regresa dando click sobre el calendario"
+                                                      filter="true" filterMatchMode="startsWith" updateLabel="true"
+                                                      onchange="$('#tabform').submit();" value="#{gdlc_bitacora.laplicaciones}"  style=" font-size:   smaller">  
+                                <f:selectItems id="selectMenu33" 
+                                                   value="#{cataplicgldc.listaAplicaciones}"
+                                                   var="dd" itemLabel="#{dd.aplicacion}" 
+                                                   itemValue="#{dd.aplicacion}"/>                                         
+                                </p:selectCheckboxMenu> 
+                                
+
+                                <h:outputText   value="Afectación observada: "  style=" font-size:  small"/>
+                                <p:inputTextarea id="instr_afectacion" value="#{gdlc_bitacora.AFECTACION}" required="true" requiredMessage="Por favor ingresa la afectación" label="instr_afectacion" style=" font-size:  small; width: 600px"/>    
+                           
+                                <p:outputLabel for="fechainicio" value="Inicio de Ventana" />
+                                <p:calendar id="fechainicio"
+                                            value="#{gdlc_bitacora.instr_fecha}" 
+                                            pages="1" 
+                                            timeZone="GMT"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa la fecha inicial ventana, regresa dando click sobre el calendario"
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"
+                                           
+                                            />  
+                                <h:outputText value="#{gdlc_bitacora.instr_fecha}" id="instr_fecha">  
+                                </h:outputText>  
+
+                                <b></b>
+
+                                <h:outputText value="Termino ventana:"  style=" font-size:  small"/>  
+                                <p:calendar value="#{gdlc_bitacora.instr_fecha_fin}" 
+                                             pages="1" 
+                                            timeZone="GMT"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa la fecha de termino de la ventana, regresa dando click sobre el calendario"
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"
+                                            
+                                            />  
+                                <h:outputText value="#{gdlc_bitacora.instr_fecha_fin}" id="instr_fecha_fin">  
+                                </h:outputText>  
+
+                                <b></b>
+                                                                
+                                <h:outputText  value="Duración: "  style=" font-size:  small"/>
+                                <p:inputText id="instr_duracion" value="#{gdlc_bitacora.DURACION_VENTANA}" required="true" requiredMessage="Por favor ingresa la duración" label="instr_duracion" style=" font-size:  small"/>    
+                           
+                                
+                                <h:outputText   value="Descripción de la ventana: "  style=" font-size:  small"/>
+                                <p:inputTextarea id="instr_justificacion" value="#{gdlc_bitacora.instr_justificacion}" required="true" requiredMessage="Ingresa descripción del problema" label="instr_justificacion" style=" font-size:  small; width: 600px; height: 300px"/> 
+
+                                <h:outputText  value="Equipo que ejecuta: "  style=" font-size:  small"/>
+                                <p:inputText id="instr_equipoej" value="#{gdlc_bitacora.EQUIPO_EJECUTA}" required="true" requiredMessage="Por favor ingresa la afectación" label="instr_equipoej" style=" font-size:  small"/>    
+                                
+                                <h:outputText  value="RFC: "  style=" font-size:  small"/>
+                                <p:inputText id="instr_rfc" value="#{gdlc_bitacora.RFC}" label="instr_rfc" style=" font-size:  small"/>    
+                               
+                               
+                                <h:outputText   value="Cargar Evidencia: (no olvides dar click en Cargar Evidencia)"  style=" font-size:  small"/>
+                                <p:fileUpload   fileUploadListener="#{gdlc_bitacora.upload}" label="Buscar Evidencia" 
+                                                uploadLabel="Carga Evidencia" cancelLabel="Cancelar" auto="FALSE" update=":form:messages"  style=" font-size:  small"/>
+
+                            </h:panelGrid>   
+                            <p:separator />             
+
+                            <p:commandButton 
+
+                                             style=" font-size:  small"
+                                             value="Finalizar registrar ventana"  
+                                             action="#{gdlc_bitacora.IngresarBitacora(actionEvent,'VENTANA')}"  
+                                             resetValues="true" 
+                                             update=":form:messages, :form"      
+                                             oncomplete="if (args &amp;&amp; !args.validationFailed) PF('insrdialogsopven').hide()"
+                                             /> 
+
+                        </p:panel>    
+                    </p:dialog>  
+                </h:form>   
+ 
+ <h:form  id="form8" enctype="multipart/form-data">   
+
+                    <p:dialog header="Soporte a enrutamientos 911!!!" 
+                              widgetVar="insrdialog911" 
+                              resizable="true"
+                              id="DlgSoporte911"  
+                              showEffect="fade" 
+                              hideEffect="explode" 
+                              height="500px" 
+                              width="900px"                                   
+                              style="font-size: medium; margin:  auto">  
+                        <p:panel header="Captura de datos:" 
+                                 style="font-size:  small" 
+                                 id="insrpanelsisop"
+                                 >  
+                        
+                             <h:panelGrid  columns="2" style="margin:  auto; text-align:  left">
+                                
+                                <f:facet name="header">  
+                                    <p:graphicImage style=" height: 40%; border-right:  #52B4FC; " value="../resources/images/soporte3.png"/>  
+                                </f:facet>  
+                                
+                               <f:facet name="header">   
+                                <h:outputText
+                                         value="  En este apartado podrás registrar los reportes de falla en enrutamientos del 911." />
+                                </f:facet>
+                                 
+                                
+                                
+                             </h:panelGrid>                
+                             <h:panelGrid  columns="1" style="margin:  auto">                                
+                                 <p:commandButton  id="botonlimpia5" 
+                                                   value="Limpiar" 
+                                                   action="#{gdlc_bitacora.limpiatodo(':form8:DlgSoporte911')}" 
+                                                   update=":form8:DlgSoporte911"
+                                                   oncomplete="PF('insrdialog911').show();"
+                                                   style=" font-size:  small">
+                                 </p:commandButton>
+                             </h:panelGrid>    
+                                
+
+                            
+                            <p:separator />
+                            
+                            <h:panelGrid  style="margin:  auto">
+                                
+                                <h:outputLabel for="instr_responsable" value="Usuario:"  style=" font-size:  small" />                            
+                                      <p:selectOneMenu id="instr_responsable"  required="true" 
+                                                       requiredMessage="Por favor ingresa el usuario, regresa dando click sobre el calendario"
+                                                       filterMatchMode="contains"  filter="true"
+                                                       onchange="$('#tabform').submit();" value="#{gdlc_bitacora.instr_responsable}"  style=" font-size:  small">  
+                                    <f:selectItem itemLabel="Escoger Usuario"   />  
+                                    <f:selectItems id="selectMenu22" 
+                                                   value="#{catalogoUsuarios.listaUsuarios}"
+                                                   var="c" itemLabel="#{c.usuarios}" 
+                                                   itemValue="#{c.usuarios}"/>                                         
+                                </p:selectOneMenu>
+                           
+                                <h:outputText  value="Asunto: "  style=" font-size:  small" />
+                                <p:inputTextarea id="instr_incidente" value="#{gdlc_bitacora.instr_incidente}" label="instr_incidente" style=" font-size:  small; width: 600px"
+                                             required="true"
+                                             requiredMessage="Por favor ingresa el Asunto, regresa dando click sobre el calendario"
+                                              />      
+                                                                       
+                                <p:outputLabel for="fechainicio" value="Fecha y hora de recepcion de correo:" />
+                                <p:calendar id="fechainicio"
+                                            value="#{gdlc_bitacora.instr_fecha}" 
+                                            pages="1" 
+                                            timeZone="GMT"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa la fecha y hora de recepcion de correo, regresa dando click sobre el calendario"
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"
+                                           
+                                            />  
+                                <h:outputText value="#{gdlc_bitacora.instr_fecha}" id="instr_fecha">  
+                                </h:outputText>  
+
+                                <h:outputText value="Fecha y hora de envio de correo:"  style=" font-size:  small"/>  
+                                <p:calendar value="#{gdlc_bitacora.instr_fecha_fin}" 
+                                             pages="1" 
+                                            timeZone="GMT"
+                                            pattern="yyyy/MM/dd HH:mm:ss"  
+                                            selectOtherMonths="true"
+                                            showOtherMonths="true"
+                                            showWeek="true"
+                                            locale="es"
+                                            required="true"
+                                            requiredMessage="Por favor ingresa la Fecha y hora de envio de correo, regresa dando click sobre el calendario"
+                                            style="font-size:  x-small; font-family:  sans-serif;"
+                                            navigator="true"
+                                            
+                                            />  
+                                <h:outputText value="#{gdlc_bitacora.instr_fecha_fin}" id="instr_fecha_fin">  
+                                </h:outputText>  
+                                
+                                
+                           <h:outputText  value="Prioridad:"  />
+                           <p:selectOneMenu id="instr_prioridad" value="#{gdlc_bitacora.PRIORIDAD_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar la prioridad" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Alta" itemValue="Alta" />  
+                                    <f:selectItem itemLabel="Normal" itemValue="Normal" />  
+                                    <f:selectItem itemLabel="Baja" itemValue="Baja" />    
+                          </p:selectOneMenu>
+                              
+                           <h:outputText  value="Tipo de Falla"  />
+                           <p:selectOneMenu id="instr_tipofalla" value="#{gdlc_bitacora.TIPOFALLA_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar el tipo de falla" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Marcaciones especiales" itemValue="Marcaciones especiales" />  
+                                    <f:selectItem itemLabel="Baja completacion de llamadas en Calle" itemValue="Baja completacion de llamadas en Calle" />  
+                                    <f:selectItem itemLabel="No se recibe LGTR (Fase II)" itemValue="No se recibe LGTR (Fase II)" />   
+                                    <f:selectItem itemLabel="No se están recibiendo llamadas" itemValue="No se están recibiendo llamadas" />  
+                                    <f:selectItem itemLabel="Tono de ocupado" itemValue="Tono de ocupado" />  
+                                    <f:selectItem itemLabel="Grabación de saldo" itemValue="Grabación de saldo" />   
+                                    <f:selectItem itemLabel="Errores Push" itemValue="Errores Push" />  
+                                    <f:selectItem itemLabel="Alarmas" itemValue="Alarmas" />  
+                          </p:selectOneMenu>                              
+                                
+                                
+                          <h:outputText  value="Incidente Remedy: "  style=" font-size:  small"/>
+                          <p:inputText id="instr_remedy" value="#{gdlc_bitacora.INC_REMEDY_911}" 
+                                       required="true" requiredMessage="Se requiere ingresar la entidad gubernamental" label="instr_remedy" style=" font-size:  small"/>    
+                          
+  
+                          
+                            <h:outputText  value="Entidad Gubernamental:"  />
+                            <p:selectOneMenu id="instr_entidadgob" value="#{gdlc_bitacora.ENTIDAD_GOB_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar la entidad gubernamental" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Secretariado" itemValue="Secretariado" />  
+                                    <f:selectItem itemLabel="CALLE" itemValue="CALLE" />   
+                          </p:selectOneMenu>                               
+
+                            
+                         <h:outputText  value="Estado:"  />                                  
+                         <p:selectOneMenu id="seleccionaestado" 
+                                          value="#{gdlc_bitacora.ESTADO_911}"  required="true" requiredMessage="Se requiere ingresar estado" filterMatchMode="contains" filter="true"
+                                             >                               
+                                <f:selectItem itemLabel="Selecciona ....." itemValue="" /> 
+                                <f:selectItems id="selectMenucore" 
+                                               value="#{catalogosenrutamiento.listaEnrutamientoEdo}"
+                                               var="c" itemLabel="#{c.estado}" 
+                                               itemValue="#{c.estado}"/>  
+                                 <p:ajax update="catmunicipios" 
+                                         listener="#{gdlc_bitacora.catalogosMunicipios('insr')}" />    
+                            </p:selectOneMenu>                         
+
+
+                         <h:outputText  value="Municipio:"  />    
+                            <p:selectOneMenu id="catmunicipios"
+                                             value="#{gdlc_bitacora.MUNICIPIO_911}" required="true" requiredMessage="Se requiere ingresar municipio"  filterMatchMode="contains"  filter="true">     
+                                <f:selectItem itemLabel="Selecciona ...." itemValue="" />
+                                <f:selectItems value="#{gdlc_bitacora.listaEnruMunicipio}"
+                                               var="c" itemLabel="#{c.municipio}" 
+                                               itemValue="#{c.municipio}" />                                                    
+                            </p:selectOneMenu>                           
+                            
+                            
+                            
+                            <h:outputText  value="Servicios afectados:"  />
+                            <p:selectOneMenu id="instr_servafectados" value="#{gdlc_bitacora.SERV_AFEC_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar los servicios afectados" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="Voz/LGTR" itemValue="Voz/LGTR" />  
+                                    <f:selectItem itemLabel="Voz" itemValue="Voz" />   
+                                    <f:selectItem itemLabel="LGTR" itemValue="LGTR" />   
+                          </p:selectOneMenu>       
+
+                          <h:outputText  value="Descripción del problema: "  style=" font-size:  small"/>
+                          <p:inputTextarea id="instr_justificacion" value="#{gdlc_bitacora.instr_justificacion}" required="true" requiredMessage="Ingresa descripción del problema" label="instr_justificacion" style=" font-size:  small; width: 600px;"/> 
+                                                            
+
+                            <h:outputText  value="Usuario BO 911:"  />
+                            <p:selectOneMenu id="instr_usuarios_BO" value="#{gdlc_bitacora.USUARIO_BO_911}" 
+                                   required="true" requiredMessage="Se requiere ingresar los USUARIOS BO 911" >                               
+                                   <f:selectItem itemLabel="Escoger"/>  
+                                    <f:selectItem itemLabel="CASTELAN ESTRADA JUANA KAREN" itemValue="CASTELAN ESTRADA JUANA KAREN" />  
+                                    <f:selectItem itemLabel="CARRILLO JAIMES SUSANA" itemValue="CARRILLO JAIMES SUSANA" />   
+                                    <f:selectItem itemLabel="CORONA HERNANDEZ KARINA" itemValue="CORONA HERNANDEZ KARINA" />
+                                    <f:selectItem itemLabel="GARDUNO HERNANDEZ CARLOS CESAR" itemValue="GARDUNO HERNANDEZ CARLOS CESAR" />
+                                    <f:selectItem itemLabel="GUERRERO CAPORAL JESUS GERARDO" itemValue="GUERRERO CAPORAL JESUS GERARDO" /> 
+                                    <f:selectItem itemLabel="LOPEZ SANCHEZ ARTURO" itemValue="LOPEZ SANCHEZ ARTURO" /> 
+                                    <f:selectItem itemLabel="MARTÍNEZ CORTÉS EDGAR" itemValue="MARTÍNEZ CORTÉS EDGAR" /> 
+                                    <f:selectItem itemLabel="MINOR IBARRA ALINE GUADALUPE" itemValue="MINOR IBARRA ALINE GUADALUPEAR" />                                     
+                                    <f:selectItem itemLabel="OLVERA MEJIA OCTAVIO" itemValue="OLVERA MEJIA OCTAVIO" /> 
+                                    <f:selectItem itemLabel="SUAREZ REYES CARLOS ESTEBAN" itemValue="SUAREZ REYES CARLOS ESTEBAN" /> 
+                          </p:selectOneMenu>                                  
+                                
+                          <h:outputText   value="Cargar Evidencia: (no olvides dar click en Cargar Evidencia) "  style=" font-size:  small"/>
+                          <p:fileUpload   fileUploadListener="#{gdlc_bitacora.upload}" label="Buscar Evidencia" 
+                                                uploadLabel="Carga Evidencia" cancelLabel="Cancelar" auto="FALSE" update=":form:messages"  style=" font-size:  small"/>
+
+                            </h:panelGrid>   
+                            <p:separator />             
+
+                            <p:commandButton 
+                                             style=" font-size:  small"
+                                             value="Finalizar y crear solicitud"  
+                                             action="#{gdlc_bitacora.IngresarBitacora(actionEvent,'AC911')}"  
+                                             resetValues="true" 
+                                             update=":form:messages, :form"      
+                                             oncomplete="if (args &amp;&amp; !args.validationFailed) PF('insrdialog911').hide()"
+                                             /> 
+
+                        </p:panel>    
+                    </p:dialog>  
+                </h:form>   
+                               
+                
+                
+            </ui:define>
+
+
+        </ui:composition>
+
+           <p:dialog modal="true" widgetVar="statusDialog"   
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      showHeader="false"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent; "  
+                      styleClass="estatusdiag"
+                      >  
+               <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+    </p:dialog> 
+
+    </body>
+</html>

@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+         
+    <h:head>
+      
+ <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+          
+    
+     <style type="text/css">       
+            
+       .hide
+        {
+        display:none;
+        visibility:hidden;
+        }
+        
+        .old 
+        {
+         background-color: #fca752 !important;
+         background-image: none !important;
+         color: #000000 !important;
+         }
+            
+        .new 
+        {
+         background-color: #52B4FC !important;
+         background-image: none !important;
+         color: #000000 !important;
+        }
+        
+        
+        </style>
+        
+</h:head>
+
+    
+    <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+                
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                 <h:form id="form"> 
+                     
+                     <p:growl id="growl"  life="10000"  showDetail="true" />
+                     
+                    <p:panel header="CONSULTA DE PORTABILIDAD" style="font-size: 20px; " >
+                       
+                        <p:panelGrid columns="4"  style=" margin:  auto; border: transparent; align-content:  center" >
+
+                            <p:outputLabel  value="Ingresa MDN (10) digitos:" />
+                  
+                              
+                            <p:inputTextarea id="ptn" style="width:auto; text-height: auto "  value="#{Porta.msisdn}"  >                               
+                             </p:inputTextarea>                                                                                                                                      
+                        
+    
+
+                        </p:panelGrid>    
+                        
+                          <p:separator style="width:800px;height:5px" />
+        
+                                 
+                           
+                          <p:panelGrid columns="1"  style="margin: auto; border: transparent; align-content:  center">
+
+                              <p:commandButton  
+                                  value="Generar consulta"
+                                  actionListener="#{Porta.consultaquery(loginBean.username)}"
+                                  update="paneltabla, growl"  > 
+                              </p:commandButton>
+
+
+                          </p:panelGrid>      
+                          
+                          <p:panel id="paneltabla" style="font-size: 40px; size:  auto;"  visible="#{Porta.vpanel}">  
+
+                          <p:dataTable   id="bitacoraTabla"  
+                                       paginator="true" 
+                                       rows="10"
+                                       value="#{Porta.eventoBitacora}" 
+                                       var="eventoBitacora" 
+                                       widgetVar="vargeneral"
+                                       emptyMessage="No hay registros" filteredValue="#{Porta.filterEventoBitacora}"
+                                       selection="#{Porta.selectedEventoBitacora}"
+                                       style="width:auto; font-size: 19px !important" 
+                                       resizableColumns="true"
+                                       liveResize="false"
+                                       resizeMode="expand"
+                                       scrollable="true" 
+                                       
+                                       rowStyleClass="#{eventoBitacora.ESTATUS_ID == '4'   ? 'old' : null} #{eventoBitacora.ESTATUS_ID == '28'   ? 'new' : null}"
+                                       
+                                       >
+                            
+                                <f:facet name="header">
+                                <p:graphicImage value="/resources/images/galeria/portabilidad.png" style="height:250px;width:1050px;"/> 
+                                </f:facet>
+          
+                             
+                             <p:column id="PORT_ID" headerText="PORT_ID" width="230" >  
+                                <f:facet name="header">
+                                    <h:outputText value="PORT_ID" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.PORT_ID}" />  
+                            </p:column>  
+                            
+                            <p:column id="MDN" headerText="MDN" width="110" >  
+                                <f:facet name="header">
+                                    <h:outputText value="MDN" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.MDN}" />  
+                            </p:column> 
+                               
+                              
+                            <p:column id="FECHA_PORTADO" headerText="FECHA_PORTADO" width="150">  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_PORTADO" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.FECHA_PORTADO}" />  
+                            </p:column>  
+                                                          
+                             <p:column id="ESTATUS_ID" headerText="ESTATUS_ID" width="100">  
+                                <f:facet name="header">
+                                    <h:outputText value="ESTATUS_ID" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ESTATUS_ID}" />  
+                            </p:column>  
+                             
+                             <p:column id="DESCRIPCION" headerText="DESCRIPCION" width="240">  
+                                <f:facet name="header">
+                                    <h:outputText value="DESCRIPCION" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.DESCRIPCION}" />  
+                            </p:column> 
+                             
+                             <p:column id="TIPO_SOLICITUD_ID" headerText="TIPO_SOLICITUD_ID" width="100" >  
+                                <f:facet name="header">
+                                    <h:outputText value="TIPO_SOLICITUD_ID" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.TIPO_SOLICITUD_ID}" />  
+                            </p:column> 
+                             
+                             <p:column id="SOLICITUD_DESC" headerText="SOLICITUD_DESC" width="200">  
+                                <f:facet name="header">
+                                    <h:outputText value="SOLICITUD_DESC" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.SOLICITUD_DESC}" />  
+                            </p:column> 
+                             
+                             <p:column id="FECHA_CREACION" headerText="FECHA_CREACION" width="150">  
+                                <f:facet name="header">
+                                    <h:outputText value="FECHA_CREACION" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.FECHA_CREACION}" />  
+                            </p:column> 
+                             
+                             <p:column id="IDO_DONADOR" headerText="IDO_DONADOR" width="100">  
+                                <f:facet name="header">
+                                    <h:outputText value="IDO_DONADOR" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.IDO_DONADOR}" />  
+                            </p:column> 
+                              
+                            <p:column id="DONADOR" headerText="DONADOR" width="100">  
+                                <f:facet name="header">
+                                    <h:outputText value="DONADOR" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.OPERADOR1}" />  
+                            </p:column>    
+                             
+                             <p:column id="IDO_RECEPTOR" headerText="IDO_RECEPTOR" width="100">  
+                                <f:facet name="header">
+                                    <h:outputText value="IDO_RECEPTOR" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.IDO_RECEPTOR}" />  
+                            </p:column>
+                              
+                              <p:column id="RECEPTOR" headerText="RECEPTOR" width="100">  
+                                <f:facet name="header">
+                                    <h:outputText value="RECEPTOR" /> 
+                                </f:facet>
+                                  <h:outputText value="#{eventoBitacora.OPERADOR2}" />  
+                            </p:column>
+                             
+                             <p:column id="ASSIGNEEIDA" headerText="ASSIGNEEIDA" width="100">  
+                                <f:facet name="header">
+                                    <h:outputText value="ASSIGNEEIDA" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.ASSIGNEEIDA}" />  
+                            </p:column> 
+                             
+                             <p:column id="TIPO_PORTA" headerText="TIPO_PORTA" width="100">  
+                                <f:facet name="header">
+                                    <h:outputText value="TIPO_PORTA" /> 
+                                </f:facet>
+                                 <h:outputText value="#{eventoBitacora.TIPO_PORTA}" />  
+                            </p:column> 
+                        
+                             <p:column id="FUENTE" headerText="FUENTE" width="100">  
+                                <f:facet name="header">
+                                    <h:outputText value="FUENTE" /> 
+                                </f:facet>
+                                <h:outputText value="#{eventoBitacora.FUENTE}" />  
+                            </p:column> 
+                             
+                        </p:dataTable>
+                     
+                     <p:separator style="width:800px;height:5px" />                             
+               
+                   <p:panelGrid columns="4"  style="  border: transparent; align-content: center; width:  auto; font-size: 20px" >   
+                       <h:outputText  value="ESTA SOMBREADO EN AZUL LA PORTABILIDAD EXTERNA FINALIZADA CON EXITO" style="color : #52B4FC " />
+                       <h:outputText  value=" "   />
+                       <h:outputText  value="ESTA SOMBREADO EN NARANJA LA PORTABILIDAD INTERNA FINALIZADA CON EXITO" style="color : #fca752 " /> 
+                 
+                   </p:panelGrid>
+                   </p:panel>               
+                   </p:panel>     
+                       
+                       
+                </h:form>
+                
+                </ui:define>
+        
+        </ui:composition>
+        
+    <p:dialog modal="true" widgetVar="statusDialog"   
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      showHeader="false"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent; "  
+                      styleClass="estatusdiag"
+                      >  
+               <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+    </p:dialog> 
+
+    </body>
+</html>

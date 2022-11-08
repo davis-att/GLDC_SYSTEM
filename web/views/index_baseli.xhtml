@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../src/jquery.jqplot.js"></script>
+    <script type="text/javascript" src="../src/plugins/jqplot.barRenderer.js"></script>
+    <script type="text/javascript" src="../src/plugins/jqplot.categoryAxisRenderer.js"></script>
+    <script type="text/javascript" src="../src/plugins/jqplot.pointLabels.js"></script>
+    <link rel="stylesheet" type="text/css" href="../src/jquery.jqplot.css" />
+    <script type="text/javascript" src="plugins/jqplot.pointLabels.js"></script>
+         
+     <style type="text/css">       
+            
+       .hide
+        {
+        display:none;
+        visibility:hidden;
+        }
+
+        </style>
+        
+         <style type="text/css">
+            .chart1 {
+                width: 40%;
+            }
+          
+            .chart2 {
+                width: 60%;
+            }
+            
+            #graf1 .jqplot-point-label {
+            font-size: 30pt;
+            }       
+            
+        </style>  
+        
+<style type="text/css">
+.jqplot-point-label {
+  border: 1.5px solid #aaaaaa;
+  padding: 1px 3px;
+  background-color: #0073e6;
+  font-size: 15pt !important;
+  font-family:  verdana;
+  color: white;
+}
+</style>        
+        
+        <script type="text/javascript">
+PrimeFaces.locales["es"] = {
+closeText: "Cerrar",
+prevText: "Anterior",
+nextText: "Siguiente",
+monthNames: ["Enero","Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+weekHeader: "Semana",
+firstDay: 0,
+isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: "",
+                timeOnlyTitle: "Solo hora",
+                timeText: "Tiempo",
+                hourText: "Hora",
+                minuteText: "Minuto",
+                secondText: "Segundo",
+                currentText: "Fecha actual",
+                ampm: false,
+                month: "Mes",
+                week: "Semana",
+                day: "Día",
+                allDayText: "Todo el día"
+            };
+        </script>
+
+             <script type="text/javascript">
+            function ext() {
+                //this = chart widget instance
+                this.cfg.seriesDefaults = {
+                    renderer: $.jqplot.BarRenderer,
+                    shadow: true,
+                    shadowAlpha: 0.9,
+                    shadowAngle: 135,
+                    background: 'transparent',
+                    borderColor: 'transparent',
+                    rendererOptions: {fillToZero: true, barDirection: 'vertical', barWidth: 20},
+                    pointLabels: {show: true, formatString: "%'.0f",  fontSize: '12pt', location: 'nw' }
+                    
+                    
+                },
+                        
+                this.cfg.grid = {
+                    drawGridLines: false, // wether to draw lines across the grid or not.
+                    gridLineColor: '#0073e6', // *Color of the grid lines.
+                    background: 'transparent',
+                    borderColor: 'transparent',
+                    borderWidth: 0.1, // pixel width of border around grid.
+                    shadow: false, // draw a shadow for grid.
+                    shadowAngle: 75, // angle of the shadow.  Clockwise from x axis.
+                    shadowOffset: 1.5, // offset from the line of the shadow.
+                    shadowWidth: 1, // width of the stroke for the shadow.
+                    shadowDepth: 1, // Number of strokes to make when drawing shadow.
+                    shadowAlpha: 0.5           // Opacity of the shadow
+                }, this.cfg.axesDefaults = {
+                  tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                tickOptions: {
+                  fontFamily: 'Verdana',
+                  fontSize: '13pt',
+                  textColor: 'white',
+                  angle: -90
+                }
+               
+   };
+            }
+        </script>
+    
+    <body>
+
+        <ui:composition template="#{loginBean.template}" >
+            <ui:define name="content">
+
+<h:form id="formP">
+        <h2><h:outputText styleClass="title" value="Base de Líneas Internas"/></h2>
+        <br />
+<h2>Ingresé el nombre o el número a buscar:</h2>
+        <p:inputText id="float-input" value="#{baseligs.text}" styleClass="customTxtWidth150px" onblur="value=value.toUpperCase()" style="text-transform: uppercase"/>    
+    
+<h3><h:outputText  styleClass="title" value="Registros encontrados"/></h3>
+
+            <h:dataTable style="white-space: nowrap" value="#{baseligs.ConexionBD()}"  var="reg"
+                         styleClass="cheap" headerClass="header"
+                         rowClasses="oddrow,evenrow">
+                <h:column>
+                    <f:facet name="header">Número</f:facet>
+                    #{reg.text}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Contrato</f:facet>
+                    #{reg.contrato}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Cuenta</f:facet>
+                    #{reg.cuenta}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Sistema</f:facet>
+                    #{reg.sistema}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Imei</f:facet>
+                  #{reg.imei}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Sim</f:facet>
+                  #{reg.sim}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Modelo</f:facet>
+                  #{reg.modelo}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Plan</f:facet>
+                  #{reg.plan}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Fecha de activación</f:facet>
+                  #{reg.fechaactivacion}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Uso de la línea</f:facet>
+                  #{reg.usolinea}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Empleado</f:facet>
+                  #{reg.empleado}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">VP</f:facet>
+                  #{reg.vp}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">No Empleado</f:facet>
+                  #{reg.noempleado}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Responsable</f:facet>
+                  #{reg.responsable}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Estatus</f:facet>
+                  #{reg.status}
+                </h:column>                 
+                <h:column>
+                    <f:facet name="header">Fecha de carga</f:facet>
+                  #{reg.fechacarga}
+                </h:column>            
+            </h:dataTable><br/>       
+
+</h:form>                    
+                     
+
+
+            </ui:define>
+
+        </ui:composition>
+        
+        <p:dialog modal="true" widgetVar="statusDialog"   showHeader="false" 
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent"
+                      styleClass="estatusdiag"
+                      >  
+                <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+        </p:dialog> 
+
+    </body>
+</html>
+       

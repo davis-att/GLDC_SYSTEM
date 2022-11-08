@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="dapqMenu"/>
+    </cc:interface>
+
+    <body>
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+               
+        <h:form id="form">  
+
+                    <p:growl id="msgs"  />  
+
+                    <p:panel  header="DIRECTORIO DE GLOBAL LEGAL DEMAND CENTER" style=" text-align:  center" > 
+                        <p:dataTable id="dataTable"   
+                                     var="varibletabla"  
+                                     value="#{ gldcdirectorio.mostrarProcesados }" 
+                                     widgetVar="procesadosTable"  
+                                     scrollRows="50"  
+                                     scrollable="true" 
+                                     liveScroll="true" 
+                                     emptyMessage="No se tiene registro" 
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="50,100,150"
+                                     style=" font-size:20px; font-family:  Segoe UI; width: auto; margin:  auto;"
+                                     filteredValue="#{gldcdirectorio.filteredProcesados}" 
+                                     >  
+
+
+                            <p:column style="text-align:center; font-size: medium; font-size: 20px" 
+                                      id="id_nomusuario" 
+                                      filterBy="#{varibletabla.NOMBRE_USUARIO }"   
+                                      headerText="NOMBRE_USUARIO"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="NOMBRE_USUARIO">    
+                                <h:outputText value="#{varibletabla.NOMBRE_USUARIO}" />  
+                            </p:column>
+                            <p:column style="text-align:center; font-size: medium; font-size: 20px" 
+                                      id="id_mail" 
+                                      headerText="EMAIL"   
+                                      footerText="EMAIL">    
+                                <h:outputText value="#{varibletabla.EMAIL}" />  
+                            </p:column>
+                            <p:column style="text-align:center; font-size: medium; font-size: 20px; width: 13%" 
+                                      id="id_telempresa" 
+                                      headerText="TEL EMPRESA"   
+                                      footerText="TELEFONO EMPRESA">    
+                                <h:outputText value="#{varibletabla.TELEMPRESA}" />  
+                            </p:column>
+                            <p:column style="text-align:center; font-size: medium; font-size: 20px; width: 10%" 
+                                      id="id_telmovil" 
+                                      headerText="TEL MOVIL"   
+                                      footerText="TEL MOVIL">    
+                                <h:outputText value="#{varibletabla.TELMOVIL}" />  
+                            </p:column>
+                            
+                        <p:column style="text-align:center; font-size: medium; font-size: 20px;  width: 10%" 
+                                      id="id_fechacumple" 
+                                      headerText="FECHA CUMPLE"   
+                                      footerText="FECHA CUMPLE">    
+                                <h:outputText value="#{varibletabla.FECHA_CUMPLE}" />  
+                            </p:column>
+                            
+                            <p:column style="text-align:center; font-size: medium; font-size: 20px" 
+                                      id="id_puesto" 
+                                      headerText="PUESTO"   
+                                      footerText="PUESTO">    
+                                <h:outputText value="#{varibletabla.PUESTO}" />  
+                            </p:column>
+                            
+                            <p:column style="text-align:center; font-size: medium; font-size: 20px" 
+                                      id="id_jefe" 
+                                      headerText="JEFE INMEDIATO"   
+                                      footerText="JEFE INMEDIATO">    
+                                <h:outputText value="#{varibletabla.JEFE_INMEDIATO}" />  
+                            </p:column>
+                            
+                        </p:dataTable> 
+                
+           </p:panel>
+                <p:dialog header="Información de empledado" id="dialogo1" widgetVar="personDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel  style="text-align:center;">
+                    <p:panelGrid  columns="2" rendered="#{not empty gldcdirectorio.selectedProcesados}" columnClasses="label,value">
+                        <f:facet name="header">
+                            <img  id="fotoUsuario" src="../views/FOTOS/#{gldcdirectorio.selectedProcesados.FOTO}.jpg" width="102" height="150" style="margin-left: 40px; margin-top: 10px ; border-style: groove"/>     
+                        </f:facet>
+
+                        <h:outputText value="Empleado:" />
+                        <h:outputText value="#{gldcdirectorio.selectedProcesados.NOMBRE_USUARIO}" />
+                        
+                        <h:outputText value="Puesto:" />
+                        <h:outputText value="#{gldcdirectorio.selectedProcesados.PUESTO}" />
+                        
+                        <h:outputText value="Tel. Empresa:" />
+                        <h:outputText value="#{gldcdirectorio.selectedProcesados.TELEMPRESA}" />
+                        
+                        <h:outputText value="Tel. Móvil" />
+                        <h:outputText value="#{gldcdirectorio.selectedProcesados.TELMOVIL}" />
+                        
+                        <h:outputText value="Email:" />
+                        <h:outputText value="#{gldcdirectorio.selectedProcesados.EMAIL}" />
+                        
+                        <h:outputText value="Email Personal:" />
+                        <h:outputText value="#{gldcdirectorio.selectedProcesados.CORREOPERSONAL}" />
+                        
+                        <h:outputText value="Fecha Cumpleaños:" />
+                        <h:outputText value="#{gldcdirectorio.selectedProcesados.FECHA_CUMPLE}" />
+                        
+                        <h:outputText value="Jefe Inmediato:" />
+                        <h:outputText value="#{gldcdirectorio.selectedProcesados.JEFE_INMEDIATO}" />
+
+                        
+                    </p:panelGrid>
+                </p:outputPanel>
+            </p:dialog>                
+ 
+         </h:form>      
+        
+    </cc:implementation>
+    </body>
+    
+</html>

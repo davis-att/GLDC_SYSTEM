@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="#{loginBean.template}">
+
+            <ui:define name="content">
+                <h:form id="uno" enctype="multipart/form-data" >  
+                    <p:panel header="Evento ha actualizar:">  
+                        <h:panelGrid columns="4" cellpadding="5">  
+                            <h:outputLabel for="name" value="Ingresa Id:" style="font-weight:bold"/>  
+
+                            <p:inputText id="name" value="#{bitacoraUpdateBean.up_idevento}" required="true" label="id_evento" />  
+
+                            <p:commandButton  id="boton" value="Enviar" action="#{bitacoraUpdateBean.ConsultaBean(actionEvent)}" update=":hola"  >
+
+                            </p:commandButton>
+                            
+                        </h:panelGrid>  
+                    </p:panel>  
+                </h:form>         
+
+                <h:form id="hola" prependId="false" enctype="multipart/form-data">  
+
+                    <p:growl id="growl" showDetail="true" life="4000" />    
+
+                    <p:panel header="Editor Bitácora">  
+                        <h:panelGrid columns="2" columnClasses="column" cellpadding="5">  
+
+                            <h:outputText value="Id_Evento:" />  
+                            <h:outputText value="#{bitacoraUpdateBean.up_idevento}" />  
+
+                            <h:outputText value="Tipo Bitácora: " />  
+                            <p:inplace id="selectableInplace" label="#{bitacoraUpdateBean.up_bitacora}" effectSpeed="fast">  
+                                <p:selectOneMenu id="instr_bitacora" onchange="$('#tabform').submit();" value="#{bitacoraUpdateBean.up_bitacora}" >  
+                                    <f:selectItems id="selectMenu2" 
+                                                   value="#{catalogoBitacoras.listaBitacoras}"
+                                                   var="c" itemLabel="#{c.bitacoras}" 
+                                                   itemValue="#{c.bitacoras}"/>                                      
+                                </p:selectOneMenu>
+                            </p:inplace>  
+
+
+                            <h:outputText value="Título Incidente: " />  
+                            <p:inplace id="ajaxInplace2" editor="true">  
+                                <p:inputText value="#{bitacoraUpdateBean.up_incidente}"  
+                                             required="true" label="up_incidente"/>  
+                            </p:inplace>  
+
+
+                            <h:outputText value="Fecha Inicio:" />  
+                            <p:inplace id="up_fechaini" editor="true">  
+                                <p:inputText value="#{bitacoraUpdateBean.up_fechaini}"  
+                                             required="true" label="up_fechaini"/>  
+                            </p:inplace>  
+
+
+                            <h:outputText value="Fecha Fin:" />  
+                            <p:inplace id="up_fechafin" editor="true">  
+                                <p:inputText value="#{bitacoraUpdateBean.up_fechafin}"  
+                                             required="true" label="up_fechafin"/>  
+                            </p:inplace>  
+
+
+                            <h:outputText value="Responsable: " />  
+                            <p:inplace id="selectableInplace2" label="#{bitacoraUpdateBean.up_resp}" effectSpeed="fast">  
+                                <p:selectOneMenu id="up_resp" onchange="$('#tabform').submit();" value="#{bitacoraUpdateBean.up_resp}" >                                
+                                    <f:selectItems id="selectMenu" 
+                                                   value="#{catalogoUsuarios.listaUsuarios}"
+                                                   var="c" itemLabel="#{c.usuarios}" 
+                                                   itemValue="#{c.usuarios}"/>                                                  
+                                </p:selectOneMenu>
+                            </p:inplace>  
+
+
+                            <h:outputText value="Seguimiento con: " />  
+                            <p:inplace id="selectableInplace3" label="#{bitacoraUpdateBean.up_area}" effectSpeed="fast">  
+                                <p:selectOneMenu id="up_area" onchange="$('#tabform').submit();" value="#{bitacoraUpdateBean.up_area}" >                               
+                                    <f:selectItems id="selectMenu1" 
+                                                   value="#{catalogoAreas.listaAreas}"
+                                                   var="c" itemLabel="#{c.areas}" 
+                                                   itemValue="#{c.areas}"/> 
+                                </p:selectOneMenu>            
+                            </p:inplace> 
+
+                            <h:outputText value="No.Ticket:" />  
+                            <p:inplace id="up_ticket" editor="true">  
+                                <p:inputText value="#{bitacoraUpdateBean.up_ticket}"  
+                                             required="true" label="up_ticket"/>  
+                            </p:inplace>               
+
+                            <h:outputText value="Estimación:" />  
+                            <p:inplace id="up_medida" editor="true">  
+                                <p:inputText value="#{bitacoraUpdateBean.up_medida}"  
+                                             required="true" label="up_medida"/>  
+                            </p:inplace>  
+
+                            <h:outputText value="Justificación:" />  
+                            <p:inplace id="up_retro" editor="true" >  
+                                <p:inputText value="#{bitacoraUpdateBean.up_retro}"  
+                                             required="true" label="up_retro"/>  
+                            </p:inplace>  
+
+
+                            <h:outputLabel  value="Estatus:"/>       
+                            <p:inplace id="selectableInplace4" label="#{bitacoraUpdateBean.up_estatus}" effectSpeed="fast">  
+                                <p:selectOneMenu id="instr_estatus" onchange="$('#tabform').submit();" value="#{bitacoraUpdateBean.up_estatus}" >                               
+                                    <f:selectItem itemLabel="Cerrado" itemValue="Cerrado" />  
+                                    <f:selectItem itemLabel="Abierto" itemValue="Abierto" />                                              
+                                </p:selectOneMenu>
+                            </p:inplace> 
+
+                            <p:fileUpload   fileUploadListener="#{bitacoraUpdateBean.upload}" label="Cargar Nuevamente Evidencia" 
+                                            uploadLabel="Cargar" cancelLabel="Cancelar" auto="FALSE" update="growl" />
+
+                        </h:panelGrid>  
+
+                        <p:commandButton ajax="false" value="Actualizar Registro"  action="#{bitacoraUpdateBean.UpdateBitacora(actionEvent)}"  update="growl"/> 
+
+                    </p:panel>  
+
+                </h:form> 
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

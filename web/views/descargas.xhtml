@@ -1,0 +1,54 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:ui="http://java.sun.com/jsf/facelets"  
+    xmlns:p="http://primefaces.org/ui"> 
+    <h:head>
+        <style type="text/css">                           
+                .ui-layout-west {
+                z-index:20 !important;  
+                font-style: italic;
+                font-size: 12px;
+                overflow:visible !important;
+                }
+                
+               
+                .ui-layout-west .ui-layout-unit-content {                    
+                    font-style: italic;
+                    font-size: 12px;
+                    overflow:visible !important;
+                }     
+           </style>
+    </h:head>
+    <h:body>
+        <p:tabView effect="slide" effectDuration="normal" style="margin-bottom:5px; font-size:85%" dynamic="true" scrollable="true" >
+            <p:tab title="Revisión de Consecutivos">
+                <p:layout style="min-width:400px;min-height:200px;" id="layout1"> 
+                    <p:layoutUnit id="opciones" position="west" resizable="true" size="300" >
+                    
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">
+                        <h:form>
+                          
+                            <p:commandButton id="downloadLink" value="Download" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);"  icon="ui-icon-arrowthichk-s">  
+                                <p:fileDownload value="#{fileDownloadControlleree.file}"/>  
+                            </p:commandButton> 
+                        </h:form>
+                    </p:layoutUnit>
+                </p:layout>    
+            </p:tab>
+            
+            <p:tab title="Resumen de Consecutivos">
+                <p:layout style="min-width:400px;min-height:200px;" id="layout2"> 
+                    <p:layoutUnit id="opcionesw" position="west" resizable="true" size="300" >
+                    
+                    </p:layoutUnit>
+                    <p:layoutUnit position="center">
+                    
+                    </p:layoutUnit>
+                </p:layout>    
+            </p:tab>
+        </p:tabView>    
+    </h:body>
+</html>

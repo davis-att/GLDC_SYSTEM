@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp">
+
+    <h:head>
+         <title>GatWebTool-DATOS</title>
+        <style type="text/css">                           
+                .ui-layout-north {
+                z-index:20 !important;  
+                font-style: italic;
+                font-size: 85%;
+                overflow:visible !important;
+                }
+                
+                .ui-layout-north .ui-layout-unit-content {
+                    overflow:visible !important;
+                    font-size: 85%;
+                }     
+                
+                .ui-layout-south {
+                    font-style: italic;
+                    font-size: 75%;
+                }
+                
+                .ui-layout-south .ui-layout-unit-content{
+                    font-style: italic;
+                    font-size: 80%;
+                }
+                
+                .ui-layout-west{
+                    font-style: italic;
+                    font-size: 85%;
+                }
+                .ui-layout-west .ui-layout-unit-content{
+                    font-style: italic;
+                    font-size: 85%;
+                }
+                .colored {
+                    background: crimson;
+                    color: white;
+                }
+            </style>   
+    </h:head>
+
+    <h:body>
+
+
+            <p:layout fullPage="true" >       
+                <p:layoutUnit position="north" size ="auto" header="Operación" resizable="true" collapsible="true" >                                   
+                   <ezcomp:Menu></ezcomp:Menu>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="auto" header="Menú" collapsible="true" minSize="220">
+                    <ezcomp:leftMenuDATOS></ezcomp:leftMenuDATOS>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <ui:insert name="content"> </ui:insert>
+                </p:layoutUnit>        
+            </p:layout>           
+
+    </h:body>
+
+</html>

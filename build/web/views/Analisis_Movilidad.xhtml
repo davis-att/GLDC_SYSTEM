@@ -1,0 +1,208 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+
+      <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+     
+  
+    
+    <h:head>
+        <title>Movilidad</title>
+
+         <style type="text/css">       
+            
+            .estatusdiag .ui-dialog-titlebar{
+                       display:none !important; 
+            }
+
+        </style>
+        
+        <style type="text/css">
+            .column1 {
+                width:40%;
+                padding:6px;
+            }
+
+            .column2 {
+                width:60%;
+                padding:4px;
+            }
+
+            .old {
+                     background-color: #fca752 !important;
+                     background-image: none !important;
+                     color: #000000 !important;
+            }
+    
+</style>       
+
+
+    </h:head>
+
+    <body> 
+
+     <ui:composition template="#{loginBean.template}">
+
+            <ui:define name="content">
+                <h:form id="form"> 
+                  
+                 
+                    <p:panel header="Análsis de movilidad" style="font-size: 12px">
+                        <p:panelGrid columns="2" >
+                          
+                            <h:outputText value="IMSI:"/>
+                                     
+                            <p:inputText id="float-input" value="#{mapBean.imsi}" />
+                            
+                                               
+                            <p:commandButton action="#{mapBean.coberturaMovilidad(actionEven)}" 
+                                             update=":form:mapita1, :form:botoncons, :form:panelanl" 
+                                             value="Consultar"> 
+                                             <p:ajaxStatus onstart="PF('statusDialog').show();" 
+                                                           onsuccess="PF('statusDialog').hide();"/>
+                                             
+                            </p:commandButton>    
+                       </p:panelGrid>             
+                    </p:panel>
+                    
+                    
+                    
+                    
+                    <p:panel style="width: 90%"> 
+                        <p:panelGrid style="width: 100%">
+                            <p:row>
+                                <p:column rowspan="2" style="width: 100%">
+                                    <p:gmap id="mapita1" 
+                                            center="24.5854445,-101.8513841"  
+                                            zoom="5"  
+                                            type="STATES"   
+                                            style="width:100%;height:800px"  
+                                            model="#{mapBean.todoEvolution}">
+                                                           
+                                        
+                                    </p:gmap>       
+                                </p:column>  
+                               
+                            </p:row>
+                            
+                        <p:panelGrid columns="7" >
+                          
+                          
+                                               
+                            <p:commandButton action="#{mapBean.agregar_reclus(actionEven)}" 
+                                             update=":form:mapita1,:form:botoncons" 
+                                             value="Agregar Reclusorios">                 
+                            </p:commandButton>    
+                            
+                            <p:commandButton id="botoncons" disabled="#{mapBean.botonconsumo}" action="#{mapBean.muestraeventos(actionEven)}" 
+                                             update=":form:panelanl" 
+                                             value="Mostrar consumos">                 
+                            </p:commandButton>  
+                            
+                            <p:spacer width="100" height="10" /> 
+                            <p:outputLabel value="Llamadas"  />
+                            <p:graphicImage value="../resources/images/blue-dot.png"/>  
+                            <p:outputLabel value="Reclusorios" />
+                            <p:graphicImage value="../resources/images/green-dot.png"/>  
+                            
+                            
+                       </p:panelGrid>   
+                            
+                            
+                        </p:panelGrid>
+                    </p:panel>
+                    
+                    <p:separator/>    
+
+                    <p:panel id='panelanl' visible="#{mapBean.panelt}">   
+                           <p:panelGrid columns="1"  style=" width: 100%; margin:  auto;">    
+                        
+                  
+                  <div class="ui-g"  style="font-size:  35px;   "> Consumos </div> 
+                  <div class="ui-g"  style="font-size:  18px;  "> Ánalisis de proximidad (en color naranja registros con distancia menor a 5 Km a algun centro de readaptación) ... </div> 
+                  
+                  <p:dataTable   var="analisis" value="#{mapBean.sp_analisis}" id="dataTable"
+                                   style="font-size: 18px ;  width: 100%; margin:  auto;" 
+                                   resizeMode="fit"    sortField="true"
+                                   resizableColumns="true"
+                                   rowStyleClass="#{analisis.estacerca == 'ok' ? 'old' : null}"
+                                   scrollRows="25"  
+                                   scrollable="true" 
+                                   liveScroll="true" 
+                                   emptyMessage="No se tiene registro" 
+                                   paginator="true"                                  
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="25,50,75,100,125,150,175,200"
+                                   filteredValue="#{mapBean.filteredProcesados}" >
+
+                         <p:column id="imsi" headerText="IMSI" style=" ;width: 100px" >  
+                             <h:outputText value="#{analisis.imsi}" />  
+                        </p:column>
+                        
+                        <p:column id="LLAMADAS" headerText="LLAMADAS" style=" ;width: 80px">  
+                            <h:outputText value="#{analisis.LLAMADAS}" />  
+                        </p:column>  
+                        
+                        <p:column id="ATT_SITE_NAME" headerText="ATT_SITE_NAME" style=" ;width: 100px">  
+                            <h:outputText value="#{analisis.ATT_SITE_NAME}" />  
+                        </p:column>  
+                        
+                         <p:column id="EPT_LATITUD" headerText="LATITUD"  style="width: 80px">  
+                             <h:outputText value="#{analisis.EPT_LATITUD}" />  
+                        </p:column> 
+
+
+                        <p:column id="EPT_LONGITUD" headerText="LONGITUD"  style="width: 80px">  
+                            <h:outputText value="#{analisis.EPT_LONGITUD}" />  
+                        </p:column> 
+
+                       <p:column id="RECLUSORIO" headerText="RECLUSORIO"  style="width: 100px">  
+                           <h:outputText value="#{analisis.NOMBRE_R}" />  
+                        </p:column> 
+                      
+                       <p:column id="DISTANCIA" headerText="DISTANCIA(km)"  style="width: 100px">  
+                           <h:outputText value="#{analisis.DISTANCIA}" />  
+                        </p:column> 
+                      
+                       <p:column id="r_LATITUD" headerText="R_LATITUD"  style="width: 80px">  
+                           <h:outputText value="#{analisis.r_LATITUD}" />  
+                        </p:column> 
+                      
+                      <p:column id="r_LONGITUD" headerText="R_LONGITUD"  style="width: 80px">  
+                          <h:outputText value="#{analisis.r_LONGITUD}" />  
+                        </p:column> 
+                      
+                     
+                    </p:dataTable>    
+
+        
+                  
+                  
+                    </p:panelGrid>  
+                     </p:panel>
+                    
+                    
+                          
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+                    <p:dialog modal="true" widgetVar="statusDialog"  
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent"
+                      styleClass="estatusdiag"
+                      >  
+                <p:graphicImage value="../resources/images/ajax-loader-roller.gif"  />   
+            </p:dialog> 
+
+    </body>
+</html>

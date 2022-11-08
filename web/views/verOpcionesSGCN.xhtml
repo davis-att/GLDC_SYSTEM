@@ -1,0 +1,119 @@
+<!DOCTYPE html>  
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:ui="http://java.sun.com/jsf/facelets"  
+    xmlns:p="http://primefaces.org/ui">  
+      
+    <h:head>  
+          <title>Opciones consecutivos SGSN</title>  
+          
+           <style type="text/css">                           
+                .ui-layout-west {
+                z-index:20 !important;  
+                font-style: italic;
+                font-size: 12px;
+                overflow:visible !important;
+                }
+                
+               
+                .ui-layout-west .ui-layout-unit-content {                    
+                    font-style: italic;
+                    font-size: 12px;
+                    overflow:visible !important;
+                }     
+           </style>
+    </h:head>  
+      
+    <h:body>  
+        <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+                      <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false">  
+                           <p:graphicImage value="../resources/images/ajax-loading-bar.gif" />  
+                      </p:dialog>
+        <p:tabView effect="slide" effectDuration="normal" style="margin-bottom:5px; font-size:85%" dynamic="true" scrollable="true" >
+            
+            <p:tab title="Servicio"  >
+               <p:layout style="min-width:400px;min-height:200px;" id="layout1"> 
+                   <p:layoutUnit id="opciones" position="west" resizable="true" size="300" > 
+                      
+                       <h:form>
+                        <h:outputLabel for="fechaServicio"  value="Fecha (AAMM): " style="font-style: italic; font-size: 80%" />
+                        <p:inputText id="fechaServicio" value="#{consecutivosSeqBean.fecha}" required="true" label="fechaServicio" >
+                            <f:validateLength maximum="4" />  
+                        </p:inputText>     
+                        <p:commandButton value="Revisar"  action="#{consecutivosSeqBean.ConsecutivosSR(actionEvent)}" actionListener="#{consecutivosSeqBean.ListenerConsecutivos}" >
+                              <f:attribute name="id" value="SGSN"/>  
+                        </p:commandButton >     
+                        
+                        <p:messages id="messages" showDetail="true"  autoUpdate="true" closable="true" />
+                        
+                        <br></br>
+                        <br></br>
+                        <p:button outcome="mostrRevConsecSGSN" value="Mostrar" icon="ui-icon-star" />
+       
+                       </h:form>
+                      
+                   </p:layoutUnit> 
+                   <p:layoutUnit position="center"> 
+                        <h:outputText value="Aquí se realiza la revisión de los consecutivos por servicio de SGSN." />
+                            <br>
+                            </br>  
+                
+                        <h:outputText  
+                                value="Solo se debe ingresar el año y el mes del que deseé obtener la revisión 
+                                    de los consecutivos. El formato que acepta la fecha es el siguiente: (AAMM).
+                                    Donde AA es el año.
+                                    y MM es el mes.
+                                    Ejemplo Enero 2014, 1401." style="font-style: italic; font-size: 80%"/>
+                
+                    </p:layoutUnit> 
+                </p:layout>                 
+            </p:tab>
+            
+            <p:tab title="Elemento de Red">
+                <p:layout style="min-width:400px;min-height:200px;" id="layout"> 
+                   <p:layoutUnit position="west" resizable="true" size="300" > 
+                       
+                       <h:form>
+                        <h:outputLabel for="elementNetwork" value="Element Network" style="font-style: italic; font-size: 80%"/>  
+                        <br></br>                           
+                            <p:selectOneMenu id="elementNetwork" onchange="$('#tabform').submit();" value="#{consecutivosSeqBean.elementNetwork}" style="font-size: 80%; margin-bottom: 15px;">                                                               
+                                <f:selectItem itemLabel="SGMX1" itemValue="SGMX1" />                                
+                                <f:selectItem itemLabel="SGMY1" itemValue="SGMY1" />                                                                 
+                            </p:selectOneMenu>
+                        <br></br>
+                            <h:outputText  value="Fecha (AAMM): " style="font-style: italic; font-size: 80%" />
+                           <p:inputText id="fecha" value="#{consecutivosSeqBean.fecha}" required="true" label="fecha" >
+                                <f:validateLength maximum="4" />  
+                            </p:inputText>     
+                            <p:commandButton value="Revisar"  action="#{consecutivosSeqBean.ConsecutivosNE(actionEvent)}" /> 
+                           
+                            <p:messages id="messagesNE" showDetail="true"  autoUpdate="true" closable="true" />
+                            
+                            <br></br>
+                            <br></br>
+                            <p:button outcome="mostrRevConsecSGSN" value="Mostrar" icon="ui-icon-star" />
+                            
+                            
+                            
+                        </h:form>
+                   </p:layoutUnit> 
+                   <p:layoutUnit position="center"> 
+                        <h:outputText value="Aquí se realiza la revisión de los consecutivos por elemento de red SGCN" />
+                            <br>
+                            </br>  
+                
+                        <h:outputText  
+                                value="Solo se debe ingresar el elemento de red,el año y el mes del que deseé obtener la revisión 
+                                    de los consecutivos. El formato que acepta la fecha es el siguiente: (AAMM).
+                                    Donde AA es el año.
+                                    y MM es el mes.
+                                    Ejemplo Enero 2014, 1401." style="font-style: italic; font-size: 80%"/>
+                
+                    </p:layoutUnit> 
+                </p:layout>                 
+            </p:tab>
+        </p:tabView>         
+    </h:body>  
+      
+</html>  

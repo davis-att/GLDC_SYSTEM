@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="Menu"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        
+        
+        
+    <h:head>
+        <style type="text/css">      
+
+            .menubar_estilo {
+              
+                margin:   auto !important; 
+              
+                width:  80%;
+                font-style:   normal;
+                font-family: Corbel Light;
+                background-color:  #000000 !important; 
+                border-color:  transparent !important; 
+                 font-size: 10px;
+            }
+            
+            .menusletra_estilo {
+                color:    #000000
+            }
+        </style>
+    </h:head>    
+             
+        <h:form>            
+          
+           <p:growl id="growl" showDetail="true"  life="3000"/>
+ 
+           
+           
+           <p:menubar id="menuBar" autoDisplay="false" styleClass="menubar_estilo" >   
+                <p:menuitem value="Home" icon="ui-icon-home" url="inicio.xhtml" styleClass="menusletra_estilo"/>
+                              
+                 
+                       
+                        <p:submenu id="consecDAP" label="Operación" rendered="#{loginBean.respuestaDAP}">                               
+                                <p:menuitem  value="Suspendidos"  url="GLDC_Autosuspendidos.xhtml"/>  
+                                <p:menuitem  value="Consulta suscriptor"  url="Timeline.xhtml"/>  
+                                <p:menuitem  value="Consulta Check IMEI"  url="GLDC_TAC.xhtml"/>
+                                <p:menuitem  value="Consulta SIMS"  url="GLDC_SIM.xhtml"/>
+                                <p:menuitem  value="Base lineas reservadas"  url="GLDC_ConsultaLR.xhtml"/>  
+                                <p:menuitem  value="Base lineas internas"  url="GLDC_ConsultaLI.xhtml"/>
+                                <p:menuitem  value="Consulta Portabilidad"  url="GLDC_Porta.xhtml"/>
+                                <p:menuitem  value="Suscriptor MATRIX"  url="GLDC_MATRIX.xhtml"/>
+                        </p:submenu>         
+         
+       
+
+               
+                    <p:submenu label="Soporte Técnico" icon="ui-icon-mail-closed" >
+                    <p:menuitem value="Disponibilidad App"  url="GLDC_DispAplicaciones.xhtml"/>                                         
+                    <p:menuitem value="En construcción"  actionListener="#{dialogBean.distribucionDATOS()}" rendered="#{loginBean.respuestaDATOS}"/>          
+                    <p:menuitem value="En construcción"  actionListener="#{dialogBean.distribucionTEL()}" rendered="#{loginBean.respuestaTELEFONIA}"/>
+                    <p:menuitem value="En construcción"  actionListener="#{dialogBean.distribucionVAS()}" rendered="#{loginBean.respuestaVAS}"/>  
+                </p:submenu>
+               
+                <p:submenu label="Emergencias Médicas" icon="ui-icon-folder-collapsed">
+                    <p:submenu label="Creación" rendered="#{loginBean.respuestaTELEFONIA}">
+                        <p:menuitem value="Nuevo Folio" url="GLDC_EmergenciasM.xhtml"/>                                    
+                    </p:submenu>    
+                    <p:submenu label="Consulta" rendered="#{loginBean.respuestaTELEFONIA}">
+                        <p:menuitem value="Informe capturas" url="GLDC_ConsultaEM.xhtml"/>                                    
+                    </p:submenu> 
+                 </p:submenu>
+                
+ 
+                <p:submenu label="Queue Management" icon="ui-icon-signal-diag"> 
+                           <p:menuitem value="Generar Token" url="GLDC_Queue_Token.xhtml"/>
+                           <p:menuitem value="Programación"  url="GLDC_Queue_Programacion.xhtml"/>
+                           <p:menuitem value="Bandeja de Trabajo"  url="GLDC_Queue_Bancotrabajo.xhtml"/>
+                           <p:menuitem value="Bandeja General" url="GLDC_Queue_BancotrabajoAdmin.xhtml"/>                           
+                 </p:submenu>          
+                   
+                 <p:submenu label="Calidad Operativa" icon="ui-icon-grip-dotted-horizontal" rendered="#{loginBean.respuestaDATOS}">
+                        <p:menuitem value="Calidad Actas"  url="GLDC_DQ_IFH.xhtml"/>
+                        <p:menuitem value="Checklist Calidad Legal"  url="GLDC_Checklist.xhtml"/>
+                        <p:menuitem value="En contrucción"  url="#" /> 
+                </p:submenu>
+                                
+                <p:submenu label="Calidad de Datos" icon="ui-icon-document" >
+                    <p:submenu label="Alertas" rendered="#{loginBean.respuestaTELEFONIA}">
+                        <p:menuitem value="En contrucción"  url="sitiosIden.xhtml"/>   
+                        <p:menuitem value="En contrucción"  url="sitiosEvolution.xhtml" /> 
+                        <p:menuitem value="Catálogos Usuario"  url="catalogosUsuarios.xhtml" />
+                    </p:submenu> 
+                   <p:submenu label="En contrucción" rendered="#{loginBean.respuestaDATOS}"> 
+                        <p:menuitem value="En contrucción"  url="sitiosIden.xhtml" />   
+                        <p:menuitem value="En contrucción"  url="sitiosEvolution.xhtml" /> 
+                    </p:submenu> 
+                </p:submenu>
+                
+               <p:submenu label="Proyectos" icon="ui-icon-signal" rendered="#{loginBean.respuestaTELEFONIA}">
+                     <p:menuitem  value="Movilidad"  url="Analisis_Movilidad.xhtml"/> 
+                     <p:submenu label="Fenix" icon="ui-icon-signal" >
+                     <p:menuitem  value="Solicitud Altan"  url="GLDC_FenixR.xhtml"/> 
+                          </p:submenu>  
+                </p:submenu>
+                
+                
+                  <p:submenu label="BCP" icon="ui-icon-document" rendered="#{loginBean.respuestaTELEFONIA}">
+                     <p:menuitem  value="InformesUso TI"  url="GLDC_consultaCDRS.xhtml"/> 
+                </p:submenu>
+
+        
+             
+                
+                <p:menuitem style=" font-size:   larger" value="Salir" icon="ui-icon-power" actionListener="#{loginBean.logOut()}" oncomplete="handleLoginRequest(xhr, status, args)"/>
+                
+            </p:menubar>  
+         
+        </h:form>
+        <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.LoggetOut) {
+                    location.href = args.ruta;
+                }
+            }
+        </script>                  
+    </cc:implementation>
+</html>

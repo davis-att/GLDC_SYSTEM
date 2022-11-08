@@ -1,0 +1,338 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>GLDC System</title>
+ <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
+         <style type="text/css">       
+            
+            .estatusdiag .ui-dialog-titlebar{
+                       display:none !important; 
+            }
+            
+           .davispanel {
+                font-size: 9px !important;
+                background-color:  transparent !important;
+                font-family: Segoe UI !important;
+                vertical-align:  middle;
+                width: 30px !important;
+            }
+
+            .old {
+             background-color: #fca752 !important;
+             background-image: none !important;
+             color: #000000 !important;
+             
+        </style>
+
+
+        <script type="text/javascript" >
+            function gl() {
+                //this = chart widget instance
+                this.cfg.seriesDefaults = {
+                    rendererOptions: {
+                        smooth: true
+                    },
+                    showMarker: true
+
+
+                },
+                this.cfg.grid = {
+                    drawGridLines: true, // wether to draw lines across the grid or not.
+                    gridLineColor: '#cccccc', // *Color of the grid lines.
+                    background: '#D7F6B7', // CSS color spec for background color of grid.
+                    borderColor: '#999999', // CSS color spec for border around grid.
+                    borderWidth: 2.0, // pixel width of border around grid.
+                    shadow: true, // draw a shadow for grid.
+                    shadowAngle: 45, // angle of the shadow.  Clockwise from x axis.
+                    shadowOffset: 1.5, // offset from the line of the shadow.
+                    shadowWidth: 3, // width of the stroke for the shadow.
+                    shadowDepth: 3, // Number of strokes to make when drawing shadow.
+                    shadowAlpha: 0.5      // Opacity of the shadow
+                },
+                this.cfg.axes = {
+                    yaxis: {
+                        labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                        tickOptions: {
+                            fontSize: '8pt',
+                            formatString: "%'.0f",
+                            min:0
+                        }
+                    },
+                    xaxis: {
+                        pad: 1.05,
+                        renderer: $.jqplot.CategoryAxisRenderer,
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                        labelRenderer: $.jqplot.CanvasTextRenderer,
+                        tickOptions: {
+                            fontSize: '8pt',
+                            angle: 90,
+                            markSize: 2,
+                            formatString: '%s/'
+                        }
+                    }
+                },
+                this.cfg.axes.xaxis.ticks = this.cfg.categories;
+
+
+            }
+        </script>         
+
+                <script type="text/javascript" >
+            function glf() {
+                //this = chart widget instance
+                this.cfg.seriesDefaults = {
+                    rendererOptions: {
+                        smooth: true
+                    },
+                    showMarker: true
+
+
+                },
+                this.cfg.grid = {
+                    drawGridLines: true, // wether to draw lines across the grid or not.
+                    gridLineColor: '#cccccc', // *Color of the grid lines.
+                    background: '#D7F6B7', // CSS color spec for background color of grid.
+                    borderColor: '#999999', // CSS color spec for border around grid.
+                    borderWidth: 2.0, // pixel width of border around grid.
+                    shadow: true, // draw a shadow for grid.
+                    shadowAngle: 45, // angle of the shadow.  Clockwise from x axis.
+                    shadowOffset: 1.5, // offset from the line of the shadow.
+                    shadowWidth: 3, // width of the stroke for the shadow.
+                    shadowDepth: 3, // Number of strokes to make when drawing shadow.
+                    shadowAlpha: 0.5      // Opacity of the shadow
+                },
+                this.cfg.axes = {
+                    yaxis: {
+                        labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                        tickOptions: {
+                            fontSize: '8pt',
+                            formatString: "%'.2f"
+                        }
+                    },
+                    xaxis: {
+                        pad: 1.05,
+                        renderer: $.jqplot.CategoryAxisRenderer,
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        labelOptions: {fontFamily: 'Segoe UI', fontSize: '10pt'},
+                        labelRenderer: $.jqplot.CanvasTextRenderer,
+                        tickOptions: {
+                            fontSize: '8pt',
+                            angle: 90,
+                            markSize: 2,
+                            formatString: '%s/'
+                        }
+                    }
+                },
+                this.cfg.axes.xaxis.ticks = this.cfg.categories;
+
+
+            }
+        </script>  
+        
+    </h:head>
+
+    <body>
+        
+        <ui:include src="/templates/sessionTimeOut.xhtml" />
+        <ui:composition template="./templateGatWebTool.xhtml">
+            
+            <ui:define name="content">
+
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"/>
+
+
+                
+        <h:form id="formss">
+	<p:growl id="msg" showDetail="true" sticky="true"  />
+
+            </h:form>             
+                
+                
+                <h:form id="form">  
+
+                    <p:growl id="msgs"  />  
+
+
+
+                    
+                    <p:panel  
+                        id="PanelTabla"
+                        style="width: auto; text-align:  center"
+                        header="Consulta actual de estatus de dns suspendidos" 
+                        >    
+
+
+                        <p:dataTable id="dataTable"   
+                                     var="mostrarProcesados"  
+                                     value="#{ autosupendidos.mostrarProcesados }" 
+                                     widgetVar="procesadosTable"  
+                                     scrollRows="25"  
+                                     scrollable="true" 
+                                     liveScroll="true" 
+                                     emptyMessage="No se tiene registro" 
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="25,50,75"
+                                     style=" font-size:10px; font-family:  Segoe UI; width: auto; margin:  auto;"
+                                     rowStyleClass="#{mostrarProcesados.ESTATUS == 'A' ? 'old' : null}"
+                                     filteredValue="#{autosupendidos.filteredProcesados}" 
+                                     >  
+
+
+                            <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_ticket" 
+                                      filterBy="#{mostrarProcesados.TICKET_NUMBER }"   
+                                      headerText="TICKET"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="TICKET">    
+                                <h:outputText value="#{mostrarProcesados.TICKET_NUMBER}" />  
+                            </p:column>
+
+                          <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_caso" 
+                                      filterBy="#{mostrarProcesados.CASO }"   
+                                      headerText="CASO"   
+                                      filterMatchMode="contains"  
+                                      filterStyle="width: 60px;"
+                                      footerText="CASO">    
+                                <h:outputText value="#{mostrarProcesados.CASO}" />  
+                            </p:column>
+
+                            <p:column style="text-align:center ;  font-size:    medium; font-size: 12px "
+                                      headerText="TIPO"   
+                                      footerText="TIPO">
+                                <h:outputText value="#{mostrarProcesados.TIPO}" />  
+                            </p:column>
+
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_FCC" 
+                                      filterBy="#{mostrarProcesados.FEC_CREACIONCASO }"   
+                                      headerText="FECHA CC"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="FECHA CREACIÓN CASO">    
+                                <h:outputText value="#{mostrarProcesados.FEC_CREACIONCASO}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_FPP" 
+                                      filterBy="#{mostrarProcesados.FECPP }"   
+                                      headerText="FECHA PR"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="FECHA PR">    
+                                <h:outputText value="#{mostrarProcesados.FECPP}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_MSISDN" 
+                                      filterBy="#{mostrarProcesados.MSISDN }"   
+                                      headerText="MSISDN"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 90px;"
+                                      footerText="MSISDN">    
+                                <h:outputText value="#{mostrarProcesados.MSISDN}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_FUE" 
+                                      filterBy="#{mostrarProcesados.FECHA_ULTIMO_ESTATUS }"   
+                                      headerText="FECHA UE"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="FECHA UE">    
+                                <h:outputText value="#{mostrarProcesados.FECHA_ULTIMO_ESTATUS}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_estatus" 
+                                      filterBy="#{mostrarProcesados.ESTATUS }"   
+                                      headerText="ESTATUS ACTUAL"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 40px;"
+                                      footerText="ESTATUS ACTUAL">    
+                                <h:outputText value="#{mostrarProcesados.ESTATUS}" />  
+                            </p:column>
+                            
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_PLAN" 
+                                      filterBy="#{mostrarProcesados.PLAN }"   
+                                      headerText="OFERTA COMERCIAL"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 100px;"
+                                      footerText="OFERTA COMERCIAL">    
+                                <h:outputText value="#{mostrarProcesados.PLAN}" />  
+                            </p:column>
+                           
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="id_codigo" 
+                                      filterBy="#{mostrarProcesados.CODIGO }"   
+                                      headerText="CODIGO ESTATUS"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="CODIGO ESTATUS">    
+                                <h:outputText value="#{mostrarProcesados.CODIGO}" />  
+                            </p:column>
+                            
+           
+                           
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="user_id" 
+                                      filterBy="#{mostrarProcesados.USERID }"   
+                                      headerText="USER_ID"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="USER_ID">    
+                                <h:outputText value="#{mostrarProcesados.USERID}" />  
+                            </p:column>                         
+                            
+                
+                           
+                                        <p:column style="text-align:center; font-size: medium; font-size: 12px" 
+                                      id="reactivado" 
+                                      filterBy="#{mostrarProcesados.REACTIVADO }"   
+                                      headerText="REACTIVADO"   
+                                      filterMatchMode="contains" 
+                                      filterStyle="width: 80px;"
+                                      footerText="REACTIVADO">    
+                                <h:outputText value="#{mostrarProcesados.REACTIVADO}" />  
+                            </p:column>    
+                            
+                            
+                        </p:dataTable> 
+                    </p:panel>
+
+                </h:form>   
+
+
+            </ui:define>
+
+        </ui:composition>
+
+         <p:dialog modal="true" widgetVar="statusDialog"   
+                      closable="false"  
+                      resizable="false"
+                      showEffect="drop"
+                      hideEffect="drop"
+                      showHeader="false"
+                      position="center"
+                      style="border: none; box-shadow: none;  background: transparent; "  
+                      styleClass="estatusdiag"
+                      >  
+               <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+    </p:dialog> 
+        
+    </body>
+</html>

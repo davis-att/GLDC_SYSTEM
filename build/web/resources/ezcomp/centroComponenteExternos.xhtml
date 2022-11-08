@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="centroComponenteExternos"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h:form style="font-size: smaller">
+
+
+            <p:panel style="width: auto;height: 800px; border: transparent ">
+
+                <p:panelGrid columns="1"  style="margin: auto; border: transparent">
+                  
+                    <p:column style="width: auto; border-color: transparent">
+                         <p:graphicImage  value="/resources/images/galeria/EncabezadoWeb.png"  /> 
+                        
+                    </p:column>
+                    
+                    <p:column style="width: auto; border-color: transparent">
+
+                        <p:carousel numVisible="1"  
+                                    itemStyle="height:430px;width:800px;"
+                                    autoPlayInterval="4500"  
+                                    headerText="Aseguramiento de Ingresos G.A.T"
+                                    circular="true"
+                                    effect="easeInStrong" 
+                                    style="margin-bottom:0; border-color: transparent; font-family: sans-serif; font-size: 12px ">
+                           <p:tab  >
+                                <h:panelGrid  cellpadding="10" style="border-color: transparent">
+                                    <p:graphicImage  value="/resources/images/galeria/GAT.png"  /> 
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab >
+                                <h:panelGrid  cellpadding="10" style="border-color: transparent">
+                                    <p:graphicImage id="test1" value="/resources/images/galeria/NextelRoaming2.png"  /> 
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab>
+                                <h:panelGrid cellpadding="10" style="border-color: transparent">
+                                    <p:graphicImage id="test2" value="/resources/images/galeria/Nextel2.png"/> 
+
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab >
+                                <h:panelGrid  cellpadding="10" style="border-color: transparent">
+                                    <p:graphicImage id="test3" value="/resources/images/galeria/Nextel3.png"/> 
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab >
+                                <h:panelGrid  cellpadding="10" style="border-color: transparent">
+                                    <p:graphicImage id="test4" value="/resources/images/galeria/Nextel_procesos.png"/> 
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab >
+                                <h:panelGrid  cellpadding="10" style="border-color: transparent">
+                                    <p:graphicImage id="test5" value="/resources/images/galeria/Nextel_monitor.png"/> 
+                                </h:panelGrid>
+                            </p:tab>
+                        </p:carousel>
+
+                    </p:column>
+
+                    <p:panelGrid columns="1"  style="margin: auto;  border-color: transparent;">
+                        <p:clock pattern=" HH:mm:ss dd.MM.yyyy"    />
+                    </p:panelGrid>
+
+
+
+                </p:panelGrid>
+                
+                <p:separator ></p:separator>
+
+                <p:fieldset legend="Información:" style=" vertical-align:  bottom" >
+                    <h:panelGrid columns="2" cellpadding="5"  >
+                        <p:graphicImage value="/resources/images/iconxt.png" />
+                        <h:outputText style=" text-align:  center; font-size: 10px"
+                                      value="Cualquier comentario relacionado a esta pagina enviar correo a: david.gonzalezh@nextel.com.mx,
+                                      luis.bedolla@nextel.com.mx, alan.alvarado@nextel.com.mx. Pagina creada para Aseguramiento de Ingresos, 2014." />
+
+                    </h:panelGrid>
+                </p:fieldset>
+
+
+            </p:panel>      
+
+        </h:form> 
+    </cc:implementation>
+</html>
