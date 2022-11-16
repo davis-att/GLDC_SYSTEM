@@ -8,35 +8,35 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       >
 
-    
+
     <style type="text/css">
 
-    .ui-panel-images {
-    width: 100%;
-    height: 100%;
-    }
+        .ui-panel-images {
+            width: 100%;
+            height: 100%;
+        }
 
-    .ui-galleria-panel {
-    width: 100%;
-    height: 100%;
-    }
-    
-    .ui-analog-clock {
-        width: 200px;
-    }    
-    
- 
-          
+        .ui-galleria-panel {
+            width: 100%;
+            height: 100%;
+        }
+
+        .ui-analog-clock {
+            width: 200px;
+        }
+
+
+
     </style>
-    
+
     <style type="text/css">
-    .ui-g div {
+        .ui-g div {
 
-        text-align: center;
+            text-align: center;
 
-    }
+        }
     </style>
-   
+
     <!-- INTERFACE -->
     <cc:interface>
         <cc:attribute name="centroComponente"/>
@@ -47,60 +47,279 @@
         <h:form style="font-size: smaller">
 
 
-            
 
 
-      
-     
- <p:panel  style="  border-color:  transparent "> 
-            <p:fieldset  style="  margin:  auto;   font-family: Corbel Light; font-size:3px "   >         
-                <p:contentFlow value="#{loginBean.images}" var="image"  style=" border-color:  transparent "    >
-                           <p:graphicImage  value="/resources/images/galeria/#{image}" styleClass="content"  height="100%"   width="100%"  />
+
+
+
+            <p:panel  style="  border-color:  transparent "> 
+                <p:fieldset  style="  margin:  auto;   font-family: Corbel Light; font-size:3px "   >         
+                    <p:contentFlow value="#{loginBean.images}" var="image"  style=" border-color:  transparent "    >
+                        <p:graphicImage  value="/resources/images/galeria/#{image}" styleClass="content"  height="100%"   width="100%"  />
                         <div class="caption">#{image}</div>
-                      </p:contentFlow> 
-            
-         </p:fieldset>   
-                
-              
+                    </p:contentFlow> 
 
-              
+                </p:fieldset>   
+
+
+
+
 
             </p:panel>      
 
-          <p:dialog header="Información de contacto!!!" 
-                              widgetVar="versionDialog" 
-                              resizable="true"
-                              showEffect="fade" 
-                              hideEffect="explode" 
-                              height="250px" 
-                              width="400px"                                   
-                              style="font-size: medium; margin:  auto">  
-                        <p:panel header="" 
-                                 style="font-size:  small" 
-                                 id="insrpanelsisop"
-                                 >  
-                        
-                             <h:panelGrid  columns="2" style="margin:  auto; text-align:  left">
-                                
-                                <f:facet name="header">  
-                                    <p:graphicImage style=" height: 40%; border-right:  #52B4FC; " value="../resources/images/soporte2.png"/>  
-                                </f:facet>  
-                                
-                               <f:facet name="header">   
-                                <h:outputText
-                                         value="dg3861@att.com" />
-                                </f:facet>
-                                 
-                                
-                                
-                             </h:panelGrid>                
-                          
-                        </p:panel>    
-                    </p:dialog> 
-            
- 
-  
-      
+            <p:dialog header="Información de contacto!!!" 
+                      widgetVar="versionDialog" 
+                      resizable="true"
+                      showEffect="fade" 
+                      hideEffect="explode" 
+                      height="250px" 
+                      width="400px"                                   
+                      style="font-size: medium; margin:  auto">  
+                <p:panel header="" 
+                         style="font-size:  small" 
+                         id="insrpanelsisop"
+                         >  
+
+                    <h:panelGrid  columns="2" style="margin:  auto; text-align:  left">
+
+                        <f:facet name="header">  
+                            <p:graphicImage style=" height: 40%; border-right:  #52B4FC; " value="../resources/images/soporte2.png"/>  
+                        </f:facet>  
+
+                        <f:facet name="header">   
+                            <h:outputText
+                                value="dg3861@att.com" />
+                        </f:facet>
+
+
+
+                    </h:panelGrid>                
+
+                </p:panel>    
+            </p:dialog> 
+
+
+
+
         </h:form> 
+
+
+
+        <div class="container-fluid p-2">
+            <p:panel>
+                <h2>Equipo GLDC</h2>
+            </p:panel>
+            <div class="row p-2">
+                <div class="col-md-12">
+                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row" style="justify-content: center">
+
+
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12 d-none d-md-block">
+                                                        <img src="../resources/images/gldc/lulu.PNG" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">Lourdes Correa</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 ">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12 d-none d-md-block">
+                                                        <img src="../resources/images/gldc/david.PNG" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">David Gonzalez</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12 d-none d-md-block">
+                                                        <img src="../resources/images/gldc/rod.PNG" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">Rodrigo Rivera</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12 d-none d-md-block">
+                                                        <img src="../resources/images/gldc/Vio.PNG" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">Violeta Guerrero</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12 d-none d-md-block">
+                                                        <img src="../resources/images/gldc/juls.PNG" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">Julio Trejo</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row" style="justify-content: center">
+
+
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12">
+                                                        <img src="FOTOS/default.jpg" alt="wrapkit" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">Raul Gomez</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 ">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12 d-none d-md-block">
+                                                        <img src="FOTOS/default.jpg" alt="wrapkit" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">David Gonzalez</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12">
+                                                        <img src="FOTOS/default.jpg" alt="wrapkit" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">Rodrigo Rivera</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12">
+                                                        <img src="FOTOS/default.jpg" alt="wrapkit" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">Lourdes Correa</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="row">
+                                            <div class="col-md-1"></div>
+                                            <div class="col-md-10">
+                                                <div class="row shadow p-3 mb-3 bg-body rounded">
+                                                    <div class="col-md-12">
+                                                        <img src="FOTOS/default.jpg" alt="wrapkit" class="img-fluid rounded-circle" />
+                                                    </div>
+                                                    <div class="col-md-12 text-center">
+                                                        <div class="pt-2">
+                                                            <h5 class="mt-4 font-weight-medium mb-0">Miguel Velázquez</h5>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div></div>
+
+                </div>
+            </div>
+        </div>
+
     </cc:implementation>
 </html>

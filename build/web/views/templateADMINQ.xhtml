@@ -5,161 +5,118 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ezcomp="http://xmlns.jcp.org/jsf/composite/ezcomp"
       xmlns:p="http://primefaces.org/ui"
-      >
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-    <link rel="stylesheet" type="text/css" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css"></link>
-
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        
         <title>GDLC System</title>
-
-            
         <h:outputStylesheet library="css" name="bootstrap.min.css"/>
-        <h:outputScript library="js" name="bootstrap.min.js"/>
-        <h:outputStylesheet library="css" name="font-awesome.min.css"/>
-        <h:outputScript library="js" name="fontawesome.min.js"/>
-        <link rel="stylesheet" type="text/css" href="../resources/css/template_css.css"></link>
+        <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
+        <h:outputStylesheet library="css" name="fontawesome.css"/>
+        <h:outputStylesheet library="css" name="brands.css"/>
+        <h:outputStylesheet library="css" name="solid.css"/>
+        <h:outputStylesheet library="css" name="navbar.css"/>
+        <h:outputStylesheet library="css" name="estilos.css"/>
 
 
-     
-        
-            
     </h:head>
+    <h:body style="background-color: #f8f9fa">
 
-  
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+            <div class="container">
+                <a href="inicio.xhtml" class="navbar-brand mb-0 h1 brand">
+                    <img src="../resources/images/logo.png" width="60" id="logo"/><div class="vr"></div> <span id="depto">GLDC<br/>México</span>
+                </a>
+                <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" class="navbar-toggler"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a href="inicio.xhtml" class="nav-link active">
+                                <i class="fa-regular fa-house"></i> Inicio
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-timeline"></i> Queue Management
+                            </a>
+                            <ul class="dropdown-menu bg-dark" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a href="GLDC_Queue_Token.xhtml" class="dropdown-item"><i class="fa-regular fa-tags"></i> Generar Token</a>
+                                </li>
+                                <li>
+                                    <a href="GLDC_Queue_Programacion.xhtml" class="dropdown-item"><i class="fa-solid fa-calendar-days"></i>
+                                        Programación</a>
+                                </li>
+                                <li>
+                                    <a href="GLDC_Queue_Bancotrabajo.xhtml" class="dropdown-item"><i class="fa-solid fa-arrows-spin"></i> Bandeja de
+                                        Trabajo</a>
+                                </li>
+                                <li>
+                                    <a href="GLDC_Queue_BancotrabajoAdmin.xhtml" class="dropdown-item"><i class="fa-solid fa-list-check"></i> Bandeja
+                                        General</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item active">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-power-off"></i> Salir
+                            </a>
+                        </li>
 
-    <h:body>
-       
-   
+                    </ul>
+                </div>
+                <div class="d-none d-lg-block">
+                    <span style="color: white; margin-right: 18px"><b>Bienvenido:</b> <img src="FOTOS/#{loginBean.fotos}.jpg" class="img-fluid rounded-circle" width="35"/> #{loginBean.username}</span>
+                    <img src="../resources/images/att_white.png" width="120" />
+                </div>
+            </div>
+        </nav>
+
+        <div style="padding-top: 125px">
+
+        </div>
+
 
         <div class="container-fluid">
-            
-            <div class="row"  style=" ">   
-                <div class="col" style=" "  >
-                       
-                  
-                  
-                  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-  <div class="container">
-    <a class="" href="#">
-        <img src="../resources/images/att_hz_lg_lkp_mx_rgb_rev.png" class="img-fluid" alt="..." height="36" width="20%"></img>
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Queue Manangement
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="/GLDC_SYSTEM/faces/views/GLDC_Queue_Token.xhtml">Generación Token</a></li>
-            <li><a class="dropdown-item" href="/GLDC_SYSTEM/faces/views/GLDC_Queue_Programacion.xhtml">Programación</a></li>
-              <li><a class="dropdown-item" href="/GLDC_SYSTEM/faces/views/GLDC_Queue_Bancotrabajo.xhtml">Banco de trabajo</a></li>
-            <li><a class="dropdown-item" href="/GLDC_SYSTEM/faces/views/GLDC_Queue_BancotrabajoAdmin.xhtml">Banco Administrador</a></li>
-           
-            <li>
-                <hr class="dropdown-divider"></hr>
-            </li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-                  
-                  
-                  
-            </div>
-                 
-            </div>
-            
-            
+
+
             <div class="row">
-                
-                <div class="col-lg-12" style="">
-                     <ui:insert name="content"> </ui:insert>
+
+                <div class="col-md-12">
+                    <ui:insert name="content"> </ui:insert>
                 </div>
-               
+
             </div>
-            
-                    
-           
-    
-            
-            
+        </div>
 
-    
-            
-              <div id="separator-ribbon" >
-                  <div class="content bg-transparent"></div> 
-                      
-              </div>   
-    
-            
-            
-            
-            
-          <div class="row"  >   
-                <div class="col"   >
-                   
-                    
-                    
-                    
-                    
-                    <p:fieldset  style="  margin:  auto; font-family: Corbel Light;  font-size: 10px !important;" >
-                        <h:panelGrid columns="2" cellpadding="5"  >
-                            <p:graphicImage value="/resources/images/iconxt.PNG" />
-                            <h:outputText style="   margin-right:  auto; font-size: 12px"
-                                          value="Cualquier comentario relacionado a esta pagina enviar correo a: dg3861@att.com
-                                          .Pagina creada para GLDC, 2019." />
+        <div style="padding-bottom: 100px">
+        </div>
+        <div class="footer">
+            <div class="row">
+                <div class="col-md-2">
 
-                        </h:panelGrid>
-                    </p:fieldset>
-
-                    <p:graphicImage  value="/resources/images/galeria/grass4.png" styleClass="content"  style="margin:auto;align-content:  center; width: 100%; height: 50%    " /> 
-
-                    
-                            <div id="ribbon" class="container-fluid " >   
-
-                <div id="birthday"  class="container w-50 pl-4 rounded-3"  >   
-
-                    <div class="row aling-items-center">
-
-                        <div class="col-sm p-2">
-                            <img src="../resources/images/nuevagldc.png"  width="100px" class=" mx-auto  d-block " alt=""  ></img>
-
+                </div>
+                <div id="gldcblock" class="col-md-8 bg-dark rounded-top">
+                    <div class="row">
+                        <div class="col-md-5 mt-auto d-none d-md-block text-center">
+                            <span style="color: white">GLDC System | 2022 - Presente</span>
                         </div>
-
-                     
-
-                    </div> 
-
-                </div> 
-
-
-            </div>   
-
-                                 
+                        <div class="col-md-2">
+                            <img src="../resources/images/nuevagldc.png"  width="80px" class="mx-auto  d-block" alt="" style="position: relative;
+                                 margin-top: -30px;"/>
+                        </div>
+                        <div class="col-md-5 mt-auto text-center">
+                            <span style="color: white">Soporte: dg3861@att.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                </div>
             </div>
-                 
-          </div>
-            
-        </div>    
-                   
-                      
-                         
-        
-             
-    </h:body>
+        </div>
 
+    </h:body>
 </html>

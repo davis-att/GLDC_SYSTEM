@@ -1,0 +1,57 @@
+
+
+#gldcblock
+{
+    -webkit-box-shadow: 0px -12px 50px -7px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px -12px 50px -7px rgba(0,0,0,0.5);
+    box-shadow: 0px -12px 50px -7px rgba(0,0,0,0.5);
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+    bottom: 0;
+    justify-content: center;
+
+}
+
+
+.navbar-nav .dropdown-item {
+    color: white;
+}
+.navbar-nav .dropdown-item:hover {
+    color: black;
+}
+
+#depto{
+    padding-left: 5px;
+}
+
+#logo{
+    padding-right: 5px;
+}
+
+body .ui-datatable thead th {
+    font-size: 11px;
+    text-align: center;
+}
+
+body .ui-datatable .ui-datatable-data>tr>td{
+    padding: 1px;
+    font-size: 13px;
+    text-align: center;
+}
+
+.ui-selectonemenu label.ui-selectonemenu-label{
+    font-size: 13px;
+}
+body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item{
+    font-size: 13px;
+}
+
+.ui-widget-header .ui-inputfield, .ui-widget-content .ui-inputfield{
+    height: 28px;
+}
+

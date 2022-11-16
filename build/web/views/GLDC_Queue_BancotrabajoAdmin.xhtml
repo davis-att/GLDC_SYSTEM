@@ -5,216 +5,208 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-       
- 
-     
-        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
-        <link rel="stylesheet" type="text/css" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css"></link>
-          
-    
+
+
     <h:head>
-        
-         <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
-         
-        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
-        <h:outputScript library="js" name="bootstrap.min.js"/>
-        <h:outputStylesheet library="css" name="font-awesome.min.css"/>
-        <h:outputScript library="js" name="fontawesome.min.js"/>
+
+        <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
 
 
-     <style type="text/css">       
-            
-       .hide
-        {
-        display:none;
-        visibility:hidden;
-        }
+
+
+        <style type="text/css">
+
+            .hide
+            {
+                display:none;
+                visibility:hidden;
+            }
 
         </style>
-        
-         <style type="text/css">
+
+        <style type="text/css">
             .chart1 {
                 width: 40%;
             }
-          
+
             .chart2 {
                 width: 60%;
             }
-            
+
             #graf1 .jqplot-point-label {
-            font-size: 30pt;
-            }       
-            
+                font-size: 30pt;
+            }
+
         </style>  
-        
-<style type="text/css">
-.jqplot-point-label {
-  border: 1.5px solid #aaaaaa;
-  padding: 1px 3px;
-  background-color: #0073e6;
-  font-size: 15pt !important;
-  font-family:  verdana;
-  color: white;
-}
-</style>              
-        
-     <style type="text/css">       
-            
-       .hide
-        {
-        display:none;
-        visibility:hidden;
-        }
-        
-        .normal{
-                background-color:  #58D68D; 
-                color:  black !important; 
-        }      
-        .comida{
-                background-color:  #FFFB9C; 
-                color:  black !important; 
-        }   
-        
-        .botonadd {
+
+        <style type="text/css">
+            .jqplot-point-label {
+                border: 1.5px solid #aaaaaa;
+                padding: 1px 3px;
+                background-color: #0073e6;
+                font-size: 15pt !important;
+                font-family:  verdana;
+                color: white;
+            }
+        </style>              
+
+        <style type="text/css">
+
+            .hide
+            {
+                display:none;
+                visibility:hidden;
+            }
+
+            .normal{
+                background-color:  #58D68D;
+                color:  black !important;
+            }
+            .comida{
+                background-color:  #FFFB9C;
+                color:  black !important;
+            }
+
+            .botonadd {
                 background-image: url(/resources/images/queue/addicon.PNG)
             }
-            
-        .botonremove {
+
+            .botonremove {
                 background-image: url(/resources/images/queue/removeicon.PNG)
             }
-            
+
             .header {
-    color: #36A0FF;
-    font-size: 27px;
-    padding: 10px;
-}
+                color: #36A0FF;
+                font-size: 27px;
+                padding: 10px;
+            }
 
-.bigicon {
-    font-size: 35px;
-    color: #36A0FF;
-}
+            .bigicon {
+                font-size: 35px;
+                color: #36A0FF;
+            }
 
 
-    
-</style>   
-       
-<style type="text/css">  
-    
-.botons .ui-button{
-      background: none;
-       background-color:  #2F4254;
- }
 
-.ui-button.ui-state-hover, .ui-button.ui-state-active{
-     border: none;
-}
+        </style>   
 
-    
-</style>
+        <style type="text/css">
 
-<style type="text/css">      
+            .botons .ui-button{
+                background: none;
+                background-color:  #2F4254;
+            }
+
+            .ui-button.ui-state-hover, .ui-button.ui-state-active{
+                border: none;
+            }
+
+
+        </style>
+
+        <style type="text/css">
 
             .menubar_estilo {
 
-                width:  500px !important; 
-                font-size: 25px !important; 
+                width:  500px !important;
+                font-size: 25px !important;
                 font-style:    normal;
                 font-family: Corbel Light;
-                background-color:  #000000 !important; 
-                border-color:  transparent !important; 
+                background-color:  #000000 !important;
+                border-color:  transparent !important;
 
             }
-            
+
             .menusletra_estilo {
                 color:    #000000
             }
         </style>      
 
-<style type="text/css">      
+        <style type="text/css">
 
-                .sinborde .ui-panelgrid .ui-panelgrid-cell .ui-panelgrid-row{
-                   border:none !important;
-               }
-               
-               .sinborde .ui-panel .ui-panel-cell .ui-panel-row{
-                   border:none !important;
-               }
-               
-               
-                .sinborde td{
-                   border:none !important;
-               }
-               
-                .sinborde tr{
-                   border:none !important;
-               }
-       
+            .sinborde .ui-panelgrid .ui-panelgrid-cell .ui-panelgrid-row{
+                border:none !important;
+            }
+
+            .sinborde .ui-panel .ui-panel-cell .ui-panel-row{
+                border:none !important;
+            }
+
+
+            .sinborde td{
+                border:none !important;
+            }
+
+            .sinborde tr{
+                border:none !important;
+            }
+
         </style>      
-        
-        
-    
-        
-        
- <style type="text/css">        
-.hor-minimalist-b
-{
-font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-font-size: 12px;
-border-collapse:  inherit;
-text-align:  center;
- 
-
-}
-
-.hor-minimalist-b .ui-datatable .ui-datatable-header,.ui-datatable .ui-datatable-footer{
-	text-align:center;padding:5px 5px;
-        
-}
-
-
-.hor-minimalist-b  .ui-datatable thead th,.ui-datatable tbody td,.ui-datatable tfoot td{
-	padding:8px 8px;
-	overflow:hidden;
-	white-space:nowrap;
-	border-width:1px;
-        border-color:  transparent;
-        width:  auto;
-        
-}
-
-.hor-minimalist-b  .ui-datatable-scrollable-footer, .ui-datatable-scrollable-body, .ui-datatable-scrollable-footer-box td{
-	 background-color:   #2F4254 !important;
-         border-color:  transparent !important;
-         font-size: 15px;
-}
 
 
 
-.hor-minimalist-b th
-{
-font-size: 15px;
-font-weight: normal;
-color:  #5a5a5a;
-padding: 5px 5px;
-border-bottom: transparent;
-}
-.hor-minimalist-b td
-{
-font-size: 15px;    
-border-bottom:  transparent;
-color:  #5a5a5a;
-padding: 2px 2px;
- border-color:  transparent;
- width:  auto;
-
-}  
 
 
-</style>    
-        
-        
-          <style type="text/css">
+        <style type="text/css">
+            .hor-minimalist-b
+            {
+                font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+                font-size: 12px;
+                border-collapse:  inherit;
+                text-align:  center;
+
+
+            }
+
+            .hor-minimalist-b .ui-datatable .ui-datatable-header,.ui-datatable .ui-datatable-footer{
+                text-align:center;
+                padding:5px 5px;
+
+            }
+
+
+            .hor-minimalist-b  .ui-datatable thead th,.ui-datatable tbody td,.ui-datatable tfoot td{
+                padding:8px 8px;
+                overflow:hidden;
+                white-space:nowrap;
+                border-width:1px;
+                border-color:  transparent;
+                width:  auto;
+
+            }
+
+            .hor-minimalist-b  .ui-datatable-scrollable-footer, .ui-datatable-scrollable-body, .ui-datatable-scrollable-footer-box td{
+                background-color:   #2F4254 !important;
+                border-color:  transparent !important;
+                font-size: 15px;
+            }
+
+
+
+            .hor-minimalist-b th
+            {
+                font-size: 15px;
+                font-weight: normal;
+                color:  #5a5a5a;
+                padding: 5px 5px;
+                border-bottom: transparent;
+            }
+            .hor-minimalist-b td
+            {
+                font-size: 15px;
+                border-bottom:  transparent;
+                color:  #5a5a5a;
+                padding: 2px 2px;
+                border-color:  transparent;
+                width:  auto;
+
+            }
+
+
+        </style>    
+
+
+        <style type="text/css">
             .columna1 {
                 width: 65% !important;
                 height: 300px;
@@ -225,111 +217,111 @@ padding: 2px 2px;
                 height: 300px;
                 margin:  auto;
             }
-     
+
             .columna1b {
                 width: 30%;
                 height: 500px;
                 margin:  auto;
             }
-            
-             .columna1c {
+
+            .columna1c {
                 width: 30%;
                 height: 500px;
                 margin:  auto;
             }
-            
-             .columna1d {
+
+            .columna1d {
                 width: 40%;
                 height: 500px;
                 margin:  auto;
             }
-             .columna1e {
+            .columna1e {
                 width: 40%;
                 height: 500px;
                 margin:  auto;
             }
-            
+
         </style>        
 
-        
-<style type="text/css">
-    body{
-background:#eee;
-font-family: 'Corbel Light', Corbel Light;
-}
-.main-part{
-width:65%;
-margin:0 auto;
-text-align: center;
-padding: 0px 5px;
-}
-.cpanel{
-width:24%;
-display: inline-block;
-background-color:#34495E;
-color:#fff;
-margin-top: 50px;
-margin-bottom: 50px;
-}
-.icon-part i{
-font-size: 30px;
-padding:10px;
-border:1px solid #fff;
-border-radius:65%;
-margin-top:-25px;
-margin-bottom: 10px;
-background-color:#34495E;
-}
-.icon-part p{
-margin:0px;
-font-size: 20px;
-padding-bottom: 10px;
-}
-.card-content-part{
-background-color: #2F4254;
-padding: 5px 0px;
-}
-.cpanel .card-content-part:hover{
-background-color: #5a5a5a;
-cursor: pointer;
-}
-.card-content-part a{
-color:#fff;
-text-decoration: none;
-}
-.cpanel-green .icon-part,.cpanel-green .icon-part i{
-background-color: #16A085;
-}
-.cpanel-green .card-content-part{
-background-color: #149077;
-}
-.cpanel-orange .icon-part,.cpanel-orange .icon-part i{
-background-color: #F39C12;
-}
-.cpanel-orange .card-content-part{
-background-color: #DA8C10;
-}
-.cpanel-blue .icon-part,.cpanel-blue .icon-part i{
-background-color: #2980B9;
-}
-.cpanel-blue .card-content-part{
-background-color:#2573A6;
-}
-.cpanel-red .icon-part,.cpanel-red .icon-part i{
-background-color:#E74C3C;
-}
-.cpanel-red .card-content-part{
-background-color:#CF4436;
-}
-.cpanel-skyblue .icon-part,.cpanel-skyblue .icon-part i{
-background-color:#8E44AD;
-}
-.cpanel-skyblue .card-content-part{
-background-color:#803D9B;
-}
-</style>  
 
-              <script type="text/javascript">
+        <style type="text/css">
+            body{
+                background:#eee;
+                font-family: 'Corbel Light', Corbel Light;
+            }
+            .main-part{
+                width:65%;
+                margin:0 auto;
+                text-align: center;
+                padding: 0px 5px;
+            }
+            .cpanel{
+                width:24%;
+                display: inline-block;
+                background-color:#34495E;
+                color:#fff;
+                margin-top: 50px;
+                margin-bottom: 50px;
+            }
+            .icon-part i{
+                font-size: 30px;
+                padding:10px;
+                border:1px solid #fff;
+                border-radius:65%;
+                margin-top:-25px;
+                margin-bottom: 10px;
+                background-color:#34495E;
+            }
+            .icon-part p{
+                margin:0px;
+                font-size: 20px;
+                padding-bottom: 10px;
+            }
+            .card-content-part{
+                background-color: #2F4254;
+                padding: 5px 0px;
+            }
+            .cpanel .card-content-part:hover{
+                background-color: #5a5a5a;
+                cursor: pointer;
+            }
+            .card-content-part a{
+                color:#fff;
+                text-decoration: none;
+            }
+            .cpanel-green .icon-part,.cpanel-green .icon-part i{
+                background-color: #16A085;
+            }
+            .cpanel-green .card-content-part{
+                background-color: #149077;
+            }
+            .cpanel-orange .icon-part,.cpanel-orange .icon-part i{
+                background-color: #F39C12;
+            }
+            .cpanel-orange .card-content-part{
+                background-color: #DA8C10;
+            }
+            .cpanel-blue .icon-part,.cpanel-blue .icon-part i{
+                background-color: #2980B9;
+            }
+            .cpanel-blue .card-content-part{
+                background-color:#2573A6;
+            }
+            .cpanel-red .icon-part,.cpanel-red .icon-part i{
+                background-color:#E74C3C;
+            }
+            .cpanel-red .card-content-part{
+                background-color:#CF4436;
+            }
+            .cpanel-skyblue .icon-part,.cpanel-skyblue .icon-part i{
+                background-color:#8E44AD;
+            }
+            .cpanel-skyblue .card-content-part{
+                background-color:#803D9B;
+            }
+        </style>  
+
+        <script type="text/javascript">
             function ext() {
                 //this = chart widget instance
                 this.cfg.seriesDefaults = {
@@ -340,40 +332,38 @@ background-color:#803D9B;
                     background: 'transparent',
                     borderColor: 'transparent',
                     rendererOptions: {fillToZero: true, barDirection: 'vertical', barWidth: 40},
-                    pointLabels: {show: true, formatString: "%'.0f",  fontSize: '12pt', location: 'nw' }
-                    
-                    
-                },
-                        
-                        
-                this.cfg.grid = {
-                    drawGridLines: false, // wether to draw lines across the grid or not.
-                    gridLineColor: 'transparent', // *Color of the grid lines.
-                    background: 'transparent',
-                    borderColor: 'transparent',
-                    borderWidth: 0.1, // pixel width of border around grid.
-                    shadow: false, // draw a shadow for grid.
-                    shadowAngle: 75, // angle of the shadow.  Clockwise from x axis.
-                    shadowOffset: 1.5, // offset from the line of the shadow.
-                    shadowWidth: 1, // width of the stroke for the shadow.
-                    shadowDepth: 1, // Number of strokes to make when drawing shadow.
-                    shadowAlpha: 0.5           // Opacity of the shadow
-                }, this.cfg.axesDefaults = {
-                  tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-                tickOptions: {
-                  fontFamily: 'Corbel Light',
-                  fontSize: '20pt',
-                  textColor: 'black',
-                  angle: 270
-                }
+                    pointLabels: {show: true, formatString: "%'.0f", fontSize: '12pt', location: 'nw'}
 
-               
-   };
+
+                },
+                        this.cfg.grid = {
+                            drawGridLines: false, // wether to draw lines across the grid or not.
+                            gridLineColor: 'transparent', // *Color of the grid lines.
+                            background: 'transparent',
+                            borderColor: 'transparent',
+                            borderWidth: 0.1, // pixel width of border around grid.
+                            shadow: false, // draw a shadow for grid.
+                            shadowAngle: 75, // angle of the shadow.  Clockwise from x axis.
+                            shadowOffset: 1.5, // offset from the line of the shadow.
+                            shadowWidth: 1, // width of the stroke for the shadow.
+                            shadowDepth: 1, // Number of strokes to make when drawing shadow.
+                            shadowAlpha: 0.5           // Opacity of the shadow
+                        }, this.cfg.axesDefaults = {
+                    tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                    tickOptions: {
+                        fontFamily: 'Corbel Light',
+                        fontSize: '20pt',
+                        textColor: 'black',
+                        angle: 270
+                    }
+
+
+                };
             }
         </script>       
-        
-        
-           <script type="text/javascript">
+
+
+        <script type="text/javascript">
             function ext_2() {
                 //this = chart widget instance
                 this.cfg.seriesDefaults = {
@@ -384,44 +374,42 @@ background-color:#803D9B;
                     background: 'transparent',
                     borderColor: 'transparent',
                     rendererOptions: {fillToZero: true},
-                    pointLabels: {show: true, formatString: "%d",  fontSize: '15pt', location: 'nw' }
-                    
-                    
-                },
-                        
-                        
-                this.cfg.grid = {
-                    drawGridLines: false, // wether to draw lines across the grid or not.
-                    gridLineColor: 'transparent', // *Color of the grid lines.
-                    background: 'transparent',
-                    borderColor: 'transparent',
-                    borderWidth: 0.1, // pixel width of border around grid.
-                    shadow: false, // draw a shadow for grid.
-                    shadowAngle: 75, // angle of the shadow.  Clockwise from x axis.
-                    shadowOffset: 1.5, // offset from the line of the shadow.
-                    shadowWidth: 1, // width of the stroke for the shadow.
-                    shadowDepth: 1, // Number of strokes to make when drawing shadow.
-                    shadowAlpha: 0.5           // Opacity of the shadow
-                }, this.cfg.axesDefaults = {
-                  tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-                tickOptions: {
-                  fontFamily: 'Corbel Light',
-                  fontSize: '15pt',
-                  textColor: 'black',
-                  angle: 270
-                }
+                    pointLabels: {show: true, formatString: "%d", fontSize: '15pt', location: 'nw'}
 
-               
-   };
+
+                },
+                        this.cfg.grid = {
+                            drawGridLines: false, // wether to draw lines across the grid or not.
+                            gridLineColor: 'transparent', // *Color of the grid lines.
+                            background: 'transparent',
+                            borderColor: 'transparent',
+                            borderWidth: 0.1, // pixel width of border around grid.
+                            shadow: false, // draw a shadow for grid.
+                            shadowAngle: 75, // angle of the shadow.  Clockwise from x axis.
+                            shadowOffset: 1.5, // offset from the line of the shadow.
+                            shadowWidth: 1, // width of the stroke for the shadow.
+                            shadowDepth: 1, // Number of strokes to make when drawing shadow.
+                            shadowAlpha: 0.5           // Opacity of the shadow
+                        }, this.cfg.axesDefaults = {
+                    tickRenderer: $.jqplot.CanvasAxisTickRenderer,
+                    tickOptions: {
+                        fontFamily: 'Corbel Light',
+                        fontSize: '15pt',
+                        textColor: 'black',
+                        angle: 270
+                    }
+
+
+                };
             }
         </script>       
-        
+
         <script type="text/javascript">
-                PrimeFaces.locales["esp"] = {
+            PrimeFaces.locales["esp"] = {
                 closeText: "Cerrar",
                 prevText: "Anterior",
                 nextText: "Siguiente",
-                monthNames: ["Enero","Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
                 monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
                 dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
                 dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
@@ -430,466 +418,466 @@ background-color:#803D9B;
                 chooseTIME: "Tiempo",
                 firstDay: 0,
                 isRTL: false,
-                                showMonthAfterYear: false,
-                                yearSuffix: "",
-                                timeOnlyTitle: "Solo hora",
-                                timeText: "Tiempo",
-                                hourText: "Hora",
-                                minuteText: "Minuto",
-                                secondText: "Segundo",
-                                currentText: "Fecha actual",
-                                ampm: false,
-                                month: "Mes",
-                                week: "Semana",
-                                day: "Día",
-                                allDayText: "Todo el día"
-                            };
+                showMonthAfterYear: false,
+                yearSuffix: "",
+                timeOnlyTitle: "Solo hora",
+                timeText: "Tiempo",
+                hourText: "Hora",
+                minuteText: "Minuto",
+                secondText: "Segundo",
+                currentText: "Fecha actual",
+                ampm: false,
+                month: "Mes",
+                week: "Semana",
+                day: "Día",
+                allDayText: "Todo el día"
+            };
         </script>
-        
 
-        
+
+
     </h:head>
 
-    
+
     <body>
 
         <ui:composition template="#{loginBean.template}" >
             <ui:define name="content">
-                
-                    <p:growl id="growl"  life="10000"  showDetail="true" />
-                
-                    <h:form id="fp">            
-                    
-                    <p:panel  id="hola">
-                            <h8 style="font-family: Corbel Light; font-size: 30px; margin-top:   auto " > Queue Management. </h8>
-                              <h7 style="float: right; font-family: Corbel Light; font-size: 30px; margin-top:   auto " > Banco de Trabajo (Super) </h7>
-                       <br/>
-                       <br/>
-                     
-                        
-                        
-                       <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto " > Usuario: </h8>
-                       
-                       <p:graphicImage  id="imagenf" value="../resources/images/gldc/GLDC.png" width="45px"  height="45px" 
-                                           rendered="#{!queue_bancotadmin.bandsesion}"   style="margin:auto; border-radius: 30px; border: 1px solid   red; padding: 1px "  />  
-                          
-                         <p:graphicImage  id="imagenf2" value="../resources/images/gldc/GLDC.png" width="45px" height="45px"  
-                                          rendered="#{queue_bancotadmin.bandsesion}"    style="margin:auto; border-radius: 30px; border: 1px solid    green; padding: 1px  "  /> 
-                          
-                          
-                       <h8 style="font-family: Corbel Light; font-size: 23px; margin-top:   auto;  font-weight:bold " > #{loginBean.username} </h8>
-                         &nbsp;&nbsp;
-                       <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto; " > Estatus: </h8>
-                       
-                       <h:outputText  id="conec1" value="&nbsp;&nbsp;&nbsp;&nbsp;Conectado&nbsp;&nbsp;&nbsp;&nbsp;" style="font-family: Corbel Light; font-size: 23px; margin-top:   auto ; font-weight:bold ;background-color:  green;  border-radius: 15px; color: #fff;  "
-                                      rendered="#{queue_bancotadmin.bandsesion}"/>
-                     
-       
-                       
-                         
-              
-                       
-                      
-                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                                <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
-                            </p:confirmDialog>  
-                
-                            <br/>
-                                <p:separator  style="height:1px;  background-color:  #000000 " />    
-                            
-                                
-                                
-   
-                     
-                </p:panel>      
-                        
-                        
-                                             <p:dialog widgetVar="dialogtiempo" header="Solicitud de tiempo" showEffect="fade" hideEffect="fade">
-                        <h:panelGrid columns="2" cellpadding="7">
-                        
-                            <p:outputLabel value="Seleeciona el tiempo deseado" />
-                         
-                             
-                            <p:selectOneRadio id="console" value="#{queue_bancotadmin.stiempo}" >
-                                    <f:selectItem itemLabel="15 min " itemValue="15"/>
-                                    <f:selectItem itemLabel="30 min " itemValue="30"/>
-                                    <f:selectItem itemLabel="45 min " itemValue="45"/>
-                                    <f:selectItem itemLabel="60 min " itemValue="60"/>
-                                </p:selectOneRadio>
 
-                                
-                                
-                          </h:panelGrid>   
+                <p:growl id="growl"  life="10000"  showDetail="true" />
+
+                <h:form id="fp">            
+
+                    <p:panel  id="hola">
+                        <h8 style="font-family: Corbel Light; font-size: 30px; margin-top:   auto " > Queue Management. </h8>
+                        <h7 style="float: right; font-family: Corbel Light; font-size: 30px; margin-top:   auto " > Banco de Trabajo (Super) </h7>
+                        <br/>
+                        <br/>
+
+
+
+                        <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto " > Usuario: </h8>
+
+                        <p:graphicImage  id="imagenf" value="../resources/images/gldc/GLDC.png" width="45px"  height="45px" 
+                                         rendered="#{!queue_bancotadmin.bandsesion}"   style="margin:auto; border-radius: 30px; border: 1px solid   red; padding: 1px "  />  
+
+                        <p:graphicImage  id="imagenf2" value="../resources/images/gldc/GLDC.png" width="45px" height="45px"  
+                                         rendered="#{queue_bancotadmin.bandsesion}"    style="margin:auto; border-radius: 30px; border: 1px solid    green; padding: 1px  "  /> 
+
+
+                        <h8 style="font-family: Corbel Light; font-size: 23px; margin-top:   auto;  font-weight:bold " > #{loginBean.username} </h8>
+                        &nbsp;&nbsp;
+                        <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto; " > Estatus: </h8>
+
+                        <h:outputText  id="conec1" value="&nbsp;&nbsp;&nbsp;&nbsp;Conectado&nbsp;&nbsp;&nbsp;&nbsp;" style="font-family: Corbel Light; font-size: 23px; margin-top:   auto ; font-weight:bold ;background-color:  green;  border-radius: 15px; color: #fff;  "
+                                       rendered="#{queue_bancotadmin.bandsesion}"/>
+
+
+
+
+
+
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" />
+                        </p:confirmDialog>  
+
+                        <br/>
+                        <p:separator  style="height:1px;  background-color:  #000000 " />    
+
+
+
+
+
+                    </p:panel>      
+
+
+                    <p:dialog widgetVar="dialogtiempo" header="Solicitud de tiempo" showEffect="fade" hideEffect="fade">
+                        <h:panelGrid columns="2" cellpadding="7">
+
+                            <p:outputLabel value="Seleeciona el tiempo deseado" />
+
+
+                            <p:selectOneRadio id="console" value="#{queue_bancotadmin.stiempo}" >
+                                <f:selectItem itemLabel="15 min " itemValue="15"/>
+                                <f:selectItem itemLabel="30 min " itemValue="30"/>
+                                <f:selectItem itemLabel="45 min " itemValue="45"/>
+                                <f:selectItem itemLabel="60 min " itemValue="60"/>
+                            </p:selectOneRadio>
+
+
+
+                        </h:panelGrid>   
 
                         <div class="p-d-flex p-jc-between p-mt-3">
                             <p:commandButton id="addButton_d2" value="Confirmar" actionListener="#{queue_bancotadmin.solictatiempo(loginBean.username)}"
-                                               oncomplete="PF('dialogtiempo').hide();PF('tsolicitado').update();" update="growl, hola"/>
+                                             oncomplete="PF('dialogtiempo').hide();PF('tsolicitado').update();" update="growl, hola"/>
                         </div>
                     </p:dialog>            
-                      
-                        
-             
+
+
+
                 </h:form>             
 
-                    
-                    
-                    
-                
-                     
-                     
-                     
-                     
-                     
- 
-                 
-             <h:form id="form"> 
-                   
-                     <div class="main-part">
-                         <div class="cpanel">
-                             <div class="icon-part">
-                                 <i class="fa fa-users" aria-hidden="true"></i><br/>
-                                 <small>Solicitudes Atendidas</small>
-                                 <p>#{queue_bancotadmin.sol_atendidas}</p>
-                             </div>
-                             <div class="card-content-part">
-                                 <a href="#">Mas detalle </a>
-                             </div>
-                         </div>
-                         <div class="cpanel cpanel-green">
-                             <div class="icon-part">
-                                 <i class="fa fa-star-o" aria-hidden="true"></i><br/>
-                                 <small>Última atención</small>
-                                 <p>#{queue_bancotadmin.sol_ultima}</p>
-                             </div>
-                             <div class="card-content-part">
-                                 <a href="#">Mas detalles </a>
-                             </div>
-                         </div>
-                         <div class="cpanel cpanel-orange">
-                             <div class="icon-part">
-                                 <i class="fa fa-bell" aria-hidden="true"></i><br/>
-                                 <small>Solicitudes Exigentes</small>
-                                 <p>#{queue_bancotadmin.sol_urgente} New</p>
-                             </div>
-                             <div class="card-content-part">
-                                 <a href="#">More Details </a>
-                             </div>
-                         </div>
-                         <div class="cpanel cpanel-blue">
-                             <div class="icon-part">
-                                 <i class="fa fa-tasks" aria-hidden="true"></i><br/>
-                                 <small>Solicitudes Abiertas</small>
-                                 <p>#{queue_bancotadmin.sol_abierta}</p>
-                             </div>
-                             <div class="card-content-part">
-                                 <a href="#">More Details </a>
-                             </div>
-                         </div>
 
 
-                     </div>                            
 
-                 
-                 <p:panel id ="panelbotones" styleClass="sinborde" >
-                     
-                       <h8 style="font-family: Corbel Light; font-size: 25px; margin:   auto " > Nueva vista por filtro: </h8>
-                       
-                       <p:panelGrid columns="6" style=" margin:  auto"  styleClass="sinborde">
-                      <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto ;font-weight:bold "> Usuario: </h8>
-                      <p:selectOneRadio id="usuarios" value="#{queue_bancotadmin.buser}" layout="grid" columns="7" style="font-family: Corbel Light;  " >
-                         <f:selectItems     value="#{queue_bancotadmin.userss}" var="city" itemLabel="&nbsp;&nbsp;#{city}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="#{city}  "/>
-                         <p:ajax  listener="#{queue_bancotadmin.GLDC_Queue_Programacion()}"  update="tbanco" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"  />
-                       </p:selectOneRadio>
-                      
-                         <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto; font-weight:bold " > Estatus: </h8>
-                     <p:selectOneRadio id="estados" value="#{queue_bancotadmin.bestado}" layout="grid" columns="4" style="font-family: Corbel Light;"  >
-                         <f:selectItems     value="#{queue_bancotadmin.estatus}" var="city" itemLabel="&nbsp;&nbsp;#{city}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="#{city}  "/>
-                           <p:ajax  listener="#{queue_bancotadmin.GLDC_Queue_Programacion()}"  update="tbanco" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"  />
+
+
+
+
+
+
+
+
+                <h:form id="form"> 
+
+                    <div class="main-part">
+                        <div class="cpanel">
+                            <div class="icon-part">
+                                <i class="fa fa-users" aria-hidden="true"></i><br/>
+                                <small>Solicitudes Atendidas</small>
+                                <p>#{queue_bancotadmin.sol_atendidas}</p>
+                            </div>
+                            <div class="card-content-part">
+                                <a href="#">Mas detalle </a>
+                            </div>
+                        </div>
+                        <div class="cpanel cpanel-green">
+                            <div class="icon-part">
+                                <i class="fa fa-star-o" aria-hidden="true"></i><br/>
+                                <small>Última atención</small>
+                                <p>#{queue_bancotadmin.sol_ultima}</p>
+                            </div>
+                            <div class="card-content-part">
+                                <a href="#">Mas detalles </a>
+                            </div>
+                        </div>
+                        <div class="cpanel cpanel-orange">
+                            <div class="icon-part">
+                                <i class="fa fa-bell" aria-hidden="true"></i><br/>
+                                <small>Solicitudes Exigentes</small>
+                                <p>#{queue_bancotadmin.sol_urgente} New</p>
+                            </div>
+                            <div class="card-content-part">
+                                <a href="#">More Details </a>
+                            </div>
+                        </div>
+                        <div class="cpanel cpanel-blue">
+                            <div class="icon-part">
+                                <i class="fa fa-tasks" aria-hidden="true"></i><br/>
+                                <small>Solicitudes Abiertas</small>
+                                <p>#{queue_bancotadmin.sol_abierta}</p>
+                            </div>
+                            <div class="card-content-part">
+                                <a href="#">More Details </a>
+                            </div>
+                        </div>
+
+
+                    </div>                            
+
+
+                    <p:panel id ="panelbotones" styleClass="sinborde" >
+
+                        <h8 style="font-family: Corbel Light; font-size: 25px; margin:   auto " > Nueva vista por filtro: </h8>
+
+                        <p:panelGrid columns="6" style=" margin:  auto"  styleClass="sinborde">
+                            <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto ;font-weight:bold "> Usuario: </h8>
+                            <p:selectOneRadio id="usuarios" value="#{queue_bancotadmin.buser}" layout="grid" columns="7" style="font-family: Corbel Light;  " >
+                                <f:selectItems     value="#{queue_bancotadmin.userss}" var="city" itemLabel="&nbsp;&nbsp;#{city}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="#{city}  "/>
+                                <p:ajax  listener="#{queue_bancotadmin.GLDC_Queue_Programacion()}"  update="tbanco" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"  />
                             </p:selectOneRadio>
-                         
+
+                            <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto; font-weight:bold " > Estatus: </h8>
+                            <p:selectOneRadio id="estados" value="#{queue_bancotadmin.bestado}" layout="grid" columns="4" style="font-family: Corbel Light;"  >
+                                <f:selectItems     value="#{queue_bancotadmin.estatus}" var="city" itemLabel="&nbsp;&nbsp;#{city}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="#{city}  "/>
+                                <p:ajax  listener="#{queue_bancotadmin.GLDC_Queue_Programacion()}"  update="tbanco" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"  />
+                            </p:selectOneRadio>
+
                             <h8 style="font-family: Corbel Light; font-size: 20px; margin-top:   auto;font-weight:bold  " > Prioridad: </h8>
-                     <p:selectOneRadio id="prioridades" value="#{queue_bancotadmin.bpriori}" layout="grid" columns="3" style="font-family: Corbel Light;"  >
-                         <f:selectItems     value="#{queue_bancotadmin.priori}" var="city" itemLabel="&nbsp;&nbsp;#{city}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="#{city}  "/>
-                           <p:ajax  listener="#{queue_bancotadmin.GLDC_Queue_Programacion()}"  update="tbanco" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"  />
+                            <p:selectOneRadio id="prioridades" value="#{queue_bancotadmin.bpriori}" layout="grid" columns="3" style="font-family: Corbel Light;"  >
+                                <f:selectItems     value="#{queue_bancotadmin.priori}" var="city" itemLabel="&nbsp;&nbsp;#{city}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="#{city}  "/>
+                                <p:ajax  listener="#{queue_bancotadmin.GLDC_Queue_Programacion()}"  update="tbanco" onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"  />
                             </p:selectOneRadio>
-                     
-                   <br/>
-                  <br/>
-                 </p:panelGrid>
-                       
-                       <p:commandButton id="resetfiltros" value="Limpiar/Actualizar" actionListener="#{queue_bancotadmin.limpiafiltros()}" 
-                                              onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" 
-                                             update="panelbotones,tbanco,panelgtt"/>
-                        
-                        
-                 </p:panel>   
-                     
-                  
-                     
-                 <p:panelGrid  id="panelgtt" columns="2" styleClass="columna1, columna2" >
 
-                         <p:column>
-                         
-                             <table class="table align-middle mb-0 bg-white" style=" width: 650px">
-                             <thead class="bg-light">
-                                 <tr>
-                                     <th>Tipo de Solicitud</th>
-                                     <th>Token</th>
-                                     <th>Fecha Registro</th>
+                            <br/>
+                            <br/>
+                        </p:panelGrid>
 
-                                 </tr>
-                             </thead>
-                             <tbody>
-                             
-                                     <h:outputText value="#{queue_bancotadmin.codigo}" escape="false"   />
-                               
-                             </tbody>
-                         </table>
-                
+                        <p:commandButton id="resetfiltros" value="Limpiar/Actualizar" actionListener="#{queue_bancotadmin.limpiafiltros()}" 
+                                         onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" 
+                                         update="panelbotones,tbanco,panelgtt"/>
+
+
+                    </p:panel>   
+
+
+
+                    <p:panelGrid  id="panelgtt" columns="2" styleClass="columna1, columna2" >
+
+                        <p:column>
+
+                            <table class="table align-middle mb-0 bg-white" style=" width: 650px">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th>Tipo de Solicitud</th>
+                                        <th>Token</th>
+                                        <th>Fecha Registro</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <h:outputText value="#{queue_bancotadmin.codigo}" escape="false"   />
+
+                                </tbody>
+                            </table>
+
                         </p:column>
-                         <p:column>
-                        <h8 style="font-family: Corbel Light; font-size: 20px; margin:   auto " > Reseasinga token seleccionado: </h8>   
-                     
-                     <p:dataTable id="tbanco" 
-                                var="bancot" 
-                                value="#{queue_bancotadmin.bancoT}"
-                               emptyMessage="No hay registros" 
-                               widgetVar="vargeneral"
-                               selectionMode="single"
-                               selection="#{queue_bancotadmin.selectedEventoBitacora}"                               
-                               rowKey="#{bancot.id_token}"
-                               paginator="true" rows="20"  
-                               styleClass="hor-minimalist-b" style=" width: 95%;   margin:  auto"
-                               paginatorTemplate="{PageLinks}"  paginatorPosition="bottom"          
-                                  >
-                         
-                             <p:ajax event="rowSelect"   listener="#{queue_bancotadmin.onRowSelect}" update="growl,:form:idreasigna" 
-                                     oncomplete="PF('reasigna').show();"  onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();#{queue_bancotadmin.rea_dialogo}" />
-                         
-                         
-                     <p:column id="id_queue"  style=" width: 90px" headerText="id_queue"  >  
-                                <h:outputText value="#{bancot.id_queue}" />  
-                            </p:column>  
-                            
-                             <p:column id="id_token" headerText="id_token"  filterMatchMode="contains"  style=" width: 200px;"  filterStyle="width: 180px" filterBy="#{bancot.id_token}"   >  
-                                <h:outputText value="#{bancot.id_token}" />  
-                            </p:column>  
-                         
-                         <p:column id="ticket_number" headerText="ticket_number" filterMatchMode="contains" filterStyle="width: 150px" filterBy="#{bancot.ticket_number}"    >  
-                                <h:outputText value="#{bancot.ticket_number}" />  
-                            </p:column>  
-                             
-                             <p:column id="usuario" headerText="usuario" style=" width: 100px;"   filterMatchMode="contains" filterStyle="width: 80px" filterBy="#{bancot.usuario}"    >  
-                                <h:outputText value="#{bancot.usuario}" />  
-                            </p:column>       
-                         
-                         <p:column id="estatus"  style=" width: 150px; " headerText="estatus" filterMatchMode="contains" filterStyle="width: 100px" filterBy="#{bancot.estatus}"  >  
-                             <h:outputText value="#{bancot.estatus}" style="background-color: #{bancot.codigoc};   color: #fff; border-radius:10px; border: 1px   #52B4FC; padding: 5px 5px;  " />  
-                            </p:column>  
-                                                
-                         <p:column id="fecha_asignacion" headerText="fecha_asignacion" sortBy="#{bancot.fecha_asignacion}"  >  
-                                <h:outputText value="#{bancot.fecha_asignacion}" />  
-                            </p:column> 
-                         
-                         <p:column id="fecha_estatus" headerText="fecha_estatus"  sortBy="#{bancot.fecha_estatus}" >  
-                                <h:outputText value="#{bancot.fecha_estatus}" />  
-                            </p:column> 
-                         
-                          <p:column id="fecha_cierre" headerText="fecha_cierre"   >  
-                                <h:outputText value="#{bancot.fecha_cierre}" />  
-                            </p:column> 
-                         
-                         <p:column id="prioridad" headerText="prioridad" style=" width: 100px;" sortBy="#{bancot.prioridad}" >  
-                              <h:outputText value="#{bancot.prioridad}"  style="background-color: #{bancot.codigop};  color: #fff; border-radius:10px; border: 1px   #52B4FC; padding: 5px 5px;  " />    
-                            </p:column> 
-                       
-                       
-                     
-                                             
-                     </p:dataTable>
-                             
-                    </p:column>
-                         
-                    
-                                          
-                        </p:panelGrid>  
+                        <p:column>
+                            <h8 style="font-family: Corbel Light; font-size: 20px; margin:   auto " > Reseasinga token seleccionado: </h8>   
+
+                            <p:dataTable id="tbanco" 
+                                         var="bancot" 
+                                         value="#{queue_bancotadmin.bancoT}"
+                                         emptyMessage="No hay registros" 
+                                         widgetVar="vargeneral"
+                                         selectionMode="single"
+                                         selection="#{queue_bancotadmin.selectedEventoBitacora}"                               
+                                         rowKey="#{bancot.id_token}"
+                                         paginator="true" rows="20"  
+                                         styleClass="hor-minimalist-b" style=" width: 95%;   margin:  auto"
+                                         paginatorTemplate="{PageLinks}"  paginatorPosition="bottom"          
+                                         >
+
+                                <p:ajax event="rowSelect"   listener="#{queue_bancotadmin.onRowSelect}" update="growl,:form:idreasigna" 
+                                        oncomplete="PF('reasigna').show();"  onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();#{queue_bancotadmin.rea_dialogo}" />
+
+
+                                <p:column id="id_queue"  style=" width: 90px" headerText="id_queue"  >  
+                                    <h:outputText value="#{bancot.id_queue}" />  
+                                </p:column>  
+
+                                <p:column id="id_token" headerText="id_token"  filterMatchMode="contains"  style=" width: 200px;"  filterStyle="width: 180px" filterBy="#{bancot.id_token}"   >  
+                                    <h:outputText value="#{bancot.id_token}" />  
+                                </p:column>  
+
+                                <p:column id="ticket_number" headerText="ticket_number" filterMatchMode="contains" filterStyle="width: 150px" filterBy="#{bancot.ticket_number}"    >  
+                                    <h:outputText value="#{bancot.ticket_number}" />  
+                                </p:column>  
+
+                                <p:column id="usuario" headerText="usuario" style=" width: 100px;"   filterMatchMode="contains" filterStyle="width: 80px" filterBy="#{bancot.usuario}"    >  
+                                    <h:outputText value="#{bancot.usuario}" />  
+                                </p:column>       
+
+                                <p:column id="estatus"  style=" width: 150px; " headerText="estatus" filterMatchMode="contains" filterStyle="width: 100px" filterBy="#{bancot.estatus}"  >  
+                                    <h:outputText value="#{bancot.estatus}" style="background-color: #{bancot.codigoc};   color: #fff; border-radius:10px; border: 1px   #52B4FC; padding: 5px 5px;  " />  
+                                </p:column>  
+
+                                <p:column id="fecha_asignacion" headerText="fecha_asignacion" sortBy="#{bancot.fecha_asignacion}"  >  
+                                    <h:outputText value="#{bancot.fecha_asignacion}" />  
+                                </p:column> 
+
+                                <p:column id="fecha_estatus" headerText="fecha_estatus"  sortBy="#{bancot.fecha_estatus}" >  
+                                    <h:outputText value="#{bancot.fecha_estatus}" />  
+                                </p:column> 
+
+                                <p:column id="fecha_cierre" headerText="fecha_cierre"   >  
+                                    <h:outputText value="#{bancot.fecha_cierre}" />  
+                                </p:column> 
+
+                                <p:column id="prioridad" headerText="prioridad" style=" width: 100px;" sortBy="#{bancot.prioridad}" >  
+                                    <h:outputText value="#{bancot.prioridad}"  style="background-color: #{bancot.codigop};  color: #fff; border-radius:10px; border: 1px   #52B4FC; padding: 5px 5px;  " />    
+                                </p:column> 
 
 
 
-                             <p:dialog id="idreasigna" widgetVar="reasigna" header="Reasingar Token" showEffect="fade" hideEffect="fade">
-                                 <p:panel visible="#{queue_bancotadmin.rea_dialogo}">
-                                 <h:panelGrid  columns="2" cellpadding="7">
 
-                                     <p:outputLabel value="¿A quién deseas reasingar este token #{queue_bancotadmin.rea_idtoken}?" styleClass="p-text-bold"/>
+                            </p:dataTable>
 
-                                     <p:selectOneRadio id="rusuerid" value="#{queue_bancotadmin.rea_newusers}" layout="grid" columns="4" style="font-family: Corbel Light;"  >
-                                         <f:selectItems     value="#{queue_bancotadmin.ruserss}" var="city" itemLabel="&nbsp;&nbsp;#{city}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="#{city}  "/>                            
-                                     </p:selectOneRadio>
-                                 </h:panelGrid>   
-
-                                  <div class="p-d-flex p-jc-between p-mt-3">
-                                      <p:commandButton id="addButton_d" value="Ejecutar" actionListener="#{queue_bancotadmin.reasingaciontoken(loginBean.username)}"
-                                                  onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" 
-                                                  update="growl ,:form, :form:tbanco "/>
-                                  </div>
-                                  </p:panel>
-
-                                   <p:panel visible="#{!queue_bancotadmin.rea_dialogo}">
+                        </p:column>
 
 
-                                     <p:outputLabel value="Este token debido a su estatus no se puede reasingar a otro usuario" styleClass="p-text-bold"/>
 
-                                  <div class="p-d-flex p-jc-between p-mt-3">
-                                      <p:commandButton id="addButton_d2" value="Salir" 
-                                                  onstart="PF('reasigna').close();"
-                                                  />
-                                  </div>
-                                  </p:panel>
-                              </p:dialog>            
+                    </p:panelGrid>  
+
+
+
+                    <p:dialog id="idreasigna" widgetVar="reasigna" header="Reasingar Token" showEffect="fade" hideEffect="fade">
+                        <p:panel visible="#{queue_bancotadmin.rea_dialogo}">
+                            <h:panelGrid  columns="2" cellpadding="7">
+
+                                <p:outputLabel value="¿A quién deseas reasingar este token #{queue_bancotadmin.rea_idtoken}?" styleClass="p-text-bold"/>
+
+                                <p:selectOneRadio id="rusuerid" value="#{queue_bancotadmin.rea_newusers}" layout="grid" columns="4" style="font-family: Corbel Light;"  >
+                                    <f:selectItems     value="#{queue_bancotadmin.ruserss}" var="city" itemLabel="&nbsp;&nbsp;#{city}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" itemValue="#{city}  "/>                            
+                                </p:selectOneRadio>
+                            </h:panelGrid>   
+
+                            <div class="p-d-flex p-jc-between p-mt-3">
+                                <p:commandButton id="addButton_d" value="Ejecutar" actionListener="#{queue_bancotadmin.reasingaciontoken(loginBean.username)}"
+                                                 onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" 
+                                                 update="growl ,:form, :form:tbanco "/>
+                            </div>
+                        </p:panel>
+
+                        <p:panel visible="#{!queue_bancotadmin.rea_dialogo}">
+
+
+                            <p:outputLabel value="Este token debido a su estatus no se puede reasingar a otro usuario" styleClass="p-text-bold"/>
+
+                            <div class="p-d-flex p-jc-between p-mt-3">
+                                <p:commandButton id="addButton_d2" value="Salir" 
+                                                 onstart="PF('reasigna').close();"
+                                                 />
+                            </div>
+                        </p:panel>
+                    </p:dialog>            
 
                     <br/>
-                       <br/>
-                       
-                 <p:commandButton id="iest" value="Ver estadísticas" actionListener="#{queue_bancotadmin.estadismetod()}" 
-                                              onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" 
-                                             update="hola2"/>
-                  &nbsp;&nbsp;
-                 <p:outputLabel value="  Comienzo:" styleClass="p-text-bold"/>
-                 
-                   <p:calendar id="fechainicio" mode="popup" showOn="button"
-                                         value="#{queue_bancotadmin.d_fechaini}" 
-                                            pages="1" 
-                                            timeZone="America/Mexico_City"
-                                            pattern="yyyy/MM/dd HH:mm:ss" selectOtherMonths="true"
-                                            locale="es"
-                                           
-                                            style="font-size:  x-small; font-family:  sans-serif;"
-                                            navigator="true"                              
-                                            />  
-                            
-                     &nbsp;&nbsp;        
-                   <p:outputLabel value=" Final:" styleClass="p-text-bold"/>
-                         
+                    <br/>
+
+                    <p:commandButton id="iest" value="Ver estadísticas" actionListener="#{queue_bancotadmin.estadismetod()}" 
+                                     onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" 
+                                     update="hola2"/>
+                    &nbsp;&nbsp;
+                    <p:outputLabel value="  Comienzo:" styleClass="p-text-bold"/>
+
+                    <p:calendar id="fechainicio" mode="popup" showOn="button"
+                                value="#{queue_bancotadmin.d_fechaini}" 
+                                pages="1" 
+                                timeZone="America/Mexico_City"
+                                pattern="yyyy/MM/dd HH:mm:ss" selectOtherMonths="true"
+                                locale="es"
+
+                                style="font-size:  x-small; font-family:  sans-serif;"
+                                navigator="true"                              
+                                />  
+
+                    &nbsp;&nbsp;        
+                    <p:outputLabel value=" Final:" styleClass="p-text-bold"/>
+
                     <p:calendar id="fechafin" mode="popup" showOn="button"
-                                         value="#{queue_bancotadmin.d_fechafin}" 
-                                            pages="1" 
-                                            timeZone="America/Mexico_City"
-                                            pattern="yyyy/MM/dd HH:mm:ss" selectOtherMonths="true"
-                                            showOtherMonths="true" showWeek="true" locale="es"
-                                            
-                                            style="font-size:  x-small; font-family:  sans-serif;"
-                                            navigator="true"                              
-                    />  
-                 
-                 
-                 
-                   <br/>  <br/>
-                   <p:panel  id="hola2" visible="#{queue_bancotadmin.besta}"   >
- 
+                                value="#{queue_bancotadmin.d_fechafin}" 
+                                pages="1" 
+                                timeZone="America/Mexico_City"
+                                pattern="yyyy/MM/dd HH:mm:ss" selectOtherMonths="true"
+                                showOtherMonths="true" showWeek="true" locale="es"
 
-  
-    
-    <p:panelGrid columns="25"   style="  margin-right:  auto; border-color:  transparent;  text-align:  right " styleClass="sinborde"  >  
-       
-       <h8  style="font-family: Corbel Light; font-size: 25px; margin:   auto  "  > Usuarios conectados: </h8>
-       
-       <ui:repeat value="#{queue_bancotadmin.usuariosC}" var="image">
-             <p:graphicImage value="#{image.uimagen}" width="60px"  style="border-radius:30px; border: 3px solid     #{image.color}   ;"  rendered="#{image.conectado}" />
-        </ui:repeat>
-     
-           </p:panelGrid>    
-      
- 
- 
-                 <p:panelGrid columns="2"  style=" margin:  auto" styleClass="sinborde" rendered="#{queue_bancotadmin.besta}" >        
-
-      
-              <p:panelGrid columns="4"  styleClass="sinborde" >
-              
-                  <p:column>
-                      <h5  style=" font-family: Corbel Light;">Total de solicitudes </h5>                         
-                              <p:knob  disabled="true" foregroundColor="#2196F3" backgroundColor="#495057" value="#{queue_bancotadmin.value1}"  width="65%" max="2000"   />
-                              </p:column>   
-                              <p:column>           
-                          <h5 style=" font-family: Corbel Light;">Total Resueltas</h5>
-
-                              <p:knob disabled="true" foregroundColor="#2196F3" backgroundColor="#495057" value="#{queue_bancotadmin.value2}" width="65%" max="2000" />
-                </p:column> 
-
-                     
-                   <p:column> 
-                          <h5 style=" font-family: Corbel Light;"> % Atendido </h5>
-                              <p:knob disabled="true" foregroundColor="#2196F3" backgroundColor="#495057" value="#{queue_bancotadmin.value3}" width="65%"/>
-                    </p:column> 
-               
-         <p:column> 
-                          <h5 style=" font-family: Corbel Light;"> Analistas Atendiendo </h5>
-                              <p:knob disabled="true" foregroundColor="#2196F3" backgroundColor="#495057" value="#{queue_bancotadmin.value4}" width="65%" max="10" />
-                   </p:column> 
-                          
-                          
-           </p:panelGrid>
+                                style="font-size:  x-small; font-family:  sans-serif;"
+                                navigator="true"                              
+                                />  
 
 
-                     <p:column>
-                  <p:chart type="bar"  id="gbarra"
-                                        model="#{queue_bancotadmin.graficatraficobarra}" 
-                                  style="width:900px;  height: 450px; font-size:12px ; font-family: verdana;"
-                                  styleClass="ext,gbarra"                                         
-                              />   
 
-                    </p:column>
-             
-           
-
-              </p:panelGrid>
- 
- 
-
-  
- 
- 
-       <p:chart type="bar"  id="gbarra2" rendered="#{queue_bancotadmin.besta}" widgetVar="chartl"
-                                        model="#{queue_bancotadmin.lineamodel}" 
-                                  style=" height: 550px; font-size:15px ; font-family: verdana;"                                                                        
-                              /> 
-        <br/>
-             <p:commandButton type="button" value="Reset" icon="pi pi-ban" onclick="PF('chartl').resetZoom()" rendered="#{queue_bancotadmin.besta}"/>
-
-       
+                    <br/>  <br/>
+                    <p:panel  id="hola2" visible="#{queue_bancotadmin.besta}"   >
 
 
-                      
- 
-                 </p:panel>
-                     
+
+
+                        <p:panelGrid columns="25"   style="  margin-right:  auto; border-color:  transparent;  text-align:  right " styleClass="sinborde"  >  
+
+                            <h8  style="font-family: Corbel Light; font-size: 25px; margin:   auto  "  > Usuarios conectados: </h8>
+
+                            <ui:repeat value="#{queue_bancotadmin.usuariosC}" var="image">
+                                <p:graphicImage value="#{image.uimagen}" width="60px"  style="border-radius:30px; border: 3px solid     #{image.color}   ;"  rendered="#{image.conectado}" />
+                            </ui:repeat>
+
+                        </p:panelGrid>    
+
+
+
+                        <p:panelGrid columns="2"  style=" margin:  auto" styleClass="sinborde" rendered="#{queue_bancotadmin.besta}" >        
+
+
+                            <p:panelGrid columns="4"  styleClass="sinborde" >
+
+                                <p:column>
+                                    <h5  style=" font-family: Corbel Light;">Total de solicitudes </h5>                         
+                                    <p:knob  disabled="true" foregroundColor="#2196F3" backgroundColor="#495057" value="#{queue_bancotadmin.value1}"  width="65%" max="2000"   />
+                                </p:column>   
+                                <p:column>           
+                                    <h5 style=" font-family: Corbel Light;">Total Resueltas</h5>
+
+                                    <p:knob disabled="true" foregroundColor="#2196F3" backgroundColor="#495057" value="#{queue_bancotadmin.value2}" width="65%" max="2000" />
+                                </p:column> 
+
+
+                                <p:column> 
+                                    <h5 style=" font-family: Corbel Light;"> % Atendido </h5>
+                                    <p:knob disabled="true" foregroundColor="#2196F3" backgroundColor="#495057" value="#{queue_bancotadmin.value3}" width="65%"/>
+                                </p:column> 
+
+                                <p:column> 
+                                    <h5 style=" font-family: Corbel Light;"> Analistas Atendiendo </h5>
+                                    <p:knob disabled="true" foregroundColor="#2196F3" backgroundColor="#495057" value="#{queue_bancotadmin.value4}" width="65%" max="10" />
+                                </p:column> 
+
+
+                            </p:panelGrid>
+
+
+                            <p:column>
+                                <p:chart type="bar"  id="gbarra"
+                                         model="#{queue_bancotadmin.graficatraficobarra}" 
+                                         style="width:900px;  height: 450px; font-size:12px ; font-family: verdana;"
+                                         styleClass="ext,gbarra"                                         
+                                         />   
+
+                            </p:column>
+
+
+
+                        </p:panelGrid>
+
+
+
+
+
+
+                        <p:chart type="bar"  id="gbarra2" rendered="#{queue_bancotadmin.besta}" widgetVar="chartl"
+                                 model="#{queue_bancotadmin.lineamodel}" 
+                                 style=" height: 550px; font-size:15px ; font-family: verdana;"                                                                        
+                                 /> 
+                        <br/>
+                        <p:commandButton type="button" value="Reset" icon="pi pi-ban" onclick="PF('chartl').resetZoom()" rendered="#{queue_bancotadmin.besta}"/>
+
+
+
+
+
+
+                    </p:panel>
+
                 </h:form>
-        
-                     
-            
+
+
+
             </ui:define>
 
         </ui:composition>
-        
-        
-        
-  <p:dialog modal="true" widgetVar="statusDialog"   
-                      closable="false"  
-                      resizable="false"
-                      showEffect="drop"
-                      hideEffect="drop"
-                      showHeader="false"
-                      position="center"
-                      style="border: none; box-shadow: none;  background: transparent; "  
-                      styleClass="estatusdiag"
-                      >  
-               <p:graphicImage value="../resources/images/ajax_att.gif"  />   
-    </p:dialog> 
 
 
-        
-   
-        
+
+        <p:dialog modal="true" widgetVar="statusDialog"   
+                  closable="false"  
+                  resizable="false"
+                  showEffect="drop"
+                  hideEffect="drop"
+                  showHeader="false"
+                  position="center"
+                  style="border: none; box-shadow: none;  background: transparent; "  
+                  styleClass="estatusdiag"
+                  >  
+            <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+        </p:dialog> 
+
+
+
+
+
     </body>
 </html>

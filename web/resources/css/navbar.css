@@ -1,0 +1,9 @@
+.navbar{
+    -webkit-box-shadow: 0px 10px 15px -5px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px 10px 15px -5px rgba(0,0,0,0.6);
+    box-shadow: 0px 10px 15px -5px rgba(0,0,0,0.6);
+}
+.brand{
+    display:flex;
+    align-items: center;
+}
