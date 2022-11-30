@@ -55,3 +55,19 @@ body .ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item{
     height: 28px;
 }
 
+estatusdiag .ui-widget-content{
+    background: transparent !important;
+    border:none !important;
+    box-shadow:none !important;
+}
+
+@media (min-width: 768px) {
+  .row.equal {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.graficos{
+    
+}

@@ -58,9 +58,10 @@
 
         <ui:composition template="#{loginBean.template}" >
             <ui:define name="content">
-                <h:form id="form"> 
 
+                <h:form id="form"> 
                     <p:growl id="growl"  life="4000"  showDetail="true" />
+
 
 
                     <div class="container">
@@ -346,61 +347,77 @@
                             </div>
 
                         </div>
-                        <!-- FIN SECCION GENERACION Y DETALLES TOKEN -->
+
                     </div>
 
 
+                    <div class="container">
+                        <!-- FIN SECCION GENERACION Y DETALLES TOKEN -->
 
 
 
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                                <p:card style="margin-bottom: 2em">
+                                    <f:facet name="subtitle">
 
-                    <br></br>
-                    <p:panelGrid columns="5"  style=" margin:  auto; border: transparent; align-content:  center"  >
+                                        <div class="row text-center">
+                                            <div class="col-md-12">Acciones</div>
 
-                        <p:inputTextarea  value="#{GLDCToken.eliTOKEN}"  rows="1"  cols="20" /> 
+                                        </div>
+                                    </f:facet>
+                                    <div class="row text-center align-middle">
 
-                        <p:commandButton  
-                            value="Recuperar dictamen"
-                            actionListener="#{GLDCToken.onRowSelect()}"
-                            update="growl,check "  style=" animation:  ease-in;  width: 300px  "
-                            onstart="PF('statusDialog').show();" 
-                            onsuccess="PF('statusDialog').hide();PF('reasigna').show();  "
-                            icon="bars"   
-                            > 
-                        </p:commandButton>
+                                        <div class="col-md-3"> 
+                                            <p:inputText value="#{GLDCToken.eliTOKEN}" style="width:100%" /> 
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <p:commandButton  
+                                                value="Recuperar dictamen"
+                                                actionListener="#{GLDCToken.onRowSelect()}"
+                                                update="growl,check "  style=" animation:  ease-in;  width: 300px  "
+                                                onstart="PF('statusDialog').show();" 
+                                                onsuccess="PF('statusDialog').hide();PF('reasigna').show();"> 
+                                            </p:commandButton>
+
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <p:commandButton  
+                                                value="Eliminar Token"
+                                                actionListener="#{GLDCToken.borrar()}"
+                                                update="growl, TokenId, panelg1"  
+                                                onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"
+                                                style="width:100%"
+                                                > 
+                                                <p:confirm header="Confirmation" message="Are you sure you want to proceed?" />
+                                            </p:commandButton> 
+                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+                                            </p:confirmDialog>  
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <p:commandButton  
+                                                value="Nuevo Token"
+                                                actionListener="#{GLDCToken.reload()}"
+                                                update="growl" style="width:100%"/> 
+
+                                        </div>
+
+                                    </div>
 
 
-                        <p:commandButton  
-                            value="Eliminar Token"
-                            actionListener="#{GLDCToken.borrar()}"
-                            update="growl, TokenId, panelg1"  
-                            onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();"
-                            style=" animation:  ease-in;  width: 300px  "
-                            > 
-                            <p:confirm header="Confirmation" message="Are you sure you want to proceed?" />
-                        </p:commandButton>
+                                </p:card>
+                            </div>
+                        </div>
 
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
-                        </p:confirmDialog>  
-
-
-
-                        <p:commandButton  
-                            value="Nuevo Token"
-                            actionListener="#{GLDCToken.reload()}"
-                            update="growl"  style=" animation:  ease-in;  width: 300px  "
-                            > 
-                        </p:commandButton>
-
-
-
-
-                    </p:panelGrid> 
-
+                    </div>
 
                     <div class="container">
+
                         <hr class="hr" />
                         <p:card id="panelg1">
                             <f:facet name="title">
@@ -497,61 +514,99 @@
                             </p:dataTable> 
                         </p:card>
                     </div>
-
-
-                    <p:dialog id="idreasigna" 
-                              widgetVar="reasigna" 
-                              header="Check List #{GLDCToken.CKToken}" 
-                              showEffect="Explode" 
-                              hideEffect="Explode" 
-                              height="500px" 
-                              width="750px"
-                              modal="false"
-                              >
-                        <p:panel visible="#{GLDCToken.rea_dialogo}">
-                            <h:panelGrid id="check" columns="1" cellpadding="7">
-
-                                <p:outputLabel value="Token: #{GLDCToken.CKToken}"/> <br/> 
-
-                                <p:outputLabel value="Procede: #{GLDCToken.ckprocede}"/> 
-                                <p:outputLabel value="Tipo de Solicitud: #{GLDCToken.ckTipoSol}"/> 
-                                <p:outputLabel rendered="#{GLDCToken.v_ticket}" value="TICKET #{GLDCToken.CKNTICKET}">  </p:outputLabel> 
-                                <p:outputLabel rendered="#{GLDCToken.v_caso}" value="CASO: #{GLDCToken.CKID_CASO}" >  </p:outputLabel>
-                                <p:outputLabel value="Prioridad: #{GLDCToken.CKPriori}"/> 
-                                <p:outputLabel value="Fundamento: #{GLDCToken.CKFundam}"/>
-                                <p:outputLabel value="Firma: #{GLDCToken.CKfirma}"/>
-                                <p:outputLabel value="Término: #{GLDCToken.CKTermino}"/>
-                                <p:outputLabel value="Tipo de Envio: #{GLDCToken.CKRescep}"/>
-                                <p:outputLabel value="Abogado: #{loginBean.nombre}"/>
-                                <p:outputLabel value="Observaciones: #{GLDCToken.CKObserva}"/>
-
-                            </h:panelGrid>   
-
-
-                        </p:panel>
-
-
-
-                    </p:dialog>            
-
-
                 </h:form>
+
+                <p:dialog modal="true" id="idreasigna" widgetVar="reasigna"
+                          height="380px" width="700px" resizable="false" header="Dictamen">
+                    <p:panel id="check" visible="#{GLDCToken.rea_dialogo}">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p class="fw-bold"><p:outputLabel value="Token: #{GLDCToken.CKToken}"/></p></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Procede: #{GLDCToken.ckprocede}"/> </div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Tipo de Solicitud: #{GLDCToken.ckTipoSol}"/> </div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel rendered="#{GLDCToken.v_ticket}" value="TICKET #{GLDCToken.CKNTICKET}"/></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel rendered="#{GLDCToken.v_caso}" value="CASO: #{GLDCToken.CKID_CASO}"/></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Prioridad: #{GLDCToken.CKPriori}"/></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Fundamento: #{GLDCToken.CKFundam}"/></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Firma: #{GLDCToken.CKfirma}"/></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Término: #{GLDCToken.CKTermino}"/></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Tipo de Envio: #{GLDCToken.CKRescep}"/></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Abogado: #{loginBean.nombre}"/></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Observaciones: #{GLDCToken.CKObserva}"/></div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </p:panel>
+                </p:dialog>
+
+                <p:dialog modal="true" widgetVar="statusDialog"    
+                          closable="false"  
+                          resizable="false"
+                          showEffect="drop"
+                          hideEffect="drop"
+                          showHeader="false"
+                          position="center"
+                          styleClass="estatusdiag"
+                          >  
+                    <p:graphicImage value="../resources/images/ajax_att.gif"  />   
+                </p:dialog> 
+
+
             </ui:define>
 
         </ui:composition>
 
-        <p:dialog modal="true" widgetVar="statusDialog"    
-                  closable="false"  
-                  resizable="false"
-                  showEffect="drop"
-                  hideEffect="drop"
-                  showHeader="false"
-                  position="center"
-                  style="border: none; box-shadow: none;  background: transparent; "  
-                  styleClass="estatusdiag"
-                  >  
-            <p:graphicImage value="../resources/images/ajax_att.gif"  />   
-        </p:dialog> 
+
 
 
 

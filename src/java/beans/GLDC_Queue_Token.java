@@ -46,7 +46,7 @@ public class GLDC_Queue_Token implements Serializable {
     private String vpanel = "false";
     private String rea_idtoken = "";
     private boolean rea_dialogo = true;
-
+    
     String NO_OFICIO, ID_USUARIO, TIPO_SOLICITUD, ID_PRIORIDAD, MEDIO_RECEPCION, FECHA_REGISTRO, TIPO_IDENTIFICADOR, PROCEDE, FIRMA, TERMINO, FUNDAMENTO, OBERVACION, COLOR;
     static int contador;
     boolean rendered;
@@ -76,7 +76,7 @@ public class GLDC_Queue_Token implements Serializable {
     SetPlayGLDC_Token selectedProcesados;
     private List<SetPlayCatalogosToken> Tiposol;
     private List<SetPlayCatalogosIndicador> Tipoind;
-
+    
     @PostConstruct
 
     public void init() {
@@ -818,10 +818,11 @@ public class GLDC_Queue_Token implements Serializable {
         }
 
     }
+    
 
     public void onRowSelect() throws IOException {
 
- //       System.out.println("Entra consultar Check List");
+System.out.println("Entra consultar Check List");
 
         if (EliTOKEN == null || "".equals(EliTOKEN)) {
             FacesMessage msg = new FacesMessage("Introducir un Valor");
@@ -884,8 +885,8 @@ public class GLDC_Queue_Token implements Serializable {
                     }
                 }
                 //EliTOKEN = "";
-
-                /*  System.out.println("Proicede "+Ckprocede);
+//ACTUALIZAR ABOGADO
+                  System.out.println("Proicede "+Ckprocede);
             System.out.println("Proicede "+CkTipoSol);
             System.out.println("Proicede "+CKPriori);
             System.out.println("Proicede "+CKFundam);
@@ -894,7 +895,7 @@ public class GLDC_Queue_Token implements Serializable {
             System.out.println("Proicede "+CKRescep);
             System.out.println("Proicede "+CKObserva);
             System.out.println("Proicede "+CKToken);
-                 */
+               
             } catch (SQLException ex) {
                 System.out.println("ERROR:Error de BD: "
                         + ex.getMessage());
@@ -1326,8 +1327,7 @@ public class GLDC_Queue_Token implements Serializable {
     public void setFecha(String Fecha) {
         this.Fecha = Fecha;
     }
-
-   
+ 
     
 
 }
