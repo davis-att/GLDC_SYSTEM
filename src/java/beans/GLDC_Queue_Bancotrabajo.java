@@ -81,8 +81,7 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
     public void GLDC_Queue_Programacion() {
 
         Herramientas.Conexion conectar = new Herramientas.Conexion("DG3861_DGLDCSTG");
-        //String username = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userid");
-        String username="rr789j";
+        String username = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userid");
         System.out.println("usruarrrrrrr:" + username);
 
         revisaconexion(username);
@@ -130,7 +129,7 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
 
                 SetPlayQueue_bancotrab datos = new SetPlayQueue_bancotrab(
                         rSet.getInt(1), rSet.getString(2), rSet.getString(3), rSet.getString(4), rSet.getString(5), rSet.getString(6), rSet.getString(7), rSet.getString(8),
-                        rSet.getString(9), rSet.getString(10));
+                         rSet.getString(9), rSet.getString(10));
                 BancoT.add(datos);
                 filterBancoT.add(datos);
 
@@ -161,7 +160,6 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
 
                 token_ts.add(rSet.getString(1));
                 token_tsi.add(rSet.getString(2));
-                token_tsi.add(rSet.getString(2));
                 token_tsn.add(rSet.getString(3));
                 token_pr.add(rSet.getString(4));
                 token_fec.add(rSet.getString(6));
@@ -178,26 +176,7 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
                 }
 
                 //  System.out.println("toke"+token_prc.get(cont));
-                /*
-                codigo = codigo.concat("<tr>\n"
-                        + "                                     <td>\n"
-                        + "                                         <div class=\"d-flex align-items-center\">\n"
-                        + "  \n"
-                        + "                                             <div class=\"ms-3\">\n"
-                        + "                                                 <span class=\"" + token_prc.get(cont) + "\">" + token_pr.get(cont) + "</span>\n"
-                        + "                                                 <span class=\"fw-bold mb-1\">" + token_ts.get(cont) + "   </span>\n"
-                        + "                                                 <p class=\"text-muted mb-0\">" + token_tsi.get(cont) + " </p>\n"
-                        + "                                                 <p class=\"text-muted mb-0\">" + token_tsn.get(cont) + " </p>\n"
-                        + "                                             </div>\n"
-                        + "                                         </div>\n"
-                        + "                                     </td>\n"
-                        + "                                     <td>\n"
-                        + "                                         <span class=\"badge bg-primary\">" + token.get(cont) + "</span>\n"
-                        + "                                     </td>\n"
-                        + "                                     <td>" + token_fec.get(cont) + "</td>\n"
-                        + "                                 </tr>");
-                 */
-                codigo = codigo.concat("<div class=\"row\">\n"
+                 codigo = codigo.concat("<div class=\"row\">\n"
                         + "        <div class=\"col-md-2\">\n"
                         + "            <span class=\"" + token_prc.get(cont) + "\" style=\"font-size:12px\">" + token_pr.get(cont) + "</span>\n"
                         + "        </div>\n"
@@ -301,8 +280,8 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
         }
 
     }
-    
-    public String TiempoTranscurrido(String fecha_sol) {
+
+     public String TiempoTranscurrido(String fecha_sol) {
         //System.out.println(fecha_sol);
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -343,7 +322,7 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
         }
         return "sin datos";
     }
-
+     
     public static String gentoken(int length) {
         StringBuffer sb = new StringBuffer();
         for (int i = length; i > 0; i -= 12) {
@@ -388,7 +367,7 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
             bandsesion = true;
 
-            System.out.println("bandsesion" + bandsesion);
+            System.out.println("Revisa conexion -> bandsesion :" + bandsesion);
 
         } else {
             bandsesion = false;
@@ -544,7 +523,7 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
                     + "  id_desconexion)\n"
                     + "   SELECT  id_usuario, '" + token_session + "' , sysdate, NULL, NULL  FROM pw_queue_usuario WHERE usuario  = '" + userattid + "'";
 
-            //System.out.println(insert);
+            System.out.println("INSERT INICIAR BANCO -> "+insert);
             rSet = con.ejecutarQuery(insert);
 
             con.con.close();
@@ -561,7 +540,7 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
             bandsesion = true;
 
-            System.out.println("bandsesion" + bandsesion);
+            System.out.println("bandsesion: " + bandsesion);
 
         }
 
@@ -583,7 +562,8 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
                     + "(SELECT max(ID_LOGUIN), max(FECHA_LOGUIN) FROM dg3861.pw_queue_loguin\n"
                     + "WHERE id_usuario  = (SELECT  id_usuario  FROM pw_queue_usuario WHERE usuario  = '" + userattid + "'))";
 
-            System.out.println(update);
+            
+            System.out.println("UPDATE CERRAR BANCO -> "+update);
 
             rSet = con.ejecutarQuery(update);
 
@@ -601,7 +581,7 @@ public class GLDC_Queue_Bancotrabajo implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, message);
             bandsesion = false;
 
-            System.out.println("bandsesion" + bandsesion);
+            System.out.println("bandsesion: " + bandsesion);
 
         }
 

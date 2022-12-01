@@ -10,8 +10,16 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <title>Acceso | GLDC System V2</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"/>
-        <link href="resources/css/signin.css" rel="stylesheet"/>
+        
+        <h:outputStylesheet library="css" name="bootstrap.css"/>
+        <h:outputScript library="js" name="bootstrap.bundle.min.js"/>
+        <h:outputStylesheet library="css" name="fontawesome.css"/>
+        <h:outputStylesheet library="css" name="brands.css"/>
+        <h:outputStylesheet library="css" name="solid.css"/>
+
+        <h:outputStylesheet library="css" name="signin.css"/>
+
+        
         <script type="text/javascript">
             function handleLoginRequest(xhr, status, args) {
                 if (args.validationFailed || !args.loggedIn) {
@@ -33,7 +41,7 @@
                     <p:autoUpdate/>
                 </p:growl>
                 <h:form id ="loginForm">
-                    <img class="mb-4" src="resources/images/att_1.png" alt="" width="180"/>
+                    <img class="mb-4" src="#{resource['images/att_1.png']}" alt="" width="180"/>
                     <h1 class="h3 mb-3 fw-normal">Bienvenido</h1>
 
                     <div class="form-floating">

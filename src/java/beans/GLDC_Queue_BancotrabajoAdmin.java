@@ -33,6 +33,8 @@ import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
 import static java.util.Collections.list;
@@ -131,6 +133,9 @@ public class GLDC_Queue_BancotrabajoAdmin implements Serializable {
     private ScheduleEvent event = new DefaultScheduleEvent();
     String hola;
 
+    private LocalDate minDate;
+    private LocalDate maxDate;
+
     //Variables para mostrar bitacora.
     /*
     private BarChartModel graficatraficobarra; // DERECHO BARRAS
@@ -148,11 +153,17 @@ public class GLDC_Queue_BancotrabajoAdmin implements Serializable {
     @PostConstruct
 
     public void GLDC_Queue_Programacion() {
+
         createStackedBarModel(null, null, null);
 
         createPromedioAtencion(null, null, null, null);
 
         createLineModel(null, null, null);
+
+        minDate = LocalDate.now().minusDays(7);
+        maxDate = LocalDate.now();
+        
+
 
         Herramientas.Conexion conectar = new Herramientas.Conexion("DG3861_DGLDCSTG");
         String username = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("userid");
@@ -528,7 +539,7 @@ public class GLDC_Queue_BancotrabajoAdmin implements Serializable {
             int cont = 0, cont2 = 0;
             try {
                 List attidOrdenado = (List) attid.stream().distinct().collect(Collectors.toList());
-                Collections.sort(attidOrdenado);
+                //Collections.sort(attidOrdenado);
 
                 int aux = Collections.frequency(attid, attidOrdenado.get(1));
                 System.out.println("Repeticion: " + aux);
@@ -1614,7 +1625,7 @@ public class GLDC_Queue_BancotrabajoAdmin implements Serializable {
 
         //System.out.println("QUERY 1:" + ConsultaSolicitudes);
         //System.out.println("QUERY 2:" + ConsultaPromedioA);
-        //System.out.println("QUERY UNKW: " + ConsultaAsig);
+        System.out.println("QUERY UNKW: " + ConsultaAsig);
         try {
             Herramientas.Conexion con = new Herramientas.Conexion("DG3861_DGLDCSTG");
             ResultSet rSet;
@@ -2123,6 +2134,22 @@ public class GLDC_Queue_BancotrabajoAdmin implements Serializable {
 
     public void setStackedGroupBarModel(BarChartModel stackedGroupBarModel) {
         this.stackedGroupBarModel = stackedGroupBarModel;
+    }
+
+    public LocalDate getMinDate() {
+        return minDate;
+    }
+
+    public void setMinDate(LocalDate minDate) {
+        this.minDate = minDate;
+    }
+
+    public LocalDate getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMaxDate(LocalDate maxDate) {
+        this.maxDate = maxDate;
     }
 
 }

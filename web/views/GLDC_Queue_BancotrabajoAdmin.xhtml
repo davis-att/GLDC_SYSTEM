@@ -11,6 +11,8 @@
 
         <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>
 
+
+
     </h:head>
 
 
@@ -18,7 +20,17 @@
 
         <ui:composition template="#{loginBean.template}" >
             <ui:define name="content">
+                <script>
+                    //<![CDATA[
+                    function exportChart() {
+                        //export image
+                        $('#output').empty().append(PF('G-Asig').exportAsImage());
 
+                        //show the dialog
+                        PF('dlg').show();
+                    }
+                    //]]>
+                </script>
                 <p:growl id="growl"  life="10000"  showDetail="true" />
                 <div class="container">
                     <h:form id="fp">            
@@ -303,7 +315,7 @@
 
                             <div class="p-d-flex p-jc-between p-mt-3">
                                 <p:commandButton id="addButton_d" value="Ejecutar" actionListener="#{queue_bancotadmin.reasingaciontoken(loginBean.username)}"
-                                                 onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" 
+                                                 onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide(); PF('reasigna').hide();" 
                                                  update="growl ,:seccionTabla, :seccionTabla:tbanco "/>
                             </div>
                         </p:panel>
@@ -337,13 +349,13 @@
                                     <span class="fw-bold">Comienzo:</span>
 
 
-                                    <p:datePicker id="fechainicio" widgetVar="Finicio" value="#{queue_bancotadmin.d_fechaini}" showIcon="true" showTime="true" stepMinute="5"/>
+                                    <p:datePicker id="fechainicio" widgetVar="Finicio" value="#{queue_bancotadmin.d_fechaini}" mindate="#{queue_bancotadmin.minDate}" maxdate="#{queue_bancotadmin.maxDate}" showIcon="true" showTime="true" stepMinute="5"/>
                                 </div>
                                 <div class="col-lg-4 align-middle text-center">
                                     <span class="fw-bold">Final:</span>
 
 
-                                    <p:datePicker id="fechafin" widgetVar="Ffin" value="#{queue_bancotadmin.d_fechafin}" showIcon="true" showTime="true" stepMinute="5"/>
+                                    <p:datePicker id="fechafin" widgetVar="Ffin" value="#{queue_bancotadmin.d_fechafin}" mindate="#{queue_bancotadmin.minDate}" maxdate="#{queue_bancotadmin.maxDate}" showIcon="true"/>
                                 </div>
 
                                 <div class="col-lg-2 align-middle text-center">
@@ -406,7 +418,8 @@
                     <div class="row mt-4">
                         <div class="col">
                             <p:card id="Gasig" rendered="#{queue_bancotadmin.besta}">
-                                <p:lineChart model="#{queue_bancotadmin.lineModel}" style="width: 100%; height: 500px;"/>
+                                <p:lineChart widgetVar="G-Asig" model="#{queue_bancotadmin.lineModel}" style="width: 100%; height: 500px;"/>
+                                <p:commandButton type="button" value="Exportar" icon="fa-solid fa-file-export" onclick="exportChart()" class="btn btn-info"/>
                             </p:card>
                         </div>
                     </div>
@@ -420,6 +433,10 @@
                     </div>
 
                 </div>
+
+                <p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Grafico a imagen">
+                    <p:outputPanel id="output" layout="block"/>
+                </p:dialog>
 
                 <p:dialog modal="true" widgetVar="statusDialog"   
                           closable="false"  

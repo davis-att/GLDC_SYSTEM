@@ -36,7 +36,6 @@ import java.time.format.DateTimeFormatter;
 
 import javax.annotation.PostConstruct;
 
-
 @ManagedBean
 @ViewScoped
 @Named(value = "GLDCToken")
@@ -46,7 +45,7 @@ public class GLDC_Queue_Token implements Serializable {
     private String vpanel = "false";
     private String rea_idtoken = "";
     private boolean rea_dialogo = true;
-    
+
     String NO_OFICIO, ID_USUARIO, TIPO_SOLICITUD, ID_PRIORIDAD, MEDIO_RECEPCION, FECHA_REGISTRO, TIPO_IDENTIFICADOR, PROCEDE, FIRMA, TERMINO, FUNDAMENTO, OBERVACION, COLOR;
     static int contador;
     boolean rendered;
@@ -66,7 +65,7 @@ public class GLDC_Queue_Token implements Serializable {
     String NTICKET, Caso;
     String Resumen;
 
-    String Ckprocede, CkTipoSol, CKPriori, CKFundam, CKfirma, CKTermino, CKRescep, CKObserva, CKToken, CKID_CASO, CKNTICKET;
+    String Ckprocede, CkTipoSol, CKPriori, CKFundam, CKfirma, CKTermino, CKRescep, CKObserva, CKToken, CKID_CASO, CKNTICKET, CKAbogado;
     String Fecha;
     private List<SetPlayGLDC_Token> listaPrioridad = new ArrayList<>();
 
@@ -76,21 +75,20 @@ public class GLDC_Queue_Token implements Serializable {
     SetPlayGLDC_Token selectedProcesados;
     private List<SetPlayCatalogosToken> Tiposol;
     private List<SetPlayCatalogosIndicador> Tipoind;
-    
+
     @PostConstruct
 
     public void init() {
         rendered = false;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        Fecha = dtf.format(LocalDateTime.now()); 
+        Fecha = dtf.format(LocalDateTime.now());
         consulta();
 
     }
 
     public void consulta() {
 
-      //  System.out.println("Entra el Setplay de TOKEN ");
-
+        //  System.out.println("Entra el Setplay de TOKEN ");
         try {
 
             ResultSet rSet, rSet1, rSet2;
@@ -139,10 +137,10 @@ public class GLDC_Queue_Token implements Serializable {
             Tiposol = new ArrayList<>();
             Tiposol.clear();
             rSet1 = con.ejecutarQuery("SELECT NOMBRE_ROL FROM DG3861.pw_queue_tiposol ORDER by ID_SOL");
-            
+
             while (rSet1.next()) {
                 SetPlayCatalogosToken datos = new SetPlayCatalogosToken(rSet1.getString(1));
-              //  System.out.println(rSet1.getString(1));
+                //  System.out.println(rSet1.getString(1));
                 Tiposol.add(datos);
             }
 
@@ -150,7 +148,7 @@ public class GLDC_Queue_Token implements Serializable {
             Tipoind.clear();
             //System.out.println("prueba");
             rSet2 = con.ejecutarQuery("SELECT NOMBRE_ROL FROM DG3861.pw_queue_indicador ORDER by ID_SOL");
-            
+
             while (rSet2.next()) {
                 SetPlayCatalogosIndicador datos2 = new SetPlayCatalogosIndicador(rSet2.getString(1));
                 //System.out.println(rSet2.getString(1));
@@ -188,31 +186,30 @@ public class GLDC_Queue_Token implements Serializable {
 
             if ("".equals(OBERVACION) || OBERVACION == null) {
                 OBERVACION = "Sin comentarios";
-       //         System.out.println(OBERVACION);
+                //         System.out.println(OBERVACION);
             } else {
                 R1 = OBERVACION.replaceAll("'", " ");
 
             }
-      //      System.out.println(R1);
+            //      System.out.println(R1);
             R2 = NO_OFICIO.replaceAll("'", " ");
 //
             String Query1 = "SELECT ID_USUARIO, NOMBRE FROM DG3861.pw_queue_usuario WHERE USUARIO = '" + Nombre + "' ";
             String Query2 = "SELECT ID_PRIORIDAD FROM  DG3861.pw_queue_prioridad WHERE NOMBRE_PRIORIDAD = '" + ID_PRIORIDAD + "'";
-         //   String Query7 = "SELECT NOMBRE FROM pw_queue_usuario WHERE USUARIO = '" + Nombre + "' ";
+            //   String Query7 = "SELECT NOMBRE FROM pw_queue_usuario WHERE USUARIO = '" + Nombre + "' ";
 
             Herramientas.Conexion con = new Herramientas.Conexion("DG3861_DGLDCSTG");
             rSet = con.ejecutarQuery(Query1);
             while (rSet.next()) {
                 id_usua = rSet.getString(1);
-                 Nom_com = rSet.getString(2); 
+                Nom_com = rSet.getString(2);
             }
 
             rSet = con.ejecutarQuery(Query2);
             while (rSet.next()) {
                 id_prio = rSet.getString(1);
-                
+
             }
-           
 
             String insertarToken = "INSERT INTO RR789J.TOKEN_MV "
                     + "VALUES ('" + TOKEN + "','" + R2 + "', " + id_usua + ", '" + TIPO_SOLICITUD + "', " + id_prio + ", '" + MEDIO_RECEPCION + "', sysdate, '" + TIPO_IDENTIFICADOR + "','0','" + PROCEDE + "','" + FIRMA + "','" + TERMINO + "','" + FUNDAMENTO + "','" + R1 + "'," + Caso + ", '" + NTICKET + "' )";
@@ -221,15 +218,15 @@ public class GLDC_Queue_Token implements Serializable {
            / String Query6 = "INSERT INTO DG3861.PW_QUEUE_BITACTUAL (ID_TOKEN,ID_USUARIO,ESTATUS, FECHA_ESTATUS, ID_PRIORIDAD, FECHA_REGISTRO ) \n"
                     + "						VALUES ('" + TOKEN + "', NULL, 1, sysdate," + id_prio + ", sysdate)";*/
 
-           con.ejecutarQuery(insertarToken);
-           // con.ejecutarQuery(Query5);
-           // con.ejecutarQuery(Query6);
+            con.ejecutarQuery(insertarToken);
+            // con.ejecutarQuery(Query5);
+            // con.ejecutarQuery(Query6);
             con.con.close();
 
-      //      System.out.println(Query3);
+            //      System.out.println(Query3);
 //System.out.println(Query2);
 //System.out.println(Query3);
-          /*   
+            /*   
              Resumen = ""+TOKEN+"\n\n   "+
                        " <br></br>procede: "+PROCEDE+" \n"+
                        " <br></br>solicitud: "+TIPO_SOLICITUD+" \n"+
@@ -240,21 +237,20 @@ public class GLDC_Queue_Token implements Serializable {
                        "Tipo Envio: "+MEDIO_RECEPCION+" \n"+
                        "Abogado: "+Nombre+" \n"+
                        "Observación: "+R2+" \n";
-           */
-          Resumen = (""+TOKEN+"\n" +
-            " \n" +
-            "Procede: "+PROCEDE+"\n" +
-            "Tipo de Solicitud: "+TIPO_SOLICITUD+" \n" +
-            "Prioridad: "+ID_PRIORIDAD+" \n" +
-            "Fundamento: "+FUNDAMENTO+" \n" +
-            "Firma: "+FIRMA+" \n" +
-            "Término: "+TERMINO+" \n" +
-            "Tipo de Envio:"+MEDIO_RECEPCION+" \n" +
-            "Abogado:"+Nom_com+" \n" +
-            "Observaciones:"+OBERVACION+"\n");
-           
-            
-         System.out.println(Resumen);
+             */
+            Resumen = ("" + TOKEN + "\n"
+                    + " \n"
+                    + "Procede: " + PROCEDE + "\n"
+                    + "Tipo de Solicitud: " + TIPO_SOLICITUD + " \n"
+                    + "Prioridad: " + ID_PRIORIDAD + " \n"
+                    + "Fundamento: " + FUNDAMENTO + " \n"
+                    + "Firma: " + FIRMA + " \n"
+                    + "Término: " + TERMINO + " \n"
+                    + "Tipo de Envio:" + MEDIO_RECEPCION + " \n"
+                    + "Abogado:" + Nom_com + " \n"
+                    + "Observaciones:" + OBERVACION + "\n");
+
+            System.out.println(Resumen);
 
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Se genero el TOKEN "));
@@ -413,33 +409,27 @@ public class GLDC_Queue_Token implements Serializable {
         int contax = 0;
         String timeStamp = new java.text.SimpleDateFormat("yyMMddHHmmss").format(Calendar.getInstance().getTime());
 
-      String querycont = "SELECT SUBSTR(ID_TOKEN, 17,20), ID_TOKEN FROM DG3861.PW_QUEUE_TOKEN \n" +
-                            "WHERE FECHA_REGISTRO = (SELECT  MAX (FECHA_REGISTRO) FROM DG3861.PW_QUEUE_TOKEN WHERE ID_TOKEN NOT LIKE '%AT22__________A%')";  
-      
-      Herramientas.Conexion con = new Herramientas.Conexion("DG3861_DGLDCSTG");
-        
-      rSet = con.ejecutarQuery(querycont);
-            while (rSet.next()) {
-               contax  = rSet.getInt(1);         
-              
-   //   System.out.println("contador externo "+contax);
-            }
- 
-     if ( contax < 9999)
-    
-    {   
-        contador = contax + 1;
+        String querycont = "SELECT SUBSTR(ID_TOKEN, 17,20), ID_TOKEN FROM DG3861.PW_QUEUE_TOKEN \n"
+                + "WHERE FECHA_REGISTRO = (SELECT  MAX (FECHA_REGISTRO) FROM DG3861.PW_QUEUE_TOKEN WHERE ID_TOKEN NOT LIKE '%AT22__________A%')";
 
-    }
-    else
-    {
-        contador = 0 + 1;
-    
-    }
-  
-  //       System.out.println("contador final "+contador);
-  
-    
+        Herramientas.Conexion con = new Herramientas.Conexion("DG3861_DGLDCSTG");
+
+        rSet = con.ejecutarQuery(querycont);
+        while (rSet.next()) {
+            contax = rSet.getInt(1);
+
+            //   System.out.println("contador externo "+contax);
+        }
+
+        if (contax < 9999) {
+            contador = contax + 1;
+
+        } else {
+            contador = 0 + 1;
+
+        }
+
+        //       System.out.println("contador final "+contador);
         String Res = MEDIO_RECEPCION.substring(0, 1);
         String Nom = Nombre.substring(0, 1).toUpperCase();
 
@@ -456,14 +446,14 @@ public class GLDC_Queue_Token implements Serializable {
         }
 
         insertaquery(Nombre);
-    
+
     }
 
     public void borrar() {
         ResultSet rSet;
         int cont = 0;
         String Val_estatus = "";
- //       System.out.println("Entra borrar TOKEN ");
+        //       System.out.println("Entra borrar TOKEN ");
         //System.out.println(EliTOKEN);
 
         try {
@@ -515,19 +505,17 @@ public class GLDC_Queue_Token implements Serializable {
 
     }
 
-    public void clipboard()  {
+    public void clipboard() {
 
-               System.setProperty("java.awt.headless", "false");
-               
-      String myString = "hola mundo";
+        System.setProperty("java.awt.headless", "false");
+
+        String myString = "hola mundo";
         StringSelection stringSelection = new StringSelection(myString);
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
         clipboard.setContents(stringSelection, stringSelection);
 
-   }
+    }
 
-
-    
     public void reload() throws IOException {
 
         limpiar();
@@ -640,7 +628,7 @@ public class GLDC_Queue_Token implements Serializable {
                 v_no_oficio = true;
                 v_caso = false;
                 v_comentarios = true;
-                
+
             } else if ("Ordenes de Información Histórica".equals(TIPO_SOLICITUD)) {
 
                 ID_PRIORIDAD = "Urgente";
@@ -818,11 +806,10 @@ public class GLDC_Queue_Token implements Serializable {
         }
 
     }
-    
 
     public void onRowSelect() throws IOException {
 
-System.out.println("Entra consultar Check List");
+        System.out.println("Entra consultar Check List");
 
         if (EliTOKEN == null || "".equals(EliTOKEN)) {
             FacesMessage msg = new FacesMessage("Introducir un Valor");
@@ -839,13 +826,14 @@ System.out.println("Entra consultar Check List");
             //System.out.println(EliTOKEN);
             try {
 
-                String ConSulChekList = "SELECT A.ID_TOKEN, A.PROCEDE,A.TIPO_SOLICITUD, B.NOMBRE_PRIORIDAD, A.FUNDAMENTO, A.FIRMA, A.TÉRMINO, A.MEDIO_RECEPCION,A.OBSERVACIONES, A.ID_CASO, A.NTICKET \n"
-                        + "	  FROM DG3861.PW_QUEUE_TOKEN A\n"
-                        + " 		LEFT JOIN DG3861.PW_QUEUE_PRIORIDAD B \n"
-                        + " 		ON A.ID_PRIORIDAD = B.ID_PRIORIDAD\n"
-                        + "WHERE A.ID_TOKEN = '" + EliTOKEN + "'";
+                String ConSulChekList = "SELECT A.ID_TOKEN, A.PROCEDE,A.TIPO_SOLICITUD, C.NOMBRE_PRIORIDAD, A.FUNDAMENTO, A.FIRMA, A.TÉRMINO, A.MEDIO_RECEPCION,A.OBSERVACIONES, A.ID_CASO, A.NTICKET, B.NOMBRE FROM DG3861.PW_QUEUE_TOKEN A\n"
+                        + "                LEFT JOIN DG3861.PW_QUEUE_USUARIO B\n"
+                        + "                ON A.ID_USUARIO=B.ID_USUARIO\n"
+                        + "                LEFT JOIN DG3861.pw_queue_prioridad C\n"
+                        + "                ON A.ID_PRIORIDAD = C.ID_PRIORIDAD\n"
+                        + "                WHERE ID_TOKEN = '" + EliTOKEN + "'";
 
-                //   System.out.println(ConSulChekList);
+                // System.out.println(ConSulChekList);
                 Herramientas.Conexion con = new Herramientas.Conexion("DG3861_DGLDCSTG");
 
                 rSet = con.ejecutarQuery(ConSulChekList);
@@ -861,6 +849,7 @@ System.out.println("Entra consultar Check List");
                     CKObserva = rSet.getString(9);
                     CKID_CASO = rSet.getString(10);
                     CKNTICKET = rSet.getString(11);
+                    CKAbogado = rSet.getString(12);
                     cont++;
                 }
 
@@ -886,16 +875,17 @@ System.out.println("Entra consultar Check List");
                 }
                 //EliTOKEN = "";
 //ACTUALIZAR ABOGADO
-                  System.out.println("Proicede "+Ckprocede);
-            System.out.println("Proicede "+CkTipoSol);
-            System.out.println("Proicede "+CKPriori);
-            System.out.println("Proicede "+CKFundam);
-            System.out.println("Proicede "+CKfirma);
-            System.out.println("Proicede "+CKTermino);
-            System.out.println("Proicede "+CKRescep);
-            System.out.println("Proicede "+CKObserva);
-            System.out.println("Proicede "+CKToken);
-               
+                System.out.println("CK " + Ckprocede);
+                System.out.println("CK " + CkTipoSol);
+                System.out.println("CK " + CKPriori);
+                System.out.println("CK " + CKFundam);
+                System.out.println("CK " + CKfirma);
+                System.out.println("CK " + CKTermino);
+                System.out.println("CK " + CKRescep);
+                System.out.println("CK " + CKObserva);
+                System.out.println("CK " + CKToken);
+                System.out.println("CK " + CKAbogado);
+
             } catch (SQLException ex) {
                 System.out.println("ERROR:Error de BD: "
                         + ex.getMessage());
@@ -1327,7 +1317,13 @@ System.out.println("Entra consultar Check List");
     public void setFecha(String Fecha) {
         this.Fecha = Fecha;
     }
- 
-    
+
+    public String getCKAbogado() {
+        return CKAbogado;
+    }
+
+    public void setCKAbogado(String CKAbogado) {
+        this.CKAbogado = CKAbogado;
+    }
 
 }

@@ -1,7 +1,7 @@
 html,
 body {
     height: 100%;
-    background-image: url("../images/bg.jpg");
+    background: url("#{resource['images/bg.jpg']}"); 
 }
 
 body {

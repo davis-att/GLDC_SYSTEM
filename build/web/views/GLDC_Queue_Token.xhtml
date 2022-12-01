@@ -369,14 +369,14 @@
                                     <div class="row text-center align-middle">
 
                                         <div class="col-md-3"> 
-                                            <p:inputText value="#{GLDCToken.eliTOKEN}" style="width:100%" /> 
+                                            <p:inputText value="#{GLDCToken.eliTOKEN}" style="width: 100%"/> 
                                         </div>
 
                                         <div class="col-md-3">
                                             <p:commandButton  
                                                 value="Recuperar dictamen"
                                                 actionListener="#{GLDCToken.onRowSelect()}"
-                                                update="growl,check "  style=" animation:  ease-in;  width: 300px  "
+                                                update="growl,check "  style=" animation:  ease-in;  width: 100%  "
                                                 onstart="PF('statusDialog').show();" 
                                                 onsuccess="PF('statusDialog').hide();PF('reasigna').show();"> 
                                             </p:commandButton>
@@ -573,7 +573,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-1"></div>
-                                    <div class="col-lg-10"><p:outputLabel value="Abogado: #{loginBean.nombre}"/></div>
+                                    <div class="col-lg-10"><p:outputLabel value="Abogado: #{GLDCToken.CKAbogado}"/></div>
                                     <div class="col-lg-1"></div>
                                 </div>
                                 <div class="row">

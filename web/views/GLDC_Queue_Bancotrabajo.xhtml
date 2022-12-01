@@ -13,40 +13,6 @@
     <h:head>
 
         <meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/"></meta>        
-
-
-        <script type="text/javascript">
-            PrimeFaces.locales["esp"] = {
-                closeText: "Cerrar",
-                prevText: "Anterior",
-                nextText: "Siguiente",
-                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-                monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
-                dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-                dayNamesShort: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
-                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-                weekHeader: "Semana",
-                chooseTIME: "Tiempo",
-                firstDay: 0,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: "",
-                timeOnlyTitle: "Solo hora",
-                timeText: "Tiempo",
-                hourText: "Hora",
-                minuteText: "Minuto",
-                secondText: "Segundo",
-                currentText: "Fecha actual",
-                ampm: false,
-                month: "Mes",
-                week: "Semana",
-                day: "Día",
-                allDayText: "Todo el día"
-            };
-        </script>
-
-
-
     </h:head>
 
 
@@ -81,10 +47,10 @@
                                             <h8>Usuario: <strong>#{loginBean.username}</strong></h8> 
                                         </div>
                                         <div class="col-md-4">
-                                            <h8>Estatus: </h8> <h:outputText  id="conec1" value="&nbsp;&nbsp;&nbsp;&nbsp;Conectado&nbsp;&nbsp;&nbsp;&nbsp;" style="font-family: Corbel Light; margin-top:   auto ; font-weight:bold ;background-color:  green;  border-radius: 15px; color: #fff;  "
+                                            <h8>Estatus: </h8> <h:outputText  id="conec1" value="&nbsp;&nbsp;&nbsp;&nbsp;Conectado&nbsp;&nbsp;&nbsp;&nbsp;" style="font-family: Corbel Light; font-size: 15px; margin-top:   auto ; font-weight:bold ;background-color:  green;  border-radius: 15px; color: #fff;  "
                                                                               rendered="#{queue_bancot.bandsesion}"/>
 
-                                            <h:outputText id="desconec1" value="&nbsp;&nbsp;&nbsp;&nbsp;Desconectado&nbsp;&nbsp;&nbsp;&nbsp;" style="font-family: Corbel Light; margin-top:   auto ; font-weight:bold ;background-color:  red;  border-radius: 15px; color: #fff;  "
+                                            <h:outputText id="desconec1" value="&nbsp;&nbsp;&nbsp;&nbsp;Desconectado&nbsp;&nbsp;&nbsp;&nbsp;" style="font-family: Corbel Light; font-size: 15px; margin-top:   auto ; font-weight:bold ;background-color:  red;  border-radius: 15px; color: #fff;  "
                                                           rendered="#{!queue_bancot.bandsesion}"/>
 
 
@@ -154,8 +120,10 @@
                         </p:dialog>            
 
 
+
                         <p:poll  id="idpool" interval="1" listener="#{queue_bancot.Restatiempofuera()}" update="tsolicitado, hola, idtiempo, idpoolg"   widgetVar="idpool" autoStart="false" />
                         <p:poll id="idpoolg" listener="#{queue_bancot.onIdle}" update="growl,:recientes, :userStats, :fp, :tablaBT:tbanco" interval="20"   widgetVar="idpoolg" />
+                        
 
                     </h:form>  
 
