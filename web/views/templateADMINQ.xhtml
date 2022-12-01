@@ -62,9 +62,8 @@
                             </ul>
                         </li>
                         <li class="nav-item active">
-                            <a href="#" class="nav-link">
-                                <i class="fa-solid fa-power-off"></i> Salir
-                            </a>
+                        <i class="fa-solid fa-power-off"></i>
+                        <p:commandButton icon="fa-solid fa-power-off" styleClass="rounded-button ui-button-info ui-button-flat" actionListener="#{loginBean.logOut()}" oncomplete="handleLoginRequest(xhr, status, args)" />
                         </li>
 
                     </ul>
@@ -120,4 +119,11 @@
         </div>
 
     </h:body>
+    <script type="text/javascript">
+            function handleLoginRequest(xhr, status, args) {
+                if (args.LoggetOut) {
+                    location.href = args.ruta;
+                }
+            }
+        </script>
 </html>

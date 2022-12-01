@@ -4,7 +4,6 @@
  */
 package beans;
 
-
 import clasesUtiles.Consultas;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -38,6 +37,7 @@ import javax.servlet.http.HttpSession;
 import org.primefaces.event.FileUploadEvent;
 import util.MyUtil;
 import org.primefaces.PrimeFaces;
+
 /**
  *
  * @author NMI16991
@@ -50,8 +50,8 @@ import org.primefaces.PrimeFaces;
 public class loginBean implements Serializable {
 
     private Date fecha;
-    
-    private String username;	
+
+    private String username;
     private String password;
     private String nombre;
     private String email;
@@ -60,58 +60,48 @@ public class loginBean implements Serializable {
     private String cumpleanios;
     private String fotos;
     private String cuenta;
-    
-    
+
     private int usuarios;
-     private int activos;
-      private int tickets;
-       private int cerrados;
-        private int procesos;
-         private int logins;
-          private int intentos;
+    private int activos;
+    private int tickets;
+    private int cerrados;
+    private int procesos;
+    private int logins;
+    private int intentos;
     private String emailPass;
     private String usernamePass;
     private String username1;
     private String passwordActual;
-    
-    
-     private String lostPasss;
-    boolean passActual =true;
-    boolean pass1Desac =true;
-    boolean pass2Desac =true;
-    boolean botonDesactivado=true;
-    
-    
-    boolean botonDesac=false;        
-    boolean campoUsername=false;
-    boolean campoEmail=false;
-    
-    
-    boolean respuestaDAP=false;
-    boolean respuestaDATOS=false;
-    boolean respuestaTELEFONIA=false;
-    boolean respuestaVAS=false;
-    boolean respuestaROAMING=false;
-    
-    
-    private String usuarioNombre;  
 
-    private String destination="C:\\PROGRA\\SYSTEMA\\GLDC_SYSTEM\\web\\views\\FOTOS\\";
-           
-    private String template="";
-    
-    
-    boolean activaPanelAccesos=false;
-    
-    
-    
-    boolean activaAccesoDap=true;            
-    boolean activaAccesoDatos=true;            
-    boolean activaAccesoTelefonia=true;            
-    boolean activaAccesoVas=true;            
-    boolean activaAccesoRoaming=true;    
-    
-             
+    private String lostPasss;
+    boolean passActual = true;
+    boolean pass1Desac = true;
+    boolean pass2Desac = true;
+    boolean botonDesactivado = true;
+
+    boolean botonDesac = false;
+    boolean campoUsername = false;
+    boolean campoEmail = false;
+
+    boolean respuestaDAP = false;
+    boolean respuestaDATOS = false;
+    boolean respuestaTELEFONIA = false;
+    boolean respuestaVAS = false;
+    boolean respuestaROAMING = false;
+
+    private String usuarioNombre;
+
+    private String destination = "C:\\PROGRA\\SYSTEMA\\GLDC_SYSTEM\\web\\views\\FOTOS\\";
+
+    private String template = "";
+
+    boolean activaPanelAccesos = false;
+
+    boolean activaAccesoDap = true;
+    boolean activaAccesoDatos = true;
+    boolean activaAccesoTelefonia = true;
+    boolean activaAccesoVas = true;
+    boolean activaAccesoRoaming = true;
 
     private List<String> images;
 
@@ -186,10 +176,7 @@ public class loginBean implements Serializable {
     public void setCuenta(String cuenta) {
         this.cuenta = cuenta;
     }
-    
-    
-    
-    
+
     public boolean isActivaAccesoDap() {
         return activaAccesoDap;
     }
@@ -229,9 +216,6 @@ public class loginBean implements Serializable {
     public void setActivaAccesoRoaming(boolean activaAccesoRoaming) {
         this.activaAccesoRoaming = activaAccesoRoaming;
     }
-    
-    
-    
 
     public boolean isActivaPanelAccesos() {
         return activaPanelAccesos;
@@ -240,9 +224,7 @@ public class loginBean implements Serializable {
     public void setActivaPanelAccesos(boolean activaPanelAccesos) {
         this.activaPanelAccesos = activaPanelAccesos;
     }
-    
-    
-    
+
     public String getUsuarioNombre() {
         return usuarioNombre;
     }
@@ -259,10 +241,6 @@ public class loginBean implements Serializable {
         this.botonDesac = botonDesac;
     }
 
-    
-    
-    
-    
     public String getEmail() {
         return email;
     }
@@ -399,13 +377,6 @@ public class loginBean implements Serializable {
         this.fecha = fecha;
     }
 
- 
-    
-    
-    
-    
-    
-    
     public String getTemplate() {
         return template;
     }
@@ -413,8 +384,6 @@ public class loginBean implements Serializable {
     public void setTemplate(String template) {
         this.template = template;
     }
-    
-    
 
     public boolean isRespuestaDAP() {
         return respuestaDAP;
@@ -463,632 +432,559 @@ public class loginBean implements Serializable {
     public void setRespuestaROAMING(boolean respuestaROAMING) {
         this.respuestaROAMING = respuestaROAMING;
     }
-    
-    
-    
-    
+
     @PostConstruct
     public void loginBean() {
-        
+
         images = new ArrayList<String>();
         for (int i = 1; i <= 7; i++) {
             images.add("attt_" + i + ".jpg");
         }
     }
 
-    
     public String getUsername() {
         return username;
-	}
-    
+    }
+
     public void setUsername(String username) {
-		this.username = username;
-	}
+        this.username = username;
+    }
 
     public String getPassword() {
-		return password;
-	}
-    
+        return password;
+    }
+
     public void setPassword(String password) {
-		this.password = password;
-	}
-    
-
-
+        this.password = password;
+    }
 
     public void login(ActionEvent actionEvent) throws NamingException, SQLException {
         //RequestContext context = RequestContext.getCurrentInstance();
-        
+
         PrimeFaces context = PrimeFaces.current();
         FacesMessage msg = null;
-	boolean loggedIn = false;
+        boolean loggedIn = false;
         DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
-        
+
         ResultSet rSet;
-        String user = "",pass = "", ruta ="",url="";
+        String user = "", pass = "", ruta = "", url = "";
         Herramientas.Conexion conectar = new Herramientas.Conexion("DG3861_DGLDCSTG");
         //Herramientas.Conexion_DS_GLDC conectar = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
         //Coneccion conectar = new Coneccion(2); --- LGBM
         Consultas consuLogin = new Consultas();
-        
-        
-        
-        
-        rSet=conectar.ejecutarQuery(consuLogin.QueryLogin(username));
-        
-        try {       
-            while(rSet.next())
-            {
-            user= rSet.getString("USUARIO");
-            pass=rSet.getString("PASS");
-            url=rSet.getString("URL");
-            nombre=rSet.getString("NOMBRE_USUARIO");
-            email=rSet.getString("EMAIL");
-            noEmpleado=rSet.getString("NO_EMPLEADO");
-            puesto=rSet.getString("PUESTO");
-            cumpleanios=rSet.getString("FECHA_CUMPLE");
-            fotos=rSet.getString("FOTO");
-            cuenta =rSet.getString("CUENTA");
+
+        rSet = conectar.ejecutarQuery(consuLogin.QueryLogin(username));
+
+        try {
+            while (rSet.next()) {
+                user = rSet.getString("USUARIO");
+                pass = rSet.getString("PASS");
+                url = rSet.getString("URL");
+                nombre = rSet.getString("NOMBRE_USUARIO");
+                email = rSet.getString("EMAIL");
+                noEmpleado = rSet.getString("NO_EMPLEADO");
+                puesto = rSet.getString("PUESTO");
+                cumpleanios = rSet.getString("FECHA_CUMPLE");
+                fotos = rSet.getString("FOTO");
+                cuenta = rSet.getString("CUENTA");
             }
         } catch (SQLException ex) {
             Logger.getLogger(loginBean.class.getName()).log(Level.SEVERE, null, ex);
-       }
-        
-         
-        
-        if ("DESBLOQUEADO".equals(cuenta))
-            
-        {
-            
-        if(username != null  && username.equals(user) && password != null  && password.equals(pass)) {
-                
-		loggedIn = true;
+        }
+
+        if ("DESBLOQUEADO".equals(cuenta)) {
+
+            if (username != null && username.equals(user) && password != null && password.equals(pass)) {
+
+                loggedIn = true;
                 intentos = 1;
                 System.out.println("intento " + intentos);
-                
-                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username",nombre);
-                                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userid",username);
-		msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", nombre);
-                       
-                ruta= MyUtil.loginAdmUrl()+url;
-                System.out.println("ruta: " + ruta+ "ctx"+FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath());
-                
-                
-                ResultSet rPermisos=conectar.ejecutarQuery("select dapq,datos,telefonia,vas,roaming from PW_USUARIO where usuario='"+username+"'");
-                
-                System.out.println("select dapq,datos,telefonia,vas,roaming from PW_USUARIO where usuario='"+username+"'");
-               
-                try {                
-                    while (rPermisos.next())
-                    {
-                        if(rPermisos.getString(1).equals("1")){
+
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("username", nombre);
+                FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("userid", username);
+                msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", nombre);
+
+                ruta = MyUtil.loginAdmUrl() + url;
+                System.out.println("ruta: " + ruta + "ctx" + FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath());
+
+                ResultSet rPermisos = conectar.ejecutarQuery("select dapq,datos,telefonia,vas,roaming from PW_USUARIO where usuario='" + username + "'");
+
+                System.out.println("select dapq,datos,telefonia,vas,roaming from PW_USUARIO where usuario='" + username + "'");
+
+                try {
+                    while (rPermisos.next()) {
+                        if (rPermisos.getString(1).equals("1")) {
                             //System.out.println("vale 1");
-                            respuestaDAP=true;    
-                            activaAccesoDap=false;
+                            respuestaDAP = true;
+                            activaAccesoDap = false;
                         }
-                       
-                        if(rPermisos.getString(2).equals("1")){
+
+                        if (rPermisos.getString(2).equals("1")) {
                             //System.out.println("vale 1");
-                            respuestaDATOS=true;                            
-                            activaAccesoDatos=false;
+                            respuestaDATOS = true;
+                            activaAccesoDatos = false;
                         }
-                        
-                        if(rPermisos.getString(3).equals("1")){
+
+                        if (rPermisos.getString(3).equals("1")) {
                             //System.out.println("vale 1");
-                            respuestaTELEFONIA=true;                            
-                            activaAccesoTelefonia=false;
+                            respuestaTELEFONIA = true;
+                            activaAccesoTelefonia = false;
                         }
-                        
-                        if(rPermisos.getString(4).equals("1")){
+
+                        if (rPermisos.getString(4).equals("1")) {
                             //System.out.println("vale 1");
-                            respuestaVAS=true;
-                            activaAccesoVas=false;
+                            respuestaVAS = true;
+                            activaAccesoVas = false;
                         }
-                       
+
                         if (rPermisos.getString(5).equals("1")) {
                             //System.out.println("vale 1");
                             respuestaROAMING = true;
-                            activaAccesoRoaming=false;
+                            activaAccesoRoaming = false;
                         }
-                        
+
                     }
                 } catch (SQLException ex) {
                     Logger.getLogger(loginBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
-               
-                
+
                 //Para determinar cual es el template que estara usando si es de gat o algun externo
-                Date fecha1 = new Date ();               
-                fecha=fecha1;
-                System.out.println("Usuario logueado:"+username+". Conectado a las:"+fecha1.toString());
-                
+                Date fecha1 = new Date();
+                fecha = fecha1;
+                System.out.println("Usuario logueado:" + username + ". Conectado a las:" + fecha1.toString());
+
                 //DGH 10/12/2021
-                System.out.println("INSERT INTO PW_LOGINS VALUES ('"+username+"', '"+df.format(fecha1)+"', NULL, 'SI')");
-                conectar.ejecutarQuery("INSERT INTO PW_LOGINS VALUES ('"+username+"', '"+df.format(fecha1)+"', NULL, 'SI')");
-                
-                        
-                String query="select alcance, roll from PW_USUARIO where usuario='"+username+"'";        
-               
+                System.out.println("INSERT INTO PW_LOGINS VALUES ('" + username + "', '" + df.format(fecha1) + "', NULL, 'SI')");
+                conectar.ejecutarQuery("INSERT INTO PW_LOGINS VALUES ('" + username + "', '" + df.format(fecha1) + "', NULL, 'SI')");
+
+                String query = "select alcance, roll from PW_USUARIO where usuario='" + username + "'";
+
                 System.out.println(query);
-                rPermisos=conectar.ejecutarQuery(query);
+                rPermisos = conectar.ejecutarQuery(query);
                 try {
-                while (rPermisos.next())
-                {
-                    
-                            if(rPermisos.getString(1).equals("INTERNO") && rPermisos.getString(2).equals("1") ){
-                                  System.out.println("Soy Internossssss");
-                        template="./templateGatWebTool.xhtml";
-                        System.out.println("Soy Interno");
-                      //  System.out.println("template:"+template);
-                        activaPanelAccesos=true;
+                    while (rPermisos.next()) {
+
+                        if (rPermisos.getString(1).equals("INTERNO") && rPermisos.getString(2).equals("1")) {
+                            System.out.println("Soy Internossssss");
+                            template = "./templateGatWebTool.xhtml";
+                            System.out.println("Soy Interno");
+                            //  System.out.println("template:"+template);
+                            activaPanelAccesos = true;
+                        }
+                        if (rPermisos.getString(1).equals("INTERNO") && rPermisos.getString(2).equals("2")) {
+                            template = "./templateADMINQ.xhtml";
+                            System.out.println("Soy administradorQ");
+                            //  System.out.println("template:"+template);
+                            activaPanelAccesos = true;
+                        }
+                        if (rPermisos.getString(1).equals("INTERNO") && rPermisos.getString(2).equals("3")) {
+                            template = "./templateAbogadoQ.xhtml";
+                            //  System.out.println("Soy Interno");
+                            //  System.out.println("template:"+template);
+                            activaPanelAccesos = true;
+                        }
+
+                        if (rPermisos.getString(1).equals("EXTERNO")) {
+                            template = "./templateGatWebToolExternos.xhtml";
+                            //    System.out.println("Soy Externo");
+                            //    System.out.println("template:"+template);
+                            activaPanelAccesos = false;
+                        }
+
+                        if (rPermisos.getString(1).equals("RH")) {
+                            template = "./templateGatWebToolRH.xhtml";
+                            //    System.out.println("Soy Externo");
+                            //    System.out.println("template:"+template);
+                            activaPanelAccesos = false;
+                        }
+
+                        if (rPermisos.getString(1).equals("ADMIN")) {
+                            template = "./templateGatWebToolADMIN.xhtml";
+                            System.out.println("Soy ADMINISTRADOR");
+                            //    System.out.println("template:"+template);
+                            activaPanelAccesos = false;
+                        }
+
                     }
-                     if(rPermisos.getString(1).equals("INTERNO") && rPermisos.getString(2).equals("2") ){
-                        template="./templateADMINQ.xhtml";
-                        System.out.println("Soy administradorQ");
-                      //  System.out.println("template:"+template);
-                        activaPanelAccesos=true;
-                    }
-                       if(rPermisos.getString(1).equals("INTERNO") && rPermisos.getString(2).equals("3") ){
-                        template="./templateAbogadoQ.xhtml";
-                      //  System.out.println("Soy Interno");
-                      //  System.out.println("template:"+template);
-                        activaPanelAccesos=true;
-                    }
-                    
-                    if(rPermisos.getString(1).equals("EXTERNO")){
-                        template="./templateGatWebToolExternos.xhtml";
-                    //    System.out.println("Soy Externo");
-                    //    System.out.println("template:"+template);
-                        activaPanelAccesos=false;
-                    }
-                    
-                    if(rPermisos.getString(1).equals("RH")){
-                        template="./templateGatWebToolRH.xhtml";
-                    //    System.out.println("Soy Externo");
-                    //    System.out.println("template:"+template);
-                        activaPanelAccesos=false;
-                    }
-                    
-                     if(rPermisos.getString(1).equals("ADMIN")){
-                        template="./templateGatWebToolADMIN.xhtml";
-                        System.out.println("Soy ADMINISTRADOR");
-                    //    System.out.println("template:"+template);
-                        activaPanelAccesos=false;
-                    }
-                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(loginBean.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(loginBean.class.getName()).log(Level.SEVERE, null, ex);
+
+                //System.out.println("template:"+template);
+                //System.out.println("template:"+template);
+            } else {
+                loggedIn = false;
+                msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Los datos no son correctos, por favor verificalos.");
+                ruta = MyUtil.baseUrl();
+
+                Date fechaini = new Date();
+                fecha = fechaini;
+                intentos = intentos + 1;
+
+                System.out.println("intento " + intentos);
             }
-            
-             //System.out.println("template:"+template);
-            
-             //System.out.println("template:"+template);
-                
-        }
-        
-        else {
-		loggedIn = false;
-		msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Los datos no son correctos, por favor verificalos.");
-               ruta= MyUtil.baseUrl();
-               
-                Date fechaini = new Date ();               
-                fecha=fechaini;
-                intentos = intentos+1;
-        
-            System.out.println("intento " + intentos);
-	}
-        
-        if (intentos == 4)
-        {
-             String QueryBloqueo ="UPDATE PW_USUARIO SET CUENTA = 'BLOQUEADO'\n" +
-                "WHERE USUARIO = '"+username+"'";
-               System.out.println(QueryBloqueo);
+
+            if (intentos == 4) {
+                String QueryBloqueo = "UPDATE PW_USUARIO SET CUENTA = 'BLOQUEADO'\n"
+                        + "WHERE USUARIO = '" + username + "'";
+                System.out.println(QueryBloqueo);
                 conectar.ejecutarQuery(QueryBloqueo);
-        }
-        
-    } 
-        
-    else
-        {
+            }
+
+        } else {
             loggedIn = false;
-		msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "La cuenta esta bloqueda. Contactar al equipo de Soporte");
-               ruta= MyUtil.baseUrl();
-        
-           
+            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "La cuenta esta bloqueda. Contactar al equipo de Soporte");
+            ruta = MyUtil.baseUrl();
+
         }
-        
+
         FacesContext.getCurrentInstance().addMessage(null, msg);
-	context.ajax().addCallbackParam("loggedIn", loggedIn);
+        context.ajax().addCallbackParam("loggedIn", loggedIn);
         context.ajax().addCallbackParam("ruta", ruta);
-        
+
         //DGH
-        
-          ResultSet ParamD=conectar.ejecutarQuery(" WITH QRESUMEN AS (\n" +
-                    " SELECT COUNT(DISTINCT usr.USUARIO) USUARIOS, COUNT(DISTINCT usl.usuario) ACTIVOS, COUNT(DISTINCT ID_EVENT) TICKETS  FROM DG3861.PW_USUARIO USR\n" +
-                    " 		LEFT JOIN DG3861.PW_LOGINS USL\n" +
-                    " 		  ON usr.usuario=USL.usuario\n" +
-                    " 		  AND USL.ACTIVO = 'SI'		\n" +
-                    " 		     LEFT JOIN DG3861.PW_BITACORA BIT\n" +
-                    " 		    ON usr.usuario=BIT.usuario)\n" +
-                    " SELECT \n" +
-                    "   usuarios, activos, tickets, \n" +
-                    "   (SELECT count(1) FROM DG3861.PW_BITACORA WHERE ESTATUS='Cerrado') cerrados,\n" +
-                    "   (SELECT count(1) FROM dg3861.PW_SCHEDULE_GLDC ) procesos,\n" +
-                    "   (SELECT count(1) FROM dg3861.PW_LOGINS ) logins\n" +
-                    " FROM QRESUMEN\n" +
-                    "  GROUP BY usuarios, activos, tickets");
-        
-        
-         while (ParamD.next())
-                {
-                      usuarios = ParamD.getInt(1);
-                      activos = ParamD.getInt(2);
-                      tickets = ParamD.getInt(3);
-                      cerrados = ParamD.getInt(4);
-                      procesos = ParamD.getInt(5);
-                      logins = ParamD.getInt(6);
-                          
-                }
-        
-        
+        ResultSet ParamD = conectar.ejecutarQuery(" WITH QRESUMEN AS (\n"
+                + " SELECT COUNT(DISTINCT usr.USUARIO) USUARIOS, COUNT(DISTINCT usl.usuario) ACTIVOS, COUNT(DISTINCT ID_EVENT) TICKETS  FROM DG3861.PW_USUARIO USR\n"
+                + " 		LEFT JOIN DG3861.PW_LOGINS USL\n"
+                + " 		  ON usr.usuario=USL.usuario\n"
+                + " 		  AND USL.ACTIVO = 'SI'		\n"
+                + " 		     LEFT JOIN DG3861.PW_BITACORA BIT\n"
+                + " 		    ON usr.usuario=BIT.usuario)\n"
+                + " SELECT \n"
+                + "   usuarios, activos, tickets, \n"
+                + "   (SELECT count(1) FROM DG3861.PW_BITACORA WHERE ESTATUS='Cerrado') cerrados,\n"
+                + "   (SELECT count(1) FROM dg3861.PW_SCHEDULE_GLDC ) procesos,\n"
+                + "   (SELECT count(1) FROM dg3861.PW_LOGINS ) logins\n"
+                + " FROM QRESUMEN\n"
+                + "  GROUP BY usuarios, activos, tickets");
+
+        while (ParamD.next()) {
+            usuarios = ParamD.getInt(1);
+            activos = ParamD.getInt(2);
+            tickets = ParamD.getInt(3);
+            cerrados = ParamD.getInt(4);
+            procesos = ParamD.getInt(5);
+            logins = ParamD.getInt(6);
+
+        }
+
         ParamD.close();
-        
- 
-        
+
         try {
             conectar.con.close();
         } catch (SQLException ex) {
             Logger.getLogger(loginBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void logOut(){
+
+    public void logOut() {
         try {
-            Date fecha1 = new Date ();  
+            Date fecha1 = new Date();
             DateFormat df = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            
-            
-            System.out.println("UPDATE PW_LOGINS SET FECHA_LOGOUT= '"+df.format(fecha1)+"', activo='NO' WHERE USUARIO ='"+username+"' AND FECHA_LOGIN='"+df.format(fecha)+"'");
-            
+
+            System.out.println("UPDATE PW_LOGINS SET FECHA_LOGOUT= '" + df.format(fecha1) + "', activo='NO' WHERE USUARIO ='" + username + "' AND FECHA_LOGIN='" + df.format(fecha) + "'");
+
             Herramientas.Conexion conectar = new Herramientas.Conexion("DG3861_DGLDCSTG");
-            conectar.ejecutarQuery("UPDATE PW_LOGINS  SET FECHA_LOGOUT= '"+df.format(fecha1)+"', activo='NO' WHERE USUARIO ='"+username+"' AND FECHA_LOGIN='"+df.format(fecha)+"'");
+            conectar.ejecutarQuery("UPDATE PW_LOGINS  SET FECHA_LOGOUT= '" + df.format(fecha1) + "', activo='NO' WHERE USUARIO ='" + username + "' AND FECHA_LOGIN='" + df.format(fecha) + "'");
             conectar.con.close();
-            
+
             String ruta = MyUtil.baseUrl();
-           // RequestContext contex =RequestContext.getCurrentInstance();
-           PrimeFaces context = PrimeFaces.current();
-            
-            
-            
+            // RequestContext contex =RequestContext.getCurrentInstance();
+            PrimeFaces context = PrimeFaces.current();
+
             FacesContext facesContex = FacesContext.getCurrentInstance();
-            
+
             HttpSession session = (HttpSession) facesContex.getExternalContext().getSession(false);
             session.invalidate();
-            
-            System.out.println("de salida: "+ ruta);
+
+            System.out.println("de salida: " + ruta);
             //contex.addCallbackParam("LoggetOut", true);
             //contex.addCallbackParam("ruta", ruta);
-            
-             context.ajax().addCallbackParam("LoggetOut",true);             
-             context.ajax().addCallbackParam("ruta",ruta);
-            
-            
-            
-            
+
+
+            context.ajax().addCallbackParam("LoggetOut", true);
+            context.ajax().addCallbackParam("ruta", "../login.xhtml");
+
         } catch (SQLException ex) {
             Logger.getLogger(loginBean.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
-    
-       public void LostPass(ActionEvent actionEvent) throws SQLException, MessagingException, NamingException, URISyntaxException, Exception {
-         
+
+    public void LostPass(ActionEvent actionEvent) throws SQLException, MessagingException, NamingException, URISyntaxException, Exception {
+
         FacesContext context = FacesContext.getCurrentInstance();
         //context.addMessage("MensajitoB", new FacesMessage(FacesMessage.SEVERITY_FATAL, "El correo electronico no es correcto", "hola mundo 1"));
-        
-        String email=null;
-        String user=null;
-        
-        boolean emailOk=false;
-        boolean userOk=false;
-        
-        int contador=0;
-        
+
+        String email = null;
+        String user = null;
+
+        boolean emailOk = false;
+        boolean userOk = false;
+
+        int contador = 0;
+
         Herramientas.Conexion conectar = new Herramientas.Conexion("DG3861_DGLDCSTG");
-       // Herramientas.Conexion_DS_GLDC conectar = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
-        
-        ResultSet rSet=conectar.ejecutarQuery("SELECT USUARIO,EMAIL FROM PW_USUARIO WHERE USUARIO='"+usernamePass+"'");
-        
+        // Herramientas.Conexion_DS_GLDC conectar = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
+
+        ResultSet rSet = conectar.ejecutarQuery("SELECT USUARIO,EMAIL FROM PW_USUARIO WHERE USUARIO='" + usernamePass + "'");
+
         //System.out.println("contador:"+contador);
-        
-        while(rSet.next()){
-            user=rSet.getString("USUARIO");       
-            email=rSet.getString("EMAIL");                 
-           contador++;
+        while (rSet.next()) {
+            user = rSet.getString("USUARIO");
+            email = rSet.getString("EMAIL");
+            contador++;
         }
-        
-        if (contador==0){
-            user="";
-            email="";
+
+        if (contador == 0) {
+            user = "";
+            email = "";
         }
-     
-        if(email.equals(emailPass)){
+
+        if (email.equals(emailPass)) {
             //System.out.println("Email igual");  
-            emailOk=true;
-        }else{
+            emailOk = true;
+        } else {
             //System.out.println("Email diferente");        
             context.addMessage("MensajitoB", new FacesMessage(FacesMessage.SEVERITY_FATAL, "El correo electronico no es correcto", "hola mundo 1"));
         }
-        
-        if(user.equals(usernamePass)){
+
+        if (user.equals(usernamePass)) {
             //System.out.println("Email igual");        
-            userOk=true;
-        }else{
+            userOk = true;
+        } else {
             //System.out.println("user diferente");        
             context.addMessage("MensajitoB", new FacesMessage(FacesMessage.SEVERITY_FATAL, "El usuario no es correcto", "hola mundo 1"));
         }
-        
-        
-        if (emailOk==true && userOk==true){
-              ArrayList para= new ArrayList();
-              ArrayList paraCc= new ArrayList();
-              
-              String cadena = getCadenaAlfanumAleatoria (8);
-              
-              
-              context.addMessage("MensajitoB", new FacesMessage(FacesMessage.SEVERITY_INFO, "En breve recibiras un correo electronico con tu nuevo Password", "hola mundo 1"));
 
-              
-              Herramientas.Conexion conn = new Herramientas.Conexion("DG3861_DGLDCSTG");
-              //Herramientas.Conexion_DS_GLDC conn = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
-              conn.ejecutarQuery("update PW_USUARIO set pass='"+cadena+"' where usuario='"+usernamePass+"'");
-              conn.con.commit();
-              conn.con.close();
-              
-                        //mail.setPriority("X-Priority", "1");
-                        
-                         java.util.Date date = new java.util.Date();
-                         java.text.SimpleDateFormat dt1 = new java.text.SimpleDateFormat("yyyy-MM-dd");
-                         String Receptores = usernamePass+"@att.com";
+        if (emailOk == true && userOk == true) {
+            ArrayList para = new ArrayList();
+            ArrayList paraCc = new ArrayList();
 
-                        String titulo = "****** GLDC SYSTEM ---- CAMBIO DE PASSWORD*****";
-                        String cuerpo = "  <pre align='left'>&nbsp;    </pre> "
-                                + "<font face='trebuchet ms, Verdana, Helvetica, century gothic' size='2'>"
-                                + "<p>Buen día:</p>  "
-                                + "<p>Tu contraseña se ha restablecido:"
-                                + "<p>"+cadena+""
-                                + "<p>Será tu responsabilidad cambiarla en tu siguiente inicio de sesión"
-                                + " </p>"                              
-                                + " </p>Cualquier duda por revisalo con:"                                                     
-                                + " </p>David Gonzalez, ext:2003 </p>"                              
-                                + " <p>&nbsp;</p>";
-                        
-                       // ewsmail mails = new ewsmail(Receptores, cuerpo, titulo);
-                        
-                                
-                        System.out.println("cadena aleatorio"+cadena);
-                        campoUsername=true;
-                        campoEmail=true;
-                        botonDesac=true;
-                        
+            String cadena = getCadenaAlfanumAleatoria(8);
+
+            context.addMessage("MensajitoB", new FacesMessage(FacesMessage.SEVERITY_INFO, "En breve recibiras un correo electronico con tu nuevo Password", "hola mundo 1"));
+
+            Herramientas.Conexion conn = new Herramientas.Conexion("DG3861_DGLDCSTG");
+            //Herramientas.Conexion_DS_GLDC conn = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
+            conn.ejecutarQuery("update PW_USUARIO set pass='" + cadena + "' where usuario='" + usernamePass + "'");
+            conn.con.commit();
+            conn.con.close();
+
+            //mail.setPriority("X-Priority", "1");
+            java.util.Date date = new java.util.Date();
+            java.text.SimpleDateFormat dt1 = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String Receptores = usernamePass + "@att.com";
+
+            String titulo = "****** GLDC SYSTEM ---- CAMBIO DE PASSWORD*****";
+            String cuerpo = "  <pre align='left'>&nbsp;    </pre> "
+                    + "<font face='trebuchet ms, Verdana, Helvetica, century gothic' size='2'>"
+                    + "<p>Buen día:</p>  "
+                    + "<p>Tu contraseña se ha restablecido:"
+                    + "<p>" + cadena + ""
+                    + "<p>Será tu responsabilidad cambiarla en tu siguiente inicio de sesión"
+                    + " </p>"
+                    + " </p>Cualquier duda por revisalo con:"
+                    + " </p>David Gonzalez, ext:2003 </p>"
+                    + " <p>&nbsp;</p>";
+
+            // ewsmail mails = new ewsmail(Receptores, cuerpo, titulo);
+            System.out.println("cadena aleatorio" + cadena);
+            campoUsername = true;
+            campoEmail = true;
+            botonDesac = true;
+
         }
 
         conectar.con.close();
-        
-       
-        
-       
-     }
-      
-          public void RecuperaPass(ActionEvent actionEvent) throws SQLException, NamingException{
+
+    }
+
+    public void RecuperaPass(ActionEvent actionEvent) throws SQLException, NamingException {
         //String otro =  request.getParameter("variable1");
-        
-        final int MAX=8;     
+
+        final int MAX = 8;
 // Specifying the number of uppercase letters in password
-             final int MIN_Uppercase=1;
-             // Specifying the minimum lowercase letters in password
-             final int MIN_Lowercase=1;
-             // Specifying the number of digits in a password
-             final int NUM_Digits=1;
-             // Specify the minimum number of special case letters
-             final int Special=1;
-             // Count number of uppercase letters in a password
-             int uppercaseCounter=0;
-             // Counter lowercase letters in a password
-             int lowercaseCounter=0;
-             // Count digits in a password
-             int digitCounter=0;
-             // count special case letters in a password
-             int specialCounter=0;
-             
-         
+        final int MIN_Uppercase = 1;
+        // Specifying the minimum lowercase letters in password
+        final int MIN_Lowercase = 1;
+        // Specifying the number of digits in a password
+        final int NUM_Digits = 1;
+        // Specify the minimum number of special case letters
+        final int Special = 1;
+        // Count number of uppercase letters in a password
+        int uppercaseCounter = 0;
+        // Counter lowercase letters in a password
+        int lowercaseCounter = 0;
+        // Count digits in a password
+        int digitCounter = 0;
+        // count special case letters in a password
+        int specialCounter = 0;
+
         Herramientas.Conexion conectar = new Herramientas.Conexion("DG3861_DGLDCSTG");
         //Herramientas.Conexion_DS_GLDC conectar = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
-        ResultSet rSet=conectar.ejecutarQuery("SELECT PASS FROM PW_USUARIO WHERE USUARIO='"+username+"'");
-         
+        ResultSet rSet = conectar.ejecutarQuery("SELECT PASS FROM PW_USUARIO WHERE USUARIO='" + username + "'");
+
         FacesContext context = FacesContext.getCurrentInstance();
-        
-        String passTmp=null;
-        while(rSet.next()){
-            passTmp=rSet.getString("PASS");
+
+        String passTmp = null;
+        while (rSet.next()) {
+            passTmp = rSet.getString("PASS");
         }
-             
-            
-        if(!passTmp.equals(passwordActual)){
-            
+
+        if (!passTmp.equals(passwordActual)) {
+
             context.addMessage("MensajitoB", new FacesMessage(FacesMessage.SEVERITY_FATAL, "Tu contraseña actual no coincide", ""));
-        
-        }else{
-            
+
+        } else {
+
             Scanner input = new Scanner(lostPasss);
             String passw2 = input.nextLine();
             System.out.println(lostPasss);
-        
-         for (int i=0; i < passw2.length(); i++ ) {
-                    char c = passw2.charAt(i);
-                    if(Character.isUpperCase(c)) 
-                          uppercaseCounter++;
-                    else if(Character.isLowerCase(c)) 
-                          lowercaseCounter++;
-                    else if(Character.isDigit(c)) 
-                          digitCounter++;     
-                     if(c>=33&&c<=46||c==64){
-                      specialCounter++;
-                  }
-                    
-             }
-         
-        //  System.out.println("May"+uppercaseCounter);
-        //  System.out.println("Min"+lowercaseCounter);
-        //  System.out.println("Numero"+digitCounter);
-        //  System.out.println("Especial"+specialCounter);
-            
-             if (passw2.length() >= MAX && uppercaseCounter >= MIN_Uppercase 
-&& lowercaseCounter >= MIN_Lowercase && digitCounter >= NUM_Digits && specialCounter >= Special) { 
-                    System.out.println("Valid Password");
-             
-             
-            System.out.println("username: "+username);
-            System.out.println("lostPass: "+lostPasss);
-            System.out.println("pasTmp: "+passTmp);
-            System.out.println("lostPass: "+lostPasss);
-           
-            //Herramientas.Conexion_DS_GLDC conn = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
-            Herramientas.Conexion conn = new Herramientas.Conexion("DG3861_DGLDCSTG");
-            conn.ejecutarQuery("update pw_usuario set pass='"+lostPasss+"' where usuario='"+username+"'");
-            conn.con.commit();
-            conn.con.close();
-     
-            context.addMessage ("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tu password fué cambiado con éxito", "")); 
-            
-             }
-             else {
-                  System.out.println("Su contraseña no contiene lo siguiente: ");
-   context.addMessage ("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Info", "Su contraseña no contiene lo siguiente:")); 
- 
-                    if(lostPasss.length() < MAX){
-                         // System.out.println(" Al menos 8 carácteres");
-                          context.addMessage ("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Al menos 8 carácteres"));
-                    }
-                    if (lowercaseCounter < MIN_Lowercase) {
-                          //System.out.println("Letras minúsculas mínimas");
-                          context.addMessage ("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Al menos 1 letra minúscula"));
-                    }
-                    if (uppercaseCounter < MIN_Uppercase) {
-                          //System.out.println("Letras mayúsculas mínimas");
-                          context.addMessage ("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Al menos 1 letra mayúsculas"));
-                    }
-                    if(digitCounter < NUM_Digits) {
-                          //System.out.println("Número mínimo de dígitos numéricos");
-                          context.addMessage ("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Al menos 1 dígito numérico"));
-                    }
-                    if(specialCounter < Special){
-                        //System.out.println("La contraseña debe contener al menos 1 carácter especial");
-                        context.addMessage ("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "La contraseña debe contener al menos 1 carácter especial"));
-                    }
-                    
-                    
-                    
-             }
-            
-        }
-            
-        
 
-        
+            for (int i = 0; i < passw2.length(); i++) {
+                char c = passw2.charAt(i);
+                if (Character.isUpperCase(c)) {
+                    uppercaseCounter++;
+                } else if (Character.isLowerCase(c)) {
+                    lowercaseCounter++;
+                } else if (Character.isDigit(c)) {
+                    digitCounter++;
+                }
+                if (c >= 33 && c <= 46 || c == 64) {
+                    specialCounter++;
+                }
+
+            }
+
+            //  System.out.println("May"+uppercaseCounter);
+            //  System.out.println("Min"+lowercaseCounter);
+            //  System.out.println("Numero"+digitCounter);
+            //  System.out.println("Especial"+specialCounter);
+            if (passw2.length() >= MAX && uppercaseCounter >= MIN_Uppercase
+                    && lowercaseCounter >= MIN_Lowercase && digitCounter >= NUM_Digits && specialCounter >= Special) {
+                System.out.println("Valid Password");
+
+                System.out.println("username: " + username);
+                System.out.println("lostPass: " + lostPasss);
+                System.out.println("pasTmp: " + passTmp);
+                System.out.println("lostPass: " + lostPasss);
+
+                //Herramientas.Conexion_DS_GLDC conn = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
+                Herramientas.Conexion conn = new Herramientas.Conexion("DG3861_DGLDCSTG");
+                conn.ejecutarQuery("update pw_usuario set pass='" + lostPasss + "' where usuario='" + username + "'");
+                conn.con.commit();
+                conn.con.close();
+
+                context.addMessage("messages", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tu password fué cambiado con éxito", ""));
+
+            } else {
+                System.out.println("Su contraseña no contiene lo siguiente: ");
+                context.addMessage("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Info", "Su contraseña no contiene lo siguiente:"));
+
+                if (lostPasss.length() < MAX) {
+                    // System.out.println(" Al menos 8 carácteres");
+                    context.addMessage("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Al menos 8 carácteres"));
+                }
+                if (lowercaseCounter < MIN_Lowercase) {
+                    //System.out.println("Letras minúsculas mínimas");
+                    context.addMessage("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Al menos 1 letra minúscula"));
+                }
+                if (uppercaseCounter < MIN_Uppercase) {
+                    //System.out.println("Letras mayúsculas mínimas");
+                    context.addMessage("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Al menos 1 letra mayúsculas"));
+                }
+                if (digitCounter < NUM_Digits) {
+                    //System.out.println("Número mínimo de dígitos numéricos");
+                    context.addMessage("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "Al menos 1 dígito numérico"));
+                }
+                if (specialCounter < Special) {
+                    //System.out.println("La contraseña debe contener al menos 1 carácter especial");
+                    context.addMessage("idspecified", new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "La contraseña debe contener al menos 1 carácter especial"));
+                }
+
+            }
+
+        }
+
         //context.addMessage("MensajitoB", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tu password fué cambiado con éxito", ""));
-       
-        passActual =true;
+        passActual = true;
         pass1Desac = true;
         pass2Desac = true;
         botonDesactivado = true;
-       
-       
-     }
-    
-    public void MostrarCampos (ActionEvent actionEvent){
-        
+
+    }
+
+    public void MostrarCampos(ActionEvent actionEvent) {
+
         System.out.println("Entre al metodo de mostar campos");
-        passActual=false;
+        passActual = false;
         pass1Desac = false;
         pass2Desac = false;
         botonDesactivado = false;
-    
-    }
-    
-     
-     public void upload(FileUploadEvent event) throws SQLException, IOException, NamingException {  
 
-       FacesContext context = FacesContext.getCurrentInstance();    
+    }
+
+    public void upload(FileUploadEvent event) throws SQLException, IOException, NamingException {
+
+        FacesContext context = FacesContext.getCurrentInstance();
         // Do what you want with the file
         //copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
-         
-        
+
         context.addMessage("MensajitoB", new FacesMessage(FacesMessage.SEVERITY_INFO, "Tu imagen fué cambiada con éxito y lo veras reflejado en tu próximo inicio de sesión", ""));
 
-    }  
-     
-     
-     public void muestracontacto(String user){
-         System.out.println("entrra"+user);
-         
-         
-     }
-
-    public void copyFile(String fileName, InputStream in) throws SQLException, NamingException {
-           try {
-                Calendar calendario = Calendar.getInstance();
-                
-                int hora = calendario.get(Calendar.HOUR_OF_DAY) ;
-                int minuto = calendario.get(Calendar.MINUTE);
-                int segundo = calendario.get(Calendar.SECOND);
-                
-                //System.out.println("hora:"+hora);
-                //System.out.println("minuto:"+minuto);
-                //System.out.println("segundo:"+segundo);
-                
-                
-             
-                // write the inputStream to a FileOutputStream
-                OutputStream out = new FileOutputStream(new File(destination + username + "_" +Integer.toString(hora)+ Integer.toString(minuto) + Integer.toString(segundo)+ ".jpg"));
-             
-                int read = 0;
-                byte[] bytes = new byte[1024];
-             
-                while ((read = in.read(bytes)) != -1) {
-                    out.write(bytes, 0, read);
-                }
-             
-                 //System.out.println("usuario:"+username);
-                 Herramientas.Conexion conn = new Herramientas.Conexion("DG3861_DGLDCSTG");
-                 //Herramientas.Conexion_DS_GLDC conn = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
-                
-                 conn.ejecutarQuery("update PW_USUARIO set foto='"+username+ "_" +Integer.toString(hora)+ Integer.toString(minuto) + Integer.toString(segundo)+"'\n" +
-                                           "where usuario='"+username+"'");
-          
-                 //System.out.println("hice el insert");
-                conn.con.commit();
-                
-                conn.con.close();
-                
-                
-                in.close();
-                out.flush();
-                out.close();
-             
-                System.out.println("File_name:"+fileName);
-                
-                System.out.println("New file created!");
-                } catch (IOException e) {
-                System.out.println(e.getMessage());
-                }
     }
 
-     
-    
+    public void muestracontacto(String user) {
+        System.out.println("entrra" + user);
+
+    }
+
+    public void copyFile(String fileName, InputStream in) throws SQLException, NamingException {
+        try {
+            Calendar calendario = Calendar.getInstance();
+
+            int hora = calendario.get(Calendar.HOUR_OF_DAY);
+            int minuto = calendario.get(Calendar.MINUTE);
+            int segundo = calendario.get(Calendar.SECOND);
+
+            //System.out.println("hora:"+hora);
+            //System.out.println("minuto:"+minuto);
+            //System.out.println("segundo:"+segundo);
+            // write the inputStream to a FileOutputStream
+            OutputStream out = new FileOutputStream(new File(destination + username + "_" + Integer.toString(hora) + Integer.toString(minuto) + Integer.toString(segundo) + ".jpg"));
+
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = in.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+
+            //System.out.println("usuario:"+username);
+            Herramientas.Conexion conn = new Herramientas.Conexion("DG3861_DGLDCSTG");
+            //Herramientas.Conexion_DS_GLDC conn = new Herramientas.Conexion_DS_GLDC("jdbc/gldc");
+
+            conn.ejecutarQuery("update PW_USUARIO set foto='" + username + "_" + Integer.toString(hora) + Integer.toString(minuto) + Integer.toString(segundo) + "'\n"
+                    + "where usuario='" + username + "'");
+
+            //System.out.println("hice el insert");
+            conn.con.commit();
+
+            conn.con.close();
+
+            in.close();
+            out.flush();
+            out.close();
+
+            System.out.println("File_name:" + fileName);
+
+            System.out.println("New file created!");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     String getCadenaAlfanumAleatoria(int longitud) {
         String cadenaAleatoria = "";
         long milis = new java.util.GregorianCalendar().getTimeInMillis();
@@ -1096,13 +992,13 @@ public class loginBean implements Serializable {
         int i = 0;
         while (i < longitud) {
             char c = (char) r.nextInt(255);
-            if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')||(c >= 'a' && c <= 'z')) {
+            if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
                 cadenaAleatoria += c;
                 i++;
             }
         }
-        cadenaAleatoria= cadenaAleatoria+"&";
+        cadenaAleatoria = cadenaAleatoria + "&";
         return cadenaAleatoria;
     }
-    
+
 }
